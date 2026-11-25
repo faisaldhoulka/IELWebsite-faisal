@@ -1,6 +1,6 @@
 ---
 // Site header: utility bar (brokerage links) + sticky main navigation with dropdowns
-// (desktop) and a collapsible menu (below lg). Every page of the site is reachable here.
+// (desktop) and a collapsible menu (below xl, 1280px). Every page of the site is reachable here.
 // Menu groups follow the original site's menu (What we offer, Investors information,
 // Research, About, Learn, Contact, Get a consultation), laid out in a compact
 // Aequitas-style bar. Edit `menu` below to add or move links.
@@ -26,20 +26,10 @@ const menu: Item[] = [
       { label: "Financial advisory", href: "FinancialAdvisory.html" },
       { label: "Strategy consulting", href: "StrategyConsulting.html" },
       { label: "Real estate advisory", href: "RealStateAdvisory.html" },
-      { label: "Brokerage", href: "BrokerageService.html" },
       { label: "Fintech solutions", href: "FintechService.html" },
     ],
   },
   { label: "Transactions", href: "index.html#transactions" },
-  {
-    label: "Research",
-    items: [
-      { label: "Research reports", href: "Research.html" },
-      { label: "Corporate reports", href: "Reports.html" },
-      { label: "News", href: "News.html" },
-      { label: "Learn (articles)", href: "Resources.html" },
-    ],
-  },
   {
     label: "Investors",
     items: [
@@ -49,6 +39,17 @@ const menu: Item[] = [
       { label: "Complaint handling procedure", href: "docs/Procedure-for-Complaint-Handling-MUFAP.pdf", external: true },
       { label: "Fraud awareness", href: "Fraud.html" },
       { label: "Risk disclosure", href: "RiskDisclosure.html" },
+    ],
+  },
+  // Kept towards the end of the bar on purpose: advisory services come first.
+  {
+    label: "Brokerage & Research",
+    items: [
+      { label: "Brokerage", href: "BrokerageService.html" },
+      { label: "Research reports", href: "Research.html" },
+      { label: "Corporate reports", href: "Reports.html" },
+      { label: "News", href: "News.html" },
+      { label: "Learn (articles)", href: "Resources.html" },
     ],
   },
   {
@@ -88,7 +89,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     </a>
 
     <!-- Desktop menu -->
-    <ul class="hidden lg:flex items-center gap-0.5 list-none m-0 p-0 text-[15px] font-medium">
+    <ul class="hidden xl:flex items-center gap-0.5 whitespace-nowrap list-none m-0 p-0 text-[15px] font-medium">
       {menu.map((it) =>
         it.items ? (
           <li class="relative group" data-dropdown>
@@ -127,11 +128,11 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     </ul>
 
     <div class="flex items-center gap-3">
-      <a href="index.html#contact" class="hidden md:inline-block bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold text-[15px]">Discuss a mandate</a>
+      <a href="index.html#contact" class="hidden md:inline-block whitespace-nowrap bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold text-[15px]">Discuss a mandate</a>
       <button
         type="button"
         id="mobile-nav-toggle"
-        class="lg:hidden inline-flex items-center justify-center w-11 h-11 border border-line rounded bg-white text-ink cursor-pointer"
+        class="xl:hidden inline-flex items-center justify-center w-11 h-11 border border-line rounded bg-white text-ink cursor-pointer"
         aria-expanded="false"
         aria-controls="mobile-nav"
         aria-label="Open menu"
@@ -141,8 +142,8 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     </div>
   </nav>
 
-  <!-- Mobile / tablet menu -->
-  <div id="mobile-nav" class="lg:hidden hidden border-t border-line bg-white max-h-[calc(100vh-72px)] overflow-y-auto">
+  <!-- Mobile / tablet / small-laptop menu (below 1280px) -->
+  <div id="mobile-nav" class="xl:hidden hidden border-t border-line bg-white max-h-[calc(100vh-72px)] overflow-y-auto">
     <ul class="list-none m-0 px-6 py-3 max-w-site mx-auto">
       {menu.map((it) =>
         it.items ? (
