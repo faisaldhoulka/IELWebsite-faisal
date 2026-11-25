@@ -8,6 +8,7 @@ interface Props {
   title: string;
   lede?: string;
 }
+import BrandStripe from "./BrandStripe.astro";
 const { eyebrow, title, lede } = Astro.props;
 const hasAside = Astro.slots.has("aside");
 ---
@@ -17,6 +18,7 @@ const hasAside = Astro.slots.has("aside");
     hasAside && "grid gap-12 items-end [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]",
   ]}>
     <div class="flex flex-col gap-5 max-w-[760px]">
+      <BrandStripe class="w-16" />
       {eyebrow && <span class="text-[13px] font-semibold tracking-[1.5px] uppercase text-wine">{eyebrow}</span>}
       <h1 class="m-0 font-serif font-medium text-[36px] md:text-[48px] leading-[1.12] text-pine">{title}</h1>
       {lede && <p class="m-0 text-[17px] md:text-[19px] text-muted-body max-w-[640px]">{lede}</p>}

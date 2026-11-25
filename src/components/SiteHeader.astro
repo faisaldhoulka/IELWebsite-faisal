@@ -6,6 +6,8 @@
 // Aequitas-style bar. Edit `menu` below to add or move links.
 
 // TODO: no client login URL exists on the current site; set it before launch.
+import BrandStripe from "./BrandStripe.astro";
+
 const CLIENT_LOGIN_URL = "#";
 
 type Link = { label: string; href: string; external?: boolean };
@@ -70,6 +72,7 @@ const groupActive = (it: Item) => (it.items ?? []).some((l) => file(l.href) === 
 const ext = (l: Link) => (l.external ? { target: "_blank", rel: "noopener" } : {});
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
+<BrandStripe />
 <div class="bg-pine text-ondark-util text-[13px]">
   <div class="max-w-site mx-auto px-6 py-2.5 flex flex-wrap justify-between items-center gap-3">
     <span>PSX TREC holder · VIS entity rating A- / A-2</span>

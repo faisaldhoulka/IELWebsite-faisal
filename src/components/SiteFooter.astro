@@ -1,5 +1,6 @@
 ---
 // Revamp footer: offices plus link columns that reach every page of the site.
+import BrandStripe from "./BrandStripe.astro";
 const year = new Date().getFullYear();
 const columns = [
   {
@@ -42,6 +43,7 @@ const columns = [
   },
 ];
 ---
+<BrandStripe />
 <footer class="bg-pine text-ondark text-sm">
   <div class="max-w-site mx-auto px-6 pt-16 pb-10 grid gap-10 [grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))]">
     <div class="flex flex-col gap-5">

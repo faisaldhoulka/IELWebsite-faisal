@@ -1,0 +1,12 @@
+---
+// Thin stripe in the IEL logo's colours (the segments of the "X" mark).
+// Full width by default; pass class for a short mark, e.g. <BrandStripe class="w-14" />.
+const { class: cls = "" } = Astro.props;
+---
+<div class:list={["brand-stripe", cls]} aria-hidden="true">
+  <span class="bg-brand-dark"></span>
+  <span class="bg-brand-green"></span>
+  <span class="bg-brand-light"></span>
+  <span class="bg-brand-coral"></span>
+  <span class="bg-brand-maroon"></span>
+</div>

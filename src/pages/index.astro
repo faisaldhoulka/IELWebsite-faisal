@@ -2,6 +2,7 @@
 // Homepage — revamp design "IEL Advisory Website Revamp" (advisory-led).
 // Bracketed text such as [Client name] or [XX] marks content still to be supplied.
 import RevampPage from "../layouts/RevampPage.astro";
+import BrandStripe from "../components/BrandStripe.astro";
 
 const stats = [
   { value: "2008", label: "Advising and executing since" },
@@ -66,6 +67,7 @@ const h2 = "m-0 font-serif font-medium text-[32px] md:text-[40px] leading-[1.15]
     <section id="top" class="bg-mist border-b border-line">
       <div class="max-w-site mx-auto px-6 pt-16 pb-14 md:pt-24 md:pb-[88px] grid gap-14 items-end [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
         <div class="flex flex-col gap-6">
+          <BrandStripe class="w-16" />
           <span class={eyebrow}>Financial and transaction advisory · Lahore and Karachi</span>
           <h1 class="m-0 font-serif font-medium text-[40px] md:text-[56px] leading-[1.1] text-pine">
             Advice on listings, capital raising and corporate transactions in Pakistan.
@@ -117,7 +119,7 @@ const h2 = "m-0 font-serif font-medium text-[32px] md:text-[40px] leading-[1.15]
       <div class="max-w-site mx-auto px-6 py-16 md:py-24">
         <div class="flex flex-wrap justify-between items-end gap-6 mb-12">
           <div class="flex flex-col gap-3">
-            <span class="text-[13px] font-semibold tracking-[1.5px] uppercase text-signal-green">Selected transactions</span>
+            <span class="text-[13px] font-semibold tracking-[1.5px] uppercase text-mint">Selected transactions</span>
             <h2 class="m-0 font-serif font-medium text-[32px] md:text-[40px] leading-[1.15]">Recent mandates</h2>
           </div>
           <a href="#transactions" class="text-white font-semibold text-[15px] underline">All transactions →</a>
@@ -125,7 +127,7 @@ const h2 = "m-0 font-serif font-medium text-[32px] md:text-[40px] leading-[1.15]
         <div class="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))]">
           {transactions.map((t) => (
             <article class="border border-pine-line p-7 flex flex-col gap-2.5">
-              <span class="text-[13px] text-signal-green font-semibold">{t.tag}</span>
+              <span class="text-[13px] text-mint font-semibold">{t.tag}</span>
               <h3 class="m-0 font-serif font-normal text-[22px]">{t.client}</h3>
               <span class="text-[15px] text-ondark">{t.desc}</span>
               <span class="font-serif text-[28px] mt-2">{t.size}</span>
