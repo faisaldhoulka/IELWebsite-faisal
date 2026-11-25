@@ -40,6 +40,13 @@
 <style is:inline>
   html { scroll-behavior: smooth; }
   body { margin: 0; }
+  /* Keep in-page jump targets clear of the sticky 72px header. */
+  [id] { scroll-margin-top: 88px; }
+  /* Desktop dropdown opened by click/keyboard (hover opens it via a Tailwind class). */
+  #site-header .dd-panel.dd-open { display: block; }
+  /* Mobile menu: hide the native disclosure marker; rotate the + when open. */
+  #mobile-nav summary::-webkit-details-marker { display: none; }
+  #mobile-nav details[open] > summary span { transform: rotate(45deg); display: inline-block; }
 
   /* Card grids with 1px dividing lines (use with gap-px + border). Lines are drawn by each
      card, so a row with fewer cards leaves blank space instead of a grey filler block. */

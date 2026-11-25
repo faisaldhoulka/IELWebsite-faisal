@@ -1,10 +1,73 @@
 ---
-// Revamp header: utility bar (brokerage links) + main navigation.
-// Used by pages on the new design; older pages still use Nav.astro.
-// Links are root-relative files (index.html#...) so they work from any page.
+// Site header: utility bar (brokerage links) + sticky main navigation with dropdowns
+// (desktop) and a collapsible menu (below lg). Every page of the site is reachable here.
+// Menu groups follow the original site's menu (What we offer, Investors information,
+// Research, About, Learn, Contact, Get a consultation), laid out in a compact
+// Aequitas-style bar. Edit `menu` below to add or move links.
 
 // TODO: no client login URL exists on the current site; set it before launch.
 const CLIENT_LOGIN_URL = "#";
+
+type Link = { label: string; href: string; external?: boolean };
+type Item = { label: string; href?: string; items?: Link[] };
+
+const menu: Item[] = [
+  {
+    label: "About",
+    items: [
+      { label: "About IEL", href: "About.html" },
+      { label: "Leadership", href: "About.html#team" },
+      { label: "Associated companies", href: "About.html#Associated_Company" },
+    ],
+  },
+  {
+    label: "Services",
+    items: [
+      { label: "Financial advisory", href: "FinancialAdvisory.html" },
+      { label: "Strategy consulting", href: "StrategyConsulting.html" },
+      { label: "Real estate advisory", href: "RealStateAdvisory.html" },
+      { label: "Brokerage", href: "BrokerageService.html" },
+      { label: "Fintech solutions", href: "FintechService.html" },
+    ],
+  },
+  { label: "Transactions", href: "index.html#transactions" },
+  {
+    label: "Research",
+    items: [
+      { label: "Research reports", href: "Research.html" },
+      { label: "Corporate reports", href: "Reports.html" },
+      { label: "News", href: "News.html" },
+      { label: "Learn (articles)", href: "Resources.html" },
+    ],
+  },
+  {
+    label: "Investors",
+    items: [
+      { label: "Regulatory information", href: "Regulatory.html" },
+      { label: "Financial statements", href: "NewReport.html" },
+      { label: "Investor education", href: "Investor_education.html" },
+      { label: "Complaint handling procedure", href: "docs/Procedure-for-Complaint-Handling-MUFAP.pdf", external: true },
+      { label: "Fraud awareness", href: "Fraud.html" },
+      { label: "Risk disclosure", href: "RiskDisclosure.html" },
+    ],
+  },
+  {
+    label: "Contact",
+    items: [
+      { label: "Contact us", href: "Contact.html" },
+      { label: "Book a consultation", href: "https://meetings.hubspot.com/jessica-brennan", external: true },
+      { label: "Open an account", href: "OpenAccount.html" },
+    ],
+  },
+];
+
+// Highlight the section the current page belongs to.
+const current = Astro.url.pathname.split("/").pop() || "index.html";
+const file = (href: string) => href.split("#")[0];
+const isCurrent = (href: string) => !href.includes("#") && file(href) === current;
+const groupActive = (it: Item) => (it.items ?? []).some((l) => file(l.href) === current);
+const ext = (l: Link) => (l.external ? { target: "_blank", rel: "noopener" } : {});
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 <div class="bg-pine text-ondark-util text-[13px]">
   <div class="max-w-site mx-auto px-6 py-2.5 flex flex-wrap justify-between items-center gap-3">
@@ -17,19 +80,164 @@ const CLIENT_LOGIN_URL = "#";
   </div>
 </div>
 
-<header class="border-b border-line bg-white">
-  <nav aria-label="Main" class="max-w-site mx-auto px-6 py-[18px] flex flex-wrap items-center justify-between gap-4">
-    <a href="index.html" class="no-underline flex items-center gap-3 text-ink">
-      <img src="Assets/IELTezi-logo-trimmed.webp" alt="IEL" class="h-11 w-auto block" />
-      <span class="text-sm text-muted border-l border-line-soft pl-3">Integrated Equities Limited</span>
+<header id="site-header" class="sticky top-0 z-50 border-b border-line bg-white">
+  <nav aria-label="Main" class="max-w-site mx-auto px-6 h-[72px] flex items-center justify-between gap-4">
+    <a href="index.html" class="no-underline flex items-center gap-3 text-ink shrink-0">
+      <img src="Assets/IELTezi-logo-trimmed.webp" alt="IEL home" class="h-11 w-auto block" />
+      <span class="hidden sm:inline text-sm text-muted border-l border-line-soft pl-3">Integrated Equities Limited</span>
     </a>
-    <div class="flex flex-wrap gap-7 items-center text-[15px] font-medium">
-      <a href="index.html#advisory" class="text-ink no-underline hover:text-accent">Advisory</a>
-      <a href="index.html#transactions" class="text-ink no-underline hover:text-accent">Transactions</a>
-      <a href="index.html#team" class="text-ink no-underline hover:text-accent">Team</a>
-      <a href="Research.html" class="text-ink no-underline hover:text-accent">Insights</a>
-      <a href="About.html" class="text-ink no-underline hover:text-accent">About</a>
-      <a href="index.html#contact" class="bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold">Discuss a mandate</a>
+
+    <!-- Desktop menu -->
+    <ul class="hidden lg:flex items-center gap-0.5 list-none m-0 p-0 text-[15px] font-medium">
+      {menu.map((it) =>
+        it.items ? (
+          <li class="relative group" data-dropdown>
+            <button
+              type="button"
+              class:list={["flex items-center gap-1 px-3 py-2.5 bg-transparent border-0 cursor-pointer font-sans text-[15px] font-medium hover:text-accent", groupActive(it) ? "text-accent" : "text-ink"]}
+              aria-expanded="false"
+              aria-controls={`dd-${slug(it.label)}`}
+            >
+              {it.label}
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" class="transition-transform group-hover:rotate-180"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+            </button>
+            <div id={`dd-${slug(it.label)}`} class="dd-panel hidden group-hover:block absolute left-0 top-full pt-2 z-50">
+              <ul class="list-none m-0 py-2 px-0 min-w-[250px] bg-white border border-line border-t-2 border-t-accent">
+                {it.items.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      {...ext(l)}
+                      aria-current={isCurrent(l.href) ? "page" : undefined}
+                      class:list={["block px-4 py-2.5 no-underline hover:bg-mist hover:text-accent", isCurrent(l.href) ? "text-accent font-semibold" : "text-ink font-normal"]}
+                    >
+                      {l.label}{l.external && <span aria-hidden="true" class="text-muted"> ↗</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ) : (
+          <li>
+            <a href={it.href} class="block px-3 py-2.5 text-ink no-underline hover:text-accent">{it.label}</a>
+          </li>
+        )
+      )}
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="index.html#contact" class="hidden md:inline-block bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold text-[15px]">Discuss a mandate</a>
+      <button
+        type="button"
+        id="mobile-nav-toggle"
+        class="lg:hidden inline-flex items-center justify-center w-11 h-11 border border-line rounded bg-white text-ink cursor-pointer"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h16M3 11h16M3 16h16" /></svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile / tablet menu -->
+  <div id="mobile-nav" class="lg:hidden hidden border-t border-line bg-white max-h-[calc(100vh-72px)] overflow-y-auto">
+    <ul class="list-none m-0 px-6 py-3 max-w-site mx-auto">
+      {menu.map((it) =>
+        it.items ? (
+          <li class="border-b border-line">
+            <details open={groupActive(it)}>
+              <summary class="flex justify-between items-center py-3.5 cursor-pointer font-semibold text-ink list-none">
+                {it.label}
+                <span aria-hidden="true" class="text-muted text-lg leading-none">+</span>
+              </summary>
+              <ul class="list-none m-0 pb-3 pl-3">
+                {it.items.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      {...ext(l)}
+                      aria-current={isCurrent(l.href) ? "page" : undefined}
+                      class:list={["block py-2.5 no-underline", isCurrent(l.href) ? "text-accent font-semibold" : "text-muted-body"]}
+                    >
+                      {l.label}{l.external && <span aria-hidden="true"> ↗</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ) : (
+          <li class="border-b border-line">
+            <a href={it.href} class="block py-3.5 font-semibold text-ink no-underline">{it.label}</a>
+          </li>
+        )
+      )}
+      <li class="pt-4 pb-2">
+        <a href="index.html#contact" class="block text-center bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold">Discuss a mandate</a>
+      </li>
+    </ul>
+  </div>
 </header>
+
+<script is:inline>
+  (function () {
+    // Desktop dropdowns: hover opens them via CSS; click/Enter toggles, Escape or tabbing away closes.
+    const drops = document.querySelectorAll("#site-header [data-dropdown]");
+    const closeAll = (except) =>
+      drops.forEach((d) => {
+        if (d === except) return;
+        d.querySelector(".dd-panel").classList.remove("dd-open");
+        d.querySelector("button").setAttribute("aria-expanded", "false");
+      });
+    drops.forEach((d) => {
+      const btn = d.querySelector("button");
+      const panel = d.querySelector(".dd-panel");
+      btn.addEventListener("click", () => {
+        const open = btn.getAttribute("aria-expanded") === "true";
+        closeAll(d);
+        btn.setAttribute("aria-expanded", String(!open));
+        panel.classList.toggle("dd-open", !open);
+      });
+      d.addEventListener("mouseenter", () => btn.setAttribute("aria-expanded", "true"));
+      d.addEventListener("mouseleave", () => {
+        if (!panel.classList.contains("dd-open")) btn.setAttribute("aria-expanded", "false");
+      });
+      // Close when keyboard focus leaves the menu item.
+      d.addEventListener("focusout", (e) => {
+        if (!d.contains(e.relatedTarget)) {
+          panel.classList.remove("dd-open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("#site-header [data-dropdown]")) closeAll();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      const openBtn = document.querySelector('#site-header [data-dropdown] button[aria-expanded="true"]');
+      closeAll();
+      if (openBtn) openBtn.focus();
+      if (document.activeElement && document.activeElement.closest(".dd-panel")) document.activeElement.blur();
+    });
+
+    // Mobile menu toggle
+    const toggle = document.getElementById("mobile-nav-toggle");
+    const mobile = document.getElementById("mobile-nav");
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      toggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+      mobile.classList.toggle("hidden", open);
+    });
+    mobile.addEventListener("click", (e) => {
+      if (e.target.closest("a")) {
+        mobile.classList.add("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+      }
+    });
+  })();
+</script>
