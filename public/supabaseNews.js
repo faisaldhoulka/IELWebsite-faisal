@@ -3,6 +3,20 @@ const supabaseKey  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 let supabaseClient = null;
 
+// Classes for the empty / error states (revamp design tokens)
+const NEWS_NOTE_CLASS = "m-0 border border-line bg-mist p-6 text-[15px] text-muted-body";
+const NEWS_ERROR_CLASS =
+  "m-0 border border-line border-l-4 border-l-signal-red bg-white p-6 text-[15px] text-ink";
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function initSupabase() {
   if (typeof supabase === "undefined") {
     console.warn("Supabase JS library not loaded yet — retrying...");
@@ -21,8 +35,8 @@ function initSupabase() {
 async function loadNews() {
   if (!supabaseClient) {
     console.error("Supabase client not initialized yet");
-    document.getElementById('dynamic-news').innerHTML = 
-      '<p class="text-red-600">Error: Database connection not ready. Please refresh.</p>';
+    document.getElementById('dynamic-news').innerHTML =
+      `<p class="${NEWS_ERROR_CLASS}">News could not be loaded. Please refresh the page.</p>`;
     return;
   }
 
@@ -38,39 +52,38 @@ async function loadNews() {
     return;
   }
 
- 
   if (error) {
     console.error('Error fetching news:', error);
-    container.innerHTML += '<p class="text-red-600">Failed to load news. Please try again later.</p>';
+    container.innerHTML = `<p class="${NEWS_ERROR_CLASS}">News could not be loaded. Please try again later.</p>`;
     return;
   }
 
   if (!data || data.length === 0) {
-    container.innerHTML += '<p class="text-gray-600">No additional news available at the moment.</p>';
+    container.innerHTML = `<p class="${NEWS_NOTE_CLASS}">No news available at the moment.</p>`;
     return;
   }
 
-  let html = '';
+  // One bordered list with 1px dividers; each item is a title and a PDF link
+  let html = '<ul class="list-none m-0 p-0 grid gap-px bg-line border border-line">';
   data.forEach(item => {
     const desc    = item.short_des?.trim() || 'Update on Attock Cement Acquisition';
     const pdfLink = item.pdf || '#';
 
     html += `
-      <div class="flex justify-between mb-4">
-        <div class="me-10">
-          <p class="w-[180px] sm:w-auto text-[16px] sm:text-[20px] leading-[24px] font-[600] text-[#000000E5]">
-            ${desc}
-          </p>
-        </div>
-        <a href="${pdfLink}" target="_blank" class="text-[#EA5B29] font-[700] text-[16px] leading-[24px]">
-          Download
+      <li class="bg-white p-6 md:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <p class="m-0 font-serif text-[20px] md:text-[22px] leading-[1.35] text-ink max-w-[820px]">
+          ${escapeHtml(desc)}
+        </p>
+        <a href="${escapeHtml(pdfLink)}" target="_blank" rel="noopener"
+           class="shrink-0 font-semibold text-[15px] text-accent hover:text-accent-dark underline">
+          Download PDF →
         </a>
-      </div>
-      <hr class="my-[16px]" />
+      </li>
     `;
   });
+  html += '</ul>';
 
-  container.innerHTML += html;
+  container.innerHTML = html;
 }
 
 // Start initialization

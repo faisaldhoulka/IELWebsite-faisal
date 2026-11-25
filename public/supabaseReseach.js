@@ -21,12 +21,19 @@ initSupabase();
 // State + style constants
 // ────────────────────────────────────────────────
 let allResearch = [];
+let loadFailed = false;
 const state = { sector: "", freq: "All", query: "" };
 
-const TAB_ACTIVE = ["text-[#EA5B29]", "border-[#EA5B29]"];
-const TAB_IDLE = ["text-gray-500", "border-transparent"];
-const PILL_ACTIVE = ["border-[#EA5B29]", "bg-[#FDECE7]", "text-[#EA5B29]"];
-const PILL_IDLE = ["border-gray-200", "bg-white", "text-gray-700"];
+// Revamp design: underlined text tabs, segmented control for report types
+const TAB_ACTIVE = ["text-accent", "border-accent"];
+const TAB_IDLE = ["text-muted", "border-transparent", "hover:text-ink"];
+const PILL_ACTIVE = ["bg-accent", "text-white"];
+const PILL_IDLE = ["bg-white", "text-accent", "hover:bg-mist"];
+
+// Shared classes for empty / error states
+const NOTE_CLASS = "m-0 border border-line bg-mist p-6 text-[15px] text-muted-body";
+const ERROR_CLASS =
+  "m-0 border border-line border-l-4 border-l-signal-red bg-white p-6 text-[15px] text-ink";
 
 const norm = (v) =>
   String(v || "")
@@ -81,8 +88,9 @@ async function loadSectors() {
       btn.type = "button";
       btn.dataset.tab = s.sector_name;
       btn.textContent = s.sector_name;
+      btn.setAttribute("aria-pressed", "false");
       btn.className =
-        "tab-btn pb-3 -mb-px border-b-2 text-[15px] font-[600] whitespace-nowrap cursor-pointer transition-colors";
+        "tab-btn pb-3 -mb-px border-0 border-b-2 border-solid bg-transparent px-0 text-[15px] font-semibold font-sans whitespace-nowrap cursor-pointer transition-colors";
       tabs.appendChild(btn);
     });
 
@@ -90,6 +98,11 @@ async function loadSectors() {
     if (data && data.length > 0) state.sector = data[0].sector_name;
   } catch (err) {
     console.error("Error loading sectors:", err);
+    const tabs = document.getElementById("categoryTabs");
+    if (tabs) {
+      tabs.innerHTML =
+        '<span class="pb-3 text-[15px] text-muted">Sectors could not be loaded.</span>';
+    }
   }
 }
 
@@ -105,7 +118,7 @@ async function loadAllResearch() {
     allResearch = data || [];
   } catch (err) {
     console.error("Error loading research:", err);
-    container.innerHTML = `<p class="text-red-500 text-center py-10">Failed to load research data</p>`;
+    loadFailed = true; // render() shows the error state
     allResearch = [];
   }
 }
@@ -167,7 +180,7 @@ function bindEvents() {
 function styleControls() {
   document.querySelectorAll(".pill-btn").forEach((b) => {
     b.className =
-      "pill-btn px-4 py-1.5 rounded-full border text-[13px] font-[600] cursor-pointer transition-colors";
+      "pill-btn px-4 py-2.5 border-0 border-l border-solid border-accent first:border-l-0 text-sm font-semibold font-sans cursor-pointer transition-colors";
   });
 }
 
@@ -179,11 +192,13 @@ function updateControls() {
     const active = !searching && b.dataset.tab === state.sector;
     b.classList.remove(...TAB_ACTIVE, ...TAB_IDLE);
     b.classList.add(...(active ? TAB_ACTIVE : TAB_IDLE));
+    b.setAttribute("aria-pressed", active ? "true" : "false");
   });
   document.querySelectorAll(".pill-btn").forEach((b) => {
     const active = b.dataset.freq === state.freq;
     b.classList.remove(...PILL_ACTIVE, ...PILL_IDLE);
     b.classList.add(...(active ? PILL_ACTIVE : PILL_IDLE));
+    b.setAttribute("aria-pressed", active ? "true" : "false");
   });
 }
 
@@ -235,14 +250,15 @@ function renderSearchNote(container, count) {
 
   const note = document.createElement("div");
   note.className =
-    "flex items-center justify-between gap-3 text-[14px] text-gray-500";
+    "flex flex-wrap items-center justify-between gap-3 text-[15px] text-muted-body";
 
   const text = document.createElement("span");
   text.textContent = `${count} result${count === 1 ? "" : "s"} for “${q}” across all sectors`;
 
   const clear = document.createElement("button");
   clear.type = "button";
-  clear.className = "font-[600] text-[#E8452C] hover:underline cursor-pointer";
+  clear.className =
+    "bg-transparent border-0 p-0 font-semibold font-sans text-[15px] text-accent hover:text-accent-dark underline cursor-pointer";
   clear.textContent = "Clear search";
   clear.addEventListener("click", clearSearch);
 
@@ -257,11 +273,22 @@ function render() {
   const items = getFiltered();
 
   container.innerHTML = "";
+
+  if (loadFailed) {
+    const err = document.createElement("p");
+    err.className = ERROR_CLASS;
+    err.textContent =
+      "Research reports could not be loaded. Please refresh the page or try again later.";
+    container.appendChild(err);
+    renderTrending();
+    return;
+  }
+
   renderSearchNote(container, items.length);
 
   if (items.length === 0) {
     const empty = document.createElement("p");
-    empty.className = "text-gray-500 text-center py-10";
+    empty.className = NOTE_CLASS;
     empty.textContent = state.query.trim()
       ? "No reports match your search"
       : "No research documents found";
@@ -279,31 +306,20 @@ function createResearchCard(item) {
 
   const card = document.createElement("article");
   card.className =
-    "rounded-2xl border border-gray-200 bg-white p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-sm";
+    "border border-line bg-white hover:border-line-dash p-6 md:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5";
 
-  // Left side: badge, date, title, description
+  // Left side: meta line (type · sector · date), title, description
   const info = document.createElement("div");
-  info.className = "min-w-0";
+  info.className = "min-w-0 flex flex-col gap-2";
 
-  const meta = document.createElement("div");
-  meta.className = "flex items-center gap-3";
-
-  if (item.report_type) {
-    const badge = document.createElement("span");
-    badge.className =
-      "px-2.5 py-0.5 rounded-md bg-[#EFEDE4] text-[12px] font-[600] text-[#000000CC]";
-    badge.textContent = item.report_type;
-    meta.appendChild(badge);
-  }
-
-  const date = document.createElement("span");
-  date.className = "text-[13px] text-gray-400";
-  date.textContent = formatDate(item.created_at);
-  meta.appendChild(date);
+  const meta = document.createElement("span");
+  meta.className = "text-[13px] text-wine font-semibold";
+  meta.textContent = [item.report_type, item.sector_name, formatDate(item.created_at)]
+    .filter(Boolean)
+    .join(" · ");
 
   const h3 = document.createElement("h3");
-  h3.className =
-    "mt-2 text-[18px] sm:text-[20px] leading-[28px] font-[600] text-[#000000E5]";
+  h3.className = "m-0 font-serif font-normal text-[22px] leading-[1.3] text-ink";
   h3.textContent = title;
 
   info.appendChild(meta);
@@ -311,27 +327,27 @@ function createResearchCard(item) {
 
   if (item.short_desc) {
     const desc = document.createElement("p");
-    desc.className = "mt-1 text-[14px] text-gray-500";
+    desc.className = "m-0 text-[15px] text-muted-body";
     desc.textContent = item.short_desc;
     info.appendChild(desc);
   }
 
   // Right side: buttons
   const actions = document.createElement("div");
-  actions.className = "flex gap-3 shrink-0";
+  actions.className = "flex flex-wrap gap-3 shrink-0";
 
   const read = document.createElement("a");
   read.href = url;
   read.target = "_blank";
   read.rel = "noopener";
   read.className =
-    "px-5 py-2.5 rounded-md border border-[#000000E5] text-[14px] font-[600] text-[#000000E5] hover:bg-gray-50 transition-colors";
+    "border border-ink text-ink hover:bg-mist no-underline px-[21px] py-[12px] rounded font-semibold text-[15px]";
   read.textContent = "Read report";
 
   const dl = document.createElement("button");
   dl.type = "button";
   dl.className =
-    "px-5 py-2.5 rounded-md bg-[#E8452C] text-white text-[14px] font-[600] hover:bg-[#d13d26] transition-colors cursor-pointer disabled:opacity-60";
+    "bg-accent hover:bg-accent-dark text-white border-0 px-[22px] py-[13px] rounded font-semibold font-sans text-[15px] cursor-pointer disabled:opacity-60";
   dl.textContent = "Download PDF";
   dl.addEventListener("click", () =>
     downloadPdf(url, makeFileName(title, url), dl),
@@ -359,23 +375,24 @@ function renderTrending() {
     .slice(0, 5);
 
   if (top.length === 0) {
-    list.innerHTML = `<li class="text-[14px] text-gray-400 py-3">No reports yet</li>`;
+    list.innerHTML = `<li class="text-[15px] text-muted py-3">No reports yet</li>`;
     return;
   }
 
   top.forEach((item, i) => {
     const li = document.createElement("li");
-    li.className = `flex gap-3 py-3 ${i < top.length - 1 ? "border-b border-gray-100" : ""}`;
+    li.className = `flex gap-3 py-3 ${i < top.length - 1 ? "border-b border-line" : ""}`;
 
     const num = document.createElement("span");
-    num.className = "text-[14px] font-[700] text-[#E8452C]";
+    num.className = "font-serif text-[15px] font-semibold text-wine";
     num.textContent = i + 1;
 
     const a = document.createElement("a");
     a.href = resolvePdfUrl(item.pdf_url);
     a.target = "_blank";
     a.rel = "noopener";
-    a.className = "text-[14px] leading-[20px] text-[#000000CC] hover:underline";
+    a.className =
+      "text-[15px] leading-[1.45] text-ink no-underline hover:text-accent hover:underline";
     a.textContent = item.name || "Untitled Document";
 
     li.appendChild(num);

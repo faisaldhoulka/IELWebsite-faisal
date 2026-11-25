@@ -1,0 +1,29 @@
+---
+// Section header in the revamp style: eyebrow + serif h2, with an optional intro
+// paragraph or "link →" on the right. Set dark for use on bg-pine bands.
+//   <SectionHeading eyebrow="Services" title="What we do" intro="..." />
+//   <SectionHeading eyebrow="Insights" title="Latest research" link={{ href: "Research.html", label: "All research" }} />
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  link?: { href: string; label: string };
+  dark?: boolean;
+  /** Heading level, default 2. */
+  level?: 2 | 3;
+}
+const { eyebrow, title, intro, link, dark = false, level = 2 } = Astro.props;
+const H = `h${level}`;
+---
+<div class="flex flex-wrap justify-between items-end gap-6 mb-10 md:mb-12">
+  <div class="flex flex-col gap-3 max-w-[640px]">
+    {eyebrow && (
+      <span class:list={["text-[13px] font-semibold tracking-[1.5px] uppercase", dark ? "text-signal-green" : "text-wine"]}>{eyebrow}</span>
+    )}
+    <H class:list={["m-0 font-serif font-medium text-[30px] md:text-[40px] leading-[1.15]", dark ? "text-white" : "text-pine"]}>{title}</H>
+  </div>
+  {intro && <p class:list={["m-0 max-w-[420px] text-base", dark ? "text-ondark" : "text-muted-body"]}>{intro}</p>}
+  {link && (
+    <a href={link.href} class:list={["font-semibold text-[15px] underline", dark ? "text-white" : "text-accent hover:text-accent-dark"]}>{link.label} →</a>
+  )}
+</div>

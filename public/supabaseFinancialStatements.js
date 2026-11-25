@@ -30,9 +30,106 @@ const tabMapping = {
   },
 };
 
-// Holds the rows that were originally hard-coded in the HTML, captured once
-// on load so they can be merged with whatever Supabase returns and re-sorted
-// together.
+// Hard-coded statements (PDFs under public/IEL Assets/PDF/), keyed by the tab's
+// content container id. These used to live as rows in NewReport.html and are
+// merged with whatever Supabase returns, then re-sorted together.
+const STATIC_STATEMENTS = {
+  "Economy-content": [
+    { title: "IEL Audited Financial Statements June 30 2020", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30 2020.pdf" },
+    { title: "IEL Audited Financial Statements June 30 2021", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30 2021.pdf" },
+    { title: "IEL Audited Financial Statements June 30 2022", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30, 2022.pdf" },
+    { title: "IEL Audited Financial Statements June 30 2023", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30, 2023.pdf" },
+    { title: "IEL Audited Financial Statements June 30 2024", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30, 2024.pdf" },
+    { title: "IEL Audited Financial Statements June 30 2025", pdfUrl: "IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30 2025.pdf" },
+  ],
+  "Strategy-content": [
+    { title: "Half Yearly 31 December 2020", pdfUrl: "IEL Assets/PDF/Half Yearly 31 Dec/Half Yearly 31 December 2020.pdf" },
+    { title: "Half Yearly 31 December 2021", pdfUrl: "IEL Assets/PDF/Half Yearly 31 Dec/Half Yearly 31 December 2021.pdf" },
+    { title: "Half Yearly 31 December 2022", pdfUrl: "IEL Assets/PDF/Half Yearly 31 Dec/Half Yearly 31 December 2022.pdf" },
+    { title: "Half Yearly 31 December 2023", pdfUrl: "IEL Assets/PDF/Half Yearly 31 Dec/Half Yearly 31 December 2023.pdf" },
+    { title: "Half Yearly 31 December 2024", pdfUrl: "IEL Assets/PDF/Half Yearly 31 Dec/Half Yearly 31 December 2024.pdf" },
+  ],
+  "Sector-content": [
+    { title: "FS IEL Period Ended Sept 30, 2020", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2020.pdf" },
+    { title: "FS IEL Period Ended Sept 30, 2021", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2021.pdf" },
+    { title: "FS IEL Period Ended Sept 30, 2022", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2022.pdf" },
+    { title: "FS IEL Period Ended Sept 30, 2023", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2023.pdf" },
+    { title: "FS IEL Period Ended Sept 30, 2024", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2024.pdf" },
+    { title: "FS IEL Period Ended Sept 30, 2025", pdfUrl: "IEL Assets/PDF/Quarter Ended 30 September/Financial statement  - Sep end 25-merged.pdf" },
+  ],
+  "Market-content": [
+    { title: "FS IEL Period Ended Mar 31, 2021", pdfUrl: "IEL Assets/PDF/Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2021.pdf" },
+    { title: "FS IEL Period Ended Mar 31, 2022", pdfUrl: "IEL Assets/PDF/Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2022.pdf" },
+    { title: "FS IEL Period Ended Mar 31, 2023", pdfUrl: "IEL Assets/PDF/Quarter Ended 31 March/FS IEL Period Ended  Mar 31, 2023.pdf" },
+    { title: "FS IEL Period Ended Mar 31, 2024", pdfUrl: "IEL Assets/PDF/Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2024.pdf" },
+    { title: "FS IEL Period Ended Mar 31, 2025", pdfUrl: "IEL Assets/PDF/Quarter Ended 31 March/March 2025 - Upload Version.pdf" },
+  ],
+  "lcb-content": [
+    { title: "LCB July 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/1-LCB July 2020.pdf" },
+    { title: "LCB Aug 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/2-LCB Aug 2020.pdf" },
+    { title: "September 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/3. September  2020.pdf" },
+    { title: "LCB October 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/4. October 2020.pdf" },
+    { title: "LCB November 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/5. November  2020.pdf" },
+    { title: "LCB December 2020", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/6. December 2020.pdf" },
+    { title: "LCB January 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/7. January 2021.pdf" },
+    { title: "LCB Feb 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/8. LCB Feb 2021.pdf" },
+    { title: "LCB May 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/11. LCB May 2021.pdf" },
+    { title: "LCB June 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2021/12. LCB June 2021.pdf" },
+    { title: "LCB July 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/1.LCB July 2021.pdf" },
+    { title: "LCB Aug 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/2.LCB Aug 2021.pdf" },
+    { title: "September 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/3.LCB Sept 2021.pdf" },
+    { title: "LCB October 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/4.LCB Oct 2021.pdf" },
+    { title: "LCB November 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/5. LCB Nov 2021.pdf" },
+    { title: "LCB December 2021", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/6.LCB December 2021.pdf" },
+    { title: "LCB January 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/7. LCB Jan 2022.pdf" },
+    { title: "LCB Feb 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/8.LCB Feb 2022.pdf" },
+    { title: "LCB March 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/9.LCB March 2022.pdf" },
+    { title: "LCB June 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2022/12. LCB Jun 2022.pdf" },
+    { title: "LCB July 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/1.LCB July 2022.pdf" },
+    { title: "LCB Aug 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/2.LCB Aug 2022.pdf" },
+    { title: "September 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/3.LCB Sept 2022.pdf" },
+    { title: "LCB October 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/4. LCB Oct 2022.pdf" },
+    { title: "LCB November 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/5.LCB Nov 2022.pdf" },
+    { title: "LCB December 2022", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/6.LCB Dec 2022.pdf" },
+    { title: "LCB January 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/7.LCB Jan 2023.pdf" },
+    { title: "LCB Feb 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/8.LCB Feb 2023.pdf" },
+    { title: "LCB March 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/9.LCB MARCH 2023.pdf" },
+    { title: "LCB Apr 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/10.LCB Apr 2023.pdf" },
+    { title: "LCB May 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/11.LCB May 2023.pdf" },
+    { title: "LCB June 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2023/12.LCB June 2023.pdf" },
+    { title: "LCB July 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/1. LCB July 2023.pdf" },
+    { title: "LCB Aug 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/2. LCB Aug 2023.pdf" },
+    { title: "September 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/3. LCB Sept 2023.pdf" },
+    { title: "LCB October 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/4. LCB OCT 2023.pdf" },
+    { title: "LCB November 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/5. LCB NOV 2023.pdf" },
+    { title: "LCB December 2023", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/6. LCB Dec 2023.pdf" },
+    { title: "LCB January 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/7. LCB  JAN 2024.pdf" },
+    { title: "LCB Feb 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/8. LCB FEB 2024.pdf" },
+    { title: "LCB March 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/9. LCB THIMS MAR 2024.pdf" },
+    { title: "LCB Apr 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/10.LCB THIMS APR 2024.pdf" },
+    { title: "LCB May 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/11.LCB THIMS MAY 2024.pdf" },
+    { title: "LCB June 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2024/12. LCB THIMS JUNE 2024.pdf" },
+    { title: "LCB thims July 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/1.LCB THIMS JULY 2024.pdf" },
+    { title: "LCB thims Aug 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/2. LCB THIMS AUG 2024.pdf" },
+    { title: "LCB thims September 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/3.LCB THIMS SEP 2024.pdf" },
+    { title: "LCB thims October 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/4.LCB THIMS OCT 2024.pdf" },
+    { title: "LCB thims November 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/5.LCB THIMS NOV 2024.pdf" },
+    { title: "LCB thims December 2024", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/6.LCB THIMS DEC 2024.pdf" },
+    { title: "LCB thims January 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/7. LCB THIMS January 2025.pdf" },
+    { title: "LCB thims Feb 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/8. LCB THIMS February 2025.pdf" },
+    { title: "LCB thims March 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/9.LCB THIMS MARCH 25.pdf" },
+    { title: "LCB thims Apr 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/10.LCB THIMS APRIL 25.pdf" },
+    { title: "LCB thims May 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/11.LCB THIMS MAY 25.pdf" },
+    { title: "LCB thims June 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/12. LCB THIMS JUNE 25.pdf" },
+    { title: "LCB thims July 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/LCB THIMS JULY 25.pdf" },
+    { title: "LCB thims Aug 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/LCB THIMS AUG 25.pdf" },
+    { title: "LCB thims September 2025", pdfUrl: "IEL Assets/PDF/LCB/Liquid Capital Balance -September 2025.pdf" },
+    { title: "LCB thims October 2025", pdfUrl: "IEL Assets/PDF/LCB/Liquid Capital Balance -October 2025.pdf" },
+    { title: "LCB thims December 2025", pdfUrl: "IEL Assets/PDF/LCB/FY 2025/LCB December 2025.pdf" },
+  ],
+};
+
+// Rows rendered per tab before Supabase data arrives (filled on load).
 const staticData = {};
 
 // ────────────────────────────────────────────────
@@ -228,20 +325,20 @@ const PDF_ICON =
 
 function createStatementRow(item) {
   const tr = document.createElement("tr");
-  tr.className = "fs-row border-t border-[#ECECEC]";
+  tr.className = "fs-row border-t border-line hover:bg-mist";
   tr.dataset.search = (item.title || "").toLowerCase();
 
   const tdTitle = document.createElement("td");
-  tdTitle.className =
-    "px-4 md:px-6 py-4 text-[14px] md:text-[16px] font-[600] text-[#000000E5] align-top";
+  tdTitle.className = "px-5 md:px-6 py-4 text-[15px] text-ink align-top";
   tdTitle.textContent = item.title || "Untitled Document";
 
   const tdPdf = document.createElement("td");
-  tdPdf.className = "px-4 md:px-6 py-4 align-top text-right sm:text-left";
+  tdPdf.className = "px-5 md:px-6 py-4 align-top text-right whitespace-nowrap";
 
   const link = document.createElement("a");
   link.className =
-    "inline-flex items-center gap-1.5 text-[#EA5B29] font-[700] text-[14px] md:text-[15px] hover:underline";
+    "inline-flex items-center gap-1.5 text-accent hover:text-accent-dark font-semibold text-[15px] underline";
+  link.setAttribute("aria-label", `View PDF: ${item.title || "document"}`);
   link.href = item.pdfUrl ? resolveUrl(item.pdfUrl) : "#";
   link.target = "_blank";
   link.rel = "noopener";
@@ -286,13 +383,16 @@ function applySearch(container, query) {
 
     const panel = section.querySelector(".fs-panel");
     const chevron = section.querySelector(".fs-chevron");
+    const header = section.querySelector(".fs-header");
     if (q && visibleRows > 0) {
       panel.classList.remove("hidden");
       chevron.classList.add("rotate-180");
+      header.setAttribute("aria-expanded", "true");
     } else if (!q) {
       const open = section.dataset.defaultOpen === "1";
       panel.classList.toggle("hidden", !open);
       chevron.classList.toggle("rotate-180", open);
+      header.setAttribute("aria-expanded", open ? "true" : "false");
     }
     const count = section.querySelector(".fs-count");
     count.textContent = `${visibleRows} document${visibleRows === 1 ? "" : "s"}`;
@@ -307,16 +407,21 @@ function renderTab(contentId, tabValue, items) {
   if (!container) return;
   container.innerHTML = "";
 
-  // Search box
+  // Search box (visible label; id is unique per tab)
+  const inputId = `fs-search-${contentId}`;
   const searchWrap = document.createElement("div");
-  searchWrap.className =
-    "mb-4 p-3 md:p-4 border border-[#ECECEC] rounded-[12px] bg-white";
+  searchWrap.className = "mb-6 flex flex-col gap-1.5";
+  const searchLabel = document.createElement("label");
+  searchLabel.htmlFor = inputId;
+  searchLabel.className = "text-sm font-medium text-ink";
+  searchLabel.textContent = "Search statements";
   const input = document.createElement("input");
   input.type = "search";
-  input.placeholder = "Search by title or year (e.g. 2026-27)...";
-  input.setAttribute("aria-label", "Search financial statements");
+  input.id = inputId;
+  input.placeholder = "Title or year, e.g. 2024-25";
   input.className =
-    "w-full sm:w-[340px] px-3 py-2 text-[14px] border border-[#ECECEC] rounded-[8px] bg-[#FAFAFA] outline-none focus:border-[#EA5B29]";
+    "h-[46px] w-full sm:w-[360px] border border-line rounded px-3 text-[15px] text-ink font-sans bg-white focus:outline-none focus:border-accent";
+  searchWrap.appendChild(searchLabel);
   searchWrap.appendChild(input);
   container.appendChild(searchWrap);
 
@@ -329,34 +434,38 @@ function renderTab(contentId, tabValue, items) {
     const label = fiscalYearLabel(Number(year));
 
     const section = document.createElement("div");
-    section.className =
-      "fs-section mb-4 border border-[#ECECEC] rounded-[12px] overflow-hidden bg-white";
+    section.className = "fs-section mb-4 border border-line bg-white";
     section.dataset.label = label;
     section.dataset.defaultOpen = isOpen ? "1" : "0";
+
+    const panelId = `${contentId}-fy-${year}`;
 
     const header = document.createElement("button");
     header.type = "button";
     header.className =
-      "w-full flex justify-between items-center px-4 py-4 md:px-6 bg-[#FAFAFA] hover:bg-[#F4F4F4] transition text-left";
+      "fs-header w-full flex justify-between items-center gap-4 px-5 py-4 md:px-6 bg-white hover:bg-mist border-0 text-left font-sans text-ink cursor-pointer";
+    header.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    header.setAttribute("aria-controls", panelId);
     header.innerHTML = `
-      <span class="flex items-baseline gap-3">
-        <span class="text-[18px] md:text-[20px] font-[700]">${label}</span>
-        <span class="fs-count text-[13px] text-[#00000099]">${yearItems.length} document${yearItems.length === 1 ? "" : "s"}</span>
+      <span class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        <span class="font-serif font-medium text-[22px] text-pine">${label}</span>
+        <span class="fs-count text-[13px] text-wine font-semibold">${yearItems.length} document${yearItems.length === 1 ? "" : "s"}</span>
       </span>
-      <svg class="fs-chevron w-5 h-5 shrink-0 transform transition-transform duration-200 ${isOpen ? "rotate-180" : ""}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="fs-chevron w-5 h-5 shrink-0 text-accent transform transition-transform duration-200 ${isOpen ? "rotate-180" : ""}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>`;
 
     const panel = document.createElement("div");
-    panel.className = `fs-panel overflow-x-auto ${isOpen ? "" : "hidden"}`;
+    panel.id = panelId;
+    panel.className = `fs-panel overflow-x-auto border-t border-line ${isOpen ? "" : "hidden"}`;
 
     const table = document.createElement("table");
-    table.className = "w-full text-left";
+    table.className = "w-full border-collapse text-left";
     table.innerHTML = `
       <thead>
-        <tr class="text-[12px] uppercase tracking-wide text-[#00000099]">
-          <th class="px-4 md:px-6 py-3 font-[700]">Description</th>
-          <th class="px-4 md:px-6 py-3 font-[700] text-right sm:text-left">PDF</th>
+        <tr>
+          <th scope="col" class="bg-mist px-5 md:px-6 py-3 text-[13px] font-semibold text-ink">Description</th>
+          <th scope="col" class="bg-mist px-5 md:px-6 py-3 text-[13px] font-semibold text-ink text-right">PDF</th>
         </tr>
       </thead>`;
     const tbody = document.createElement("tbody");
@@ -365,8 +474,9 @@ function renderTab(contentId, tabValue, items) {
     panel.appendChild(table);
 
     header.addEventListener("click", () => {
-      panel.classList.toggle("hidden");
-      header.querySelector(".fs-chevron").classList.toggle("rotate-180");
+      const nowHidden = panel.classList.toggle("hidden");
+      header.querySelector(".fs-chevron").classList.toggle("rotate-180", !nowHidden);
+      header.setAttribute("aria-expanded", nowHidden ? "false" : "true");
     });
 
     section.appendChild(header);
@@ -375,38 +485,25 @@ function renderTab(contentId, tabValue, items) {
   });
 
   const empty = document.createElement("p");
-  empty.className = `fs-empty text-[14px] text-[#00000099] py-6 text-center ${years.length ? "hidden" : ""}`;
-  empty.textContent = "No documents found.";
+  empty.className = `fs-empty m-0 border border-line bg-mist p-6 text-[15px] text-muted-body ${years.length ? "hidden" : ""}`;
+  empty.textContent = years.length
+    ? "No documents match your search."
+    : "No documents published yet.";
   container.appendChild(empty);
 
   input.addEventListener("input", () => applySearch(container, input.value));
 }
 
 // ────────────────────────────────────────────────
-// Capture the hard-coded rows already in the HTML, then do an initial
-// sorted render immediately (no need to wait on the network for this part).
+// Render the hard-coded rows immediately (no need to wait on the network for
+// this part); Supabase rows are merged in when they arrive.
 // ────────────────────────────────────────────────
-function extractStaticRows(container) {
-  const rows = [];
-  container.querySelectorAll(".flex.justify-between").forEach((rowDiv) => {
-    const p = rowDiv.querySelector("p");
-    const a = rowDiv.querySelector("a");
-    if (p && a) {
-      rows.push({
-        title: p.textContent.trim(),
-        pdfUrl: a.getAttribute("href") || a.dataset.file,
-      });
-    }
-  });
-  return rows;
-}
-
 function captureAndRenderStatic() {
   Object.values(tabMapping).forEach(({ contentId, tabValue }) => {
     const container = document.getElementById(contentId);
     if (!container) return;
 
-    const rows = extractStaticRows(container);
+    const rows = (STATIC_STATEMENTS[contentId] || []).slice();
     staticData[contentId] = rows;
     renderTab(contentId, tabValue, rows);
   });
@@ -500,5 +597,22 @@ async function loadFinancialStatements() {
     });
   } catch (err) {
     console.error("Failed to load Supabase financial statements:", err);
+    showLoadWarning();
   }
+}
+
+// Shown above each tab's list when the Supabase rows could not be fetched;
+// the hard-coded rows stay visible.
+function showLoadWarning() {
+  Object.values(tabMapping).forEach(({ contentId }) => {
+    const container = document.getElementById(contentId);
+    if (!container || container.querySelector(".fs-warning")) return;
+    const note = document.createElement("p");
+    note.className =
+      "fs-warning m-0 mb-6 border border-line border-l-4 border-l-signal-red bg-white p-4 text-[15px] text-ink";
+    note.setAttribute("role", "status");
+    note.textContent =
+      "The most recent documents could not be loaded. Please refresh the page or try again later.";
+    container.prepend(note);
+  });
 }

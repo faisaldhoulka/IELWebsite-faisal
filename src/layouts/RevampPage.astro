@@ -1,0 +1,54 @@
+---
+// Page shell for the revamp design: <head> basics + SiteHeader + <main> + SiteFooter.
+//
+// Usage:
+//   <RevampPage title="IEL | About" description="..." path="About.html">
+//     <Fragment slot="head"> <!-- optional extra head tags / page <style> --> </Fragment>
+//     ...sections...
+//     <Fragment slot="scripts"> <!-- optional page scripts, rendered after the footer --> </Fragment>
+//   </RevampPage>
+import Layout from "./Layout.astro";
+import RevampHead from "../components/RevampHead.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  /** File name of the page, e.g. "About.html" ("index.html" for home). Used for canonical / og:url. */
+  path: string;
+  ogTitle?: string;
+  /** Social-share description; defaults to `description`. */
+  ogDescription?: string;
+  /** Hide the "Start a conversation" band above the footer. */
+  noContactBand?: boolean;
+}
+const { title, description, path, ogTitle, ogDescription, noContactBand = false } = Astro.props;
+const url = `https://iel.net.pk/${path}`;
+import ContactBand from "../components/ContactBand.astro";
+---
+<Layout bodyAttrs={{ class: "font-sans text-ink bg-white leading-[1.55]" }}>
+  <Fragment slot="head">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content="https://iel.net.pk/Assets/whiteLogoSvg.svg" />
+    <meta property="og:site_name" content="Integrated Equities Limited" />
+    <link rel="canonical" href={url} />
+    <RevampHead />
+    <slot name="head" />
+  </Fragment>
+
+  <SiteHeader />
+  <main>
+    <slot />
+  </main>
+  {!noContactBand && <ContactBand />}
+  <SiteFooter />
+  <slot name="scripts" />
+</Layout>

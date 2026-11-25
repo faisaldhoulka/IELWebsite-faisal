@@ -1,476 +1,161 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
+// Contact page on the revamp design: contact details + enquiry form, complaints contact,
+// and office locations with map tabs. The form posts to the same endpoint and payload as before.
+import RevampPage from "../layouts/RevampPage.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+
+const details = [
+  { label: "Email", value: "support@iel.net.pk", href: "mailto:support@iel.net.pk" },
+  { label: "Phone number", value: "+92-42-35741714-15", href: "tel:+924235741714" },
+  { label: "Hours", value: "Monday–Friday, 9:00 AM – 6:00 PM (PST)" },
+];
+
+const offices = [
+  {
+    id: "lahore",
+    name: "Lahore office",
+    address: "30 Cricketers Colony, 3rd floor, NETSOL Avenue, Ghazi Interchange, Ring Road",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2803.931832327946!2d74.42374977463443!3d31.4986965482142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190f4702f9cafb%3A0x8f1d31d128a3ab40!2sGhazi%20Interchange%20Park!5e1!3m2!1sen!2s!4v1751026646944!5m2!1sen!2s",
+  },
+  {
+    id: "karachi",
+    name: "Karachi office",
+    address: "Room 134, 3rd floor, KSE Building",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2984.0653418464963!2d66.9982154!3d24.8475401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb315af10b7321f%3A0xa85bfcf37fa6cd63!2sPakistan%20Stock%20Exchange!5e1!3m2!1sen!2s!4v1751034210545!5m2!1sen!2s",
+  },
+];
+
+const input = "w-full h-[46px] border border-line rounded px-3 text-[15px] text-ink font-sans bg-white aria-[invalid=true]:border-signal-red";
+const label = "text-sm font-medium text-ink";
+const fieldError = "m-0 text-sm text-signal-red min-h-[1.25em]";
 ---
-<Layout>
-  <Fragment slot="head">
+<RevampPage
+  title="IEL | Contact"
+  ogTitle="Contact | Integrated Equities Limited (IEL)"
+  description="Smart moves. Sharp insights. Financial freedom—your way. From your first stock pick to your next big acquisition—we're in it with you. IEL brings bespoke brokerage, laser-focused advisory, and strategy consulting under one roof"
+  path="Contact.html"
+  ogDescription="Get in touch with Integrated Equities Limited (IEL) for any inquiries or assistance you may need."
+  noContactBand
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Let’s talk about your next smart move"
+    lede="Whether you’ve got questions, need guidance, or just want to explore what IEL can do for you — we’re here for it."
+  />
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IEL | Contact</title>
-   <meta
-      name="description"
-      content="Smart moves. Sharp insights. Financial freedom—your way.
-From your first stock pick to your next big acquisition—we're in it with you. IEL brings bespoke brokerage, laser-focused advisory, and strategy consulting under one roof"
-    />
+  <!-- Details + form -->
+  <section class="max-w-site mx-auto px-6 py-16 md:py-24 grid gap-14 [grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))]">
+    <div class="flex flex-col gap-10">
+      <div class="flex flex-col gap-3">
+        <span class="text-[13px] font-semibold tracking-[1.5px] uppercase text-wine">Get in touch</span>
+        <h2 class="m-0 font-serif font-medium text-[30px] md:text-[40px] leading-[1.15] text-pine">Reach out to us</h2>
+        <p class="m-0 text-muted-body text-base max-w-[480px]">Have questions or feedback? We are here to help you.</p>
+      </div>
 
-    <meta
-      property="og:title"
-      content="Contact | Integrated Equities Limited (IEL)"
-    />
-    <meta
-      property="og:description"
-      content="Get in touch with Integrated Equities Limited (IEL) for any inquiries or assistance you may need."
-    />
-    <meta property="og:url" content="https://iel.net.pk/Contact.html" />
-    <meta
-      property="og:image"
-      content="https://iel.net.pk/Assets/whiteLogoSvg.svg"
-    />
-     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Integrated Equities Limited" />
-    <link rel="canonical" href="https://iel.net.pk/Contact.html" />
-
-
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="Assets/finalNavbar/navbar.css" />
-    <script is:inline src="https://cdn.tailwindcss.com"></script>
-
- 
-    <style is:inline>
-      #typed-text span {
-        display: block;
-      }
-      .footer {
-        background: linear-gradient(180deg, #0f0d17 0%, #191535 100%);
-      }
-      .form_Section {
-        position: relative;
-        z-index: 10;
-        top: -120px;
-      }
-      @media screen and (max-width: 1270px) {
-        .form_Section {
-          top: 0px;
-        }
-      }
-
-      .error {
-        border-color: #ff0000 !important;
-      }
-      .error-message {
-        color: #ff0000;
-        font-size: 14px;
-        margin-top: 4px;
-      }
-      .success-message {
-        color: #008000;
-        font-size: 14px;
-        margin-top: 8px;
-      }
-      .error-submit {
-        color: #ff0000;
-        font-size: 14px;
-        margin-top: 8px;
-      }
-    </style>
-  
-  </Fragment>
-
-    <!-------------------------Hero Section------------------------->
-    <div>
-      <main class="h-[338px] xl:h-[338px]">
-        <div class="content h-[338px] xl:h-[338px]">
-          <div class="relative w-[100vw] h-[338px]">
-            <div class="container mx-auto">
-              <div
-                class="absolute top-0 left-0 w-full h-full object-cover hidden xl:block"
-                style="
-                  background: linear-gradient(
-                    93.15deg,
-                    #0e0c15 0%,
-                    #1a1538 100%
-                  );
-                "
-              ></div>
-              <div
-                class="absolute top-0 left-0 w-full h-full object-cover bg-[#F9F9F9] block xl:hidden"
-              ></div>
-              <div
-                class="relative flex flex-col-reverse xl:flex-row py-[40px] xl:py-[60px] px-[24px] xl:px-[42px] lg:px-16 justify-center md:justify-between item-center mt-[10vh] md:mt-[10vh] 3xl:mt-[10vh]"
-              >
-                <div
-                  class="relative text-center xl:text-start text-black xl:text-white w-full flex flex-col justify-start items-start"
-                  style="z-index: 105"
-                >
-                  <h1
-                    id="typed-text"
-                    class="font-[600] text-[28px] xl:text-[40px] xl:text-[40px] 2xl:text-[40px] leading-[100%] mt-[20px]"
-                  >
-                    Let’s Talk About Your Next Smart Move
-                  </h1>
-                  <p class="font-[400] text-[16px] leading-[24px] mt-[12px]">
-                    Whether you’ve got questions, need guidance, or just want
-                    <br class="hidden xl:block" />
-                    to explore what IEL can do for you — we’re here for it.
-                  </p>
-                </div>
-                <img
-                  src="IEL Assets/new_header_pattern.png"
-                  alt="Header Pattern"
-                  class="h-[200px] w-[580px] absolute -right-[300px] hidden xl:block"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+      <dl class="m-0 grid gap-px bg-line border border-line">
+        {details.map((d) => (
+          <div class="bg-white p-5 md:p-6 flex flex-col gap-1">
+            <dt class="text-sm text-muted">{d.label}</dt>
+            <dd class="m-0 font-serif text-[20px] md:text-[22px] text-pine break-words">
+              {d.href ? <a href={d.href} class="text-pine no-underline hover:text-accent hover:underline">{d.value}</a> : d.value}
+            </dd>
           </div>
-        </div>
+        ))}
+      </dl>
 
-        <div class="menu h-[80px] pt-[10px] bg-white">
-          <Nav />
-        </div>
-      </main>
-    </div>
-
-    <!-- -----------------------Form Section-------------------- -->
-    <div class="bg-[#F9F9F9] xl:bg-transparent">
-      <div class="md:py-[40px] mx-[16px] md:mx-[7vw]">
-        <div class="w-full max-w-[1400px] mx-auto">
-          <div class="flex flex-col-reverse xl:flex-row justify-between">
-            <div>
-              <div
-                class="w-full xl:w-[520px] h-[371px] p-[40px]"
-                style="box-shadow: 0px 4px 12px 0px #0000000a"
-              >
-              <div
-                  class="bg-[#0000000A] border border-[#EA5B2905] px-[12px] h-[81px] flex items-center"
-                >
-                  <img
-                    src="IEL Assets/arrow-farward.png"
-                    alt="Arrow Forward"
-                    class="w-[32px] h-[32px]"
-                    loading="lazy"
-                  />
-                  <div class="ms-[10px] ">
-                    <span class="font-[500] text-[14px] leading-[100%] text-[#00000080]"
-                      >Email</span
-                    >
-                    <p
-                      class="font-[600] text-[16px] md:text-[20px] leading-[100%] text-black"
-                    >
-                      support@iel.net.pk
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="bg-[#0000000A] border border-[#00000005] px-[12px] h-[81px] flex items-center mt-[24px]"
-                >
-                  <img
-                    src="IEL Assets/arrow-farward.png"
-                    alt="Arrow Forward"
-                    class="w-[32px] h-[32px]"
-                    loading="lazy"
-                  />
-                  <div class="ms-[10px] text-[#00000080]">
-                    <span class="font-[500] text-[14px] leading-[100%]"
-                      >Phone Number</span
-                    >
-                    <p
-                      class="font-[600] text-[16px] md:text-[20px] leading-[100%] text-black"
-                    >
-                      +92-42-35741714-15
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="bg-[#0000000A] border border-[#00000005] px-[12px] h-[81px] flex items-center mt-[24px]"
-                >
-                  <img
-                    src="IEL Assets/arrow-farward.png"
-                    alt="Arrow Forward"
-                    class="w-[32px] h-[32px]"
-                    loading="lazy"
-                  />
-                  <div class="ms-[10px] text-[#00000080]">
-                    <span class="font-[500] text-[14px] leading-[100%]"
-                      >Hours</span
-                    >
-                    <p
-                      class="font-[600] text-[16px] md:text-[20px] leading-[100%] text-black"
-                    >
-                      Monday-Friday, 9:00 AM - 6:00 PM (PST)
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="w-full xl:w-[520px] h-[371px] p-[40px]"
-                style="box-shadow: 0px 4px 12px 0px #0000000a"
-              >
-                <div
-                  class="bg-[#FFFFF] border border-[#EA5B2905] px-[12px] h-[81px] flex items-center"
-                >
-                  <div class="ms-[10px] text-[#00000] mt-10">
-                    <span class="font-[700] text-[20px] leading-[100%]"
-                      >Lodge Complain</span
-                    >
-                    <p class="font-[500] text-[18px] leading-[100%] mt-2">
-                      For any complain please email us at compliance@iel.net.pk
-                    </p>
-
-                    <p class="font-[500] text-[18px] leading-[130%] mt-6">
-                      <span class="font-[600] text-[20px]">
-                        Details of contact person related to complains</span
-                      >
-                      <br />
-                      Mr. Muhammad Iqbal Hussian <br />
-                      VP / Chief Compliance Officer <br />
-                      Cell # +92 345 0091263 <br />
-                      Email: compliance@iel.net.pk <br />
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="w-full mt-[16px] xl:mt-0 xl:w-[580px] h-[750px] md:h-[710px] p-[40px] bg-white form_Section"
-              style="
-                box-shadow: 0px 5px 12px 0px #00000014;
-                border: 1px solid #0000000d;
-              "
-            >
-              <p class="text-[#000000] text-[24px] font-[600] leading-[100%]">
-                Let’s chat, Reach out to us
-              </p>
-              <p
-                class="text-[#00000080] mt-[8px] font-[500] text-[16px] leading-[100%]"
-              >
-                Have questions or feedback? We are here to help you.
-              </p>
-
-              <!-- <div>
-                <div class="mt-[24px]">
-                  <label
-                    for="name"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Enter Name</label
-                  >
-                  <br />
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Neha"
-                  />
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="name"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Enter Email Address</label
-                  >
-                  <br />
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g neha@gmail.com"
-                  />
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="name"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Add Subject</label
-                  >
-                  <br />
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Finance"
-                  />
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="Comments"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Add Comments</label
-                  >
-                  <br />
-                  <textarea
-                    type="text"
-                    name="Comments"
-                    id="Comments"
-                    rows="6"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Hi I want to get information..."
-                  ></textarea>
-                </div>
-
-                <div class="mt-[24px]">
-                  <button
-                    class="text-[16px] font-[600] leading-[100%] w-full bg-[#E3442D] py-[16px] rounded-[4px] text-white"
-                  >
-                    SUBMIT
-                  </button>
-                </div>
-              </div> -->
-
-              <div>
-                <div class="mt-[24px]">
-                  <label
-                    for="name"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Enter Name</label
-                  >
-                  <br />
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Neha"
-                  />
-                  <p class="error-message" id="name-error"></p>
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="email"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Enter Email Address</label
-                  >
-                  <br />
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g neha@gmail.com"
-                  />
-                  <p class="error-message" id="email-error"></p>
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="subject"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Add Subject</label
-                  >
-                  <br />
-                  <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Finance"
-                  />
-                  <p class="error-message" id="subject-error"></p>
-                </div>
-
-                <div class="mt-[24px]">
-                  <label
-                    for="comments"
-                    class="font-[400] text-[16px] leading-[100%]"
-                    >Add Comments</label
-                  >
-                  <br />
-                  <textarea
-                    name="comments"
-                    id="comments"
-                    rows="6"
-                    class="border border-[#C7C7C7] mt-[4px] py-[16px] px-[12px] w-full text-[#00000080] outline-none text-[16px] font-[500] leading-[100%]"
-                    placeholder="e.g Hi I want to get information..."
-                  ></textarea>
-                  <p class="error-message" id="comments-error"></p>
-                </div>
-
-                <div class="mt-[24px]">
-                  <button
-                    id="submit-btn"
-                    class="text-[16px] font-[600] leading-[100%] w-full bg-[#E3442D] py-[16px] rounded-[4px] text-white hover:bg-[#cc3b26]"
-                  >
-                    SUBMIT
-                  </button>
-                  <p id="success-message" class="success-message"></p>
-                  <p id="error-submit" class="error-submit"></p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="border border-line border-t-4 border-t-wine p-6 md:p-7 flex flex-col gap-4">
+        <h3 class="m-0 font-serif font-medium text-[22px] text-ink">Lodge a complaint</h3>
+        <p class="m-0 text-[15px] text-muted-body">
+          For any complaint please email us at
+          <a href="mailto:compliance@iel.net.pk" class="text-accent hover:text-accent-dark underline">compliance@iel.net.pk</a>.
+        </p>
+        <div class="flex flex-col gap-1 text-[15px] text-muted-body">
+          <span class="text-sm font-semibold text-ink">Contact person for complaints</span>
+          <span class="font-semibold text-ink">Mr. Muhammad Iqbal Hussian</span>
+          <span class="text-wine font-semibold text-sm">VP / Chief Compliance Officer</span>
+          <span>Cell: <a href="tel:+923450091263" class="text-accent hover:text-accent-dark underline">+92 345 0091263</a></span>
+          <span>Email: <a href="mailto:compliance@iel.net.pk" class="text-accent hover:text-accent-dark underline">compliance@iel.net.pk</a></span>
         </div>
       </div>
     </div>
-    <!-- --------------------Map Section-------------- -->
 
-    <div class="mx-[7vw] mt-[28px] md:mt-0">
-      <div class="w-full max-w-[1400px] mx-auto">
-        <div
-          class="md:h-[312px] flex flex-col md:flex-row md:shadow-[0_0_4px_-1px_rgba(0,0,0,0.06),0_0_8px_0_rgba(0,0,0,0.1)]"
-        >
-          <div class="p-8 w-full md:w-[30%]">
-            <div
-              class="font-normal text-base leading-6 text-center md:text-start"
+    <div class="bg-mist border border-line p-6 md:p-9 self-start">
+      <h2 class="m-0 font-serif font-medium text-[26px] text-pine">Send us a message</h2>
+      <p class="mt-2 mb-6 text-[15px] text-muted-body">All fields are required.</p>
+      <form id="contact-form" class="flex flex-col gap-3" novalidate>
+        <div class="flex flex-col gap-1.5">
+          <label for="name" class={label}>Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Neha" required aria-describedby="name-error" class={input} />
+          <p id="name-error" class={fieldError}></p>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="email" class={label}>Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="e.g. neha@gmail.com" required aria-describedby="email-error" class={input} />
+          <p id="email-error" class={fieldError}></p>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="subject" class={label}>Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="e.g. Finance" required aria-describedby="subject-error" class={input} />
+          <p id="subject-error" class={fieldError}></p>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label for="comments" class={label}>Comments</label>
+          <textarea id="comments" name="comments" rows="6" placeholder="e.g. Hi, I want to get information…" required aria-describedby="comments-error" class="w-full border border-line rounded p-3 text-[15px] text-ink font-sans bg-white aria-[invalid=true]:border-signal-red"></textarea>
+          <p id="comments-error" class={fieldError}></p>
+        </div>
+        <button id="submit-btn" type="submit" class="bg-accent hover:bg-accent-dark text-white border-0 px-[22px] py-[13px] rounded font-semibold text-[15px] font-sans cursor-pointer disabled:opacity-60">Submit</button>
+        <div role="status" aria-live="polite" class="min-h-[1.5em]">
+          <p id="success-message" class="m-0 text-[15px] text-accent font-semibold"></p>
+          <p id="error-submit" class="m-0 text-[15px] text-signal-red"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Offices -->
+  <section class="bg-mist border-t border-line">
+    <div class="max-w-site mx-auto px-6 py-16 md:py-24">
+      <SectionHeading eyebrow="Locations" title="Our offices" />
+      <div class="grid gap-px grid-lines border border-line [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))] md:[grid-template-columns:minmax(260px,1fr)_2fr]">
+        <div role="tablist" aria-label="Office locations" class="bg-white flex flex-col">
+          {offices.map((o, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`${o.id}-tab`}
+              data-tab={o.id}
+              aria-controls={`${o.id}-map`}
+              aria-selected={i === 0 ? "true" : "false"}
+              tabindex={i === 0 ? 0 : -1}
+              class="text-left bg-white hover:bg-mist aria-selected:bg-mist border-0 border-b border-line border-l-4 border-l-transparent aria-selected:border-l-accent p-6 font-sans cursor-pointer flex flex-col gap-1.5"
             >
-              Locations
-            </div>
-            <div class="mt-6 md:space-y-2 flex flex-row md:flex-col">
-              <button
-                class="md:w-full bg-[#E3432D] min-w-max text-white text-left py-4 px-6 rounded-md active-tab"
-                data-tab="lahore"
-                onclick="switchTab('lahore')"
-              >
-                Lahore Office
-              </button>
-              <button
-                class="md:w-full text-black min-w-max text-left py-4 px-6 rounded-md"
-                data-tab="karachi"
-                onclick="switchTab('karachi')"
-              >
-                Karachi Office
-              </button>
-            </div>
-          </div>
-          <div class="w-full md:w-[70%]">
-            <div id="lahore-map" class="map-content active-map w-full h-full">
+              <span class="font-serif text-[20px] text-pine">{o.name}</span>
+              <span class="text-sm text-muted-body">{o.address}</span>
+            </button>
+          ))}
+        </div>
+        <div class="bg-white">
+          {offices.map((o, i) => (
+            <div id={`${o.id}-map`} role="tabpanel" aria-labelledby={`${o.id}-tab`} class="map-content h-[320px] md:h-[400px]" hidden={i !== 0}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2803.931832327946!2d74.42374977463443!3d31.4986965482142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190f4702f9cafb%3A0x8f1d31d128a3ab40!2sGhazi%20Interchange%20Park!5e1!3m2!1sen!2s!4v1751026646944!5m2!1sen!2s"
-                class="w-full h-full object-contain"
-                style="border: 0"
+                src={o.map}
+                title={`Map of the IEL ${o.name}`}
+                class="w-full h-full block border-0"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
-            <div id="karachi-map" class="map-content hidden w-full h-full">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2984.0653418464963!2d66.9982154!3d24.8475401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb315af10b7321f%3A0xa85bfcf37fa6cd63!2sPakistan%20Stock%20Exchange!5e1!3m2!1sen!2s!4v1751034210545!5m2!1sen!2s"
-                class="w-full h-full object-contain"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
-    <!-------------------------Footer---------------------->
-    <Footer extra="mt-[80px]" />
-<script is:inline>
+  </section>
+
+  <script is:inline slot="scripts">
+    (function () {
+      const form = document.getElementById("contact-form");
       const formInputs = {
         name: document.getElementById("name"),
         email: document.getElementById("email"),
@@ -481,55 +166,38 @@ From your first stock pick to your next big acquisition—we're in it with you. 
       const successMessage = document.getElementById("success-message");
       const errorSubmit = document.getElementById("error-submit");
 
+      function setError(key, message) {
+        const input = formInputs[key];
+        const errorEl = document.getElementById(key + "-error");
+        if (message) {
+          input.setAttribute("aria-invalid", "true");
+          errorEl.textContent = message;
+        } else {
+          input.removeAttribute("aria-invalid");
+          errorEl.textContent = "";
+        }
+      }
+
+      // Same rules as before: all four fields required, email must match \S+@\S+\.\S+
       function validateForm() {
         const errors = {};
-        if (!formInputs.name.value.trim()) {
-          errors.name = "Name is required";
-          formInputs.name.classList.add("error");
-          document.getElementById("name-error").textContent = errors.name;
-        } else {
-          formInputs.name.classList.remove("error");
-          document.getElementById("name-error").textContent = "";
-        }
-
-        if (!formInputs.email.value.trim()) {
-          errors.email = "Email is required";
-          formInputs.email.classList.add("error");
-          document.getElementById("email-error").textContent = errors.email;
-        } else if (!/\S+@\S+\.\S+/.test(formInputs.email.value)) {
-          errors.email = "Valid email is required";
-          formInputs.email.classList.add("error");
-          document.getElementById("email-error").textContent = errors.email;
-        } else {
-          formInputs.email.classList.remove("error");
-          document.getElementById("email-error").textContent = "";
-        }
-
-        if (!formInputs.subject.value.trim()) {
-          errors.subject = "Subject is required";
-          formInputs.subject.classList.add("error");
-          document.getElementById("subject-error").textContent = errors.subject;
-        } else {
-          formInputs.subject.classList.remove("error");
-          document.getElementById("subject-error").textContent = "";
-        }
-
-        if (!formInputs.comments.value.trim()) {
-          errors.comments = "Comments are required";
-          formInputs.comments.classList.add("error");
-          document.getElementById("comments-error").textContent =
-            errors.comments;
-        } else {
-          formInputs.comments.classList.remove("error");
-          document.getElementById("comments-error").textContent = "";
-        }
-
+        if (!formInputs.name.value.trim()) errors.name = "Name is required";
+        if (!formInputs.email.value.trim()) errors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(formInputs.email.value)) errors.email = "Valid email is required";
+        if (!formInputs.subject.value.trim()) errors.subject = "Subject is required";
+        if (!formInputs.comments.value.trim()) errors.comments = "Comments are required";
+        Object.keys(formInputs).forEach((key) => setError(key, errors[key]));
         return errors;
       }
 
-      submitBtn.addEventListener("click", async () => {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
         const errors = validateForm();
-        if (Object.keys(errors).length > 0) return;
+        const firstInvalid = Object.keys(errors)[0];
+        if (firstInvalid) {
+          formInputs[firstInvalid].focus();
+          return;
+        }
 
         const formData = {
           name: formInputs.name.value,
@@ -538,75 +206,56 @@ From your first stock pick to your next big acquisition—we're in it with you. 
           comments: formInputs.comments.value,
         };
 
+        submitBtn.disabled = true;
+        successMessage.textContent = "";
+        errorSubmit.textContent = "Sending…";
         try {
-          const response = await fetch(
-            "https://ielapis.u2ventures.io/api/contact/contactus/",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            }
-          );
+          const response = await fetch("https://ielapis.u2ventures.io/api/contact/contactus/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+          if (!response.ok) throw new Error("Failed to submit form");
 
-          if (!response.ok) {
-            throw new Error("Failed to submit form");
-          }
-
-          successMessage.textContent = "Form submitted successfully!";
           errorSubmit.textContent = "";
-          formInputs.name.value = "";
-          formInputs.email.value = "";
-          formInputs.subject.value = "";
-          formInputs.comments.value = "";
+          successMessage.textContent = "Thank you. Your message has been sent.";
+          form.reset();
           setTimeout(() => (successMessage.textContent = ""), 20000);
         } catch (error) {
-          errorSubmit.textContent = "Failed to submit form. Please try again.";
           successMessage.textContent = "";
+          errorSubmit.textContent = "Failed to submit form. Please try again, or email support@iel.net.pk.";
           console.error("Error submitting form:", error);
-          setTimeout(() => (errorSubmit.textContent = ""), 3000);
+        } finally {
+          submitBtn.disabled = false;
         }
       });
 
-      // Clear error messages when user starts typing
-      Object.values(formInputs).forEach((input) => {
-        input.addEventListener("input", () => {
-          input.classList.remove("error");
-          document.getElementById(`${input.id}-error`).textContent = "";
+      // Clear a field's error when the user edits it
+      Object.keys(formInputs).forEach((key) => {
+        formInputs[key].addEventListener("input", () => setError(key, ""));
+      });
+
+      // Office map tabs
+      const tabs = Array.from(document.querySelectorAll('[role="tab"][data-tab]'));
+      function switchTab(tab) {
+        tabs.forEach((btn) => {
+          const selected = btn.dataset.tab === tab;
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+          btn.tabIndex = selected ? 0 : -1;
+          document.getElementById(btn.dataset.tab + "-map").hidden = !selected;
+        });
+      }
+      tabs.forEach((btn, i) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+        btn.addEventListener("keydown", (e) => {
+          if (e.key !== "ArrowDown" && e.key !== "ArrowUp" && e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+          e.preventDefault();
+          const step = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1;
+          const next = tabs[(i + step + tabs.length) % tabs.length];
+          switchTab(next.dataset.tab);
+          next.focus();
         });
       });
-      function switchTab(tab) {
-        // Remove active class from all buttons
-        document.querySelectorAll("button[data-tab]").forEach((btn) => {
-          btn.classList.remove("bg-[#E3432D]", "text-white");
-          btn.classList.add("text-black");
-        });
-
-        // Add active class to selected button
-        document
-          .querySelector(`button[data-tab="${tab}"]`)
-          .classList.add("bg-[#E3432D]", "text-white");
-        document
-          .querySelector(`button[data-tab="${tab}"]`)
-          .classList.remove("text-black");
-
-        // Hide all maps
-        document.querySelectorAll(".map-content").forEach((map) => {
-          map.classList.add("hidden");
-          map.classList.remove("active-map");
-        });
-
-        // Show selected map
-        document.getElementById(`${tab}-map`).classList.remove("hidden");
-        document.getElementById(`${tab}-map`).classList.add("active-map");
-      }
-    </script>
-
-    <script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
-
-    <script is:inline src="index.js"></script>
-  
-</Layout>
+    })();
+  </script>
+</RevampPage>

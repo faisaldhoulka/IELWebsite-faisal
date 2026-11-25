@@ -4,7 +4,7 @@
 # so install + build happen in C:/dev/iel-build and the output is copied to ./dist.
 # Usage: scripts/local-build.sh [build|preview]
 set -euo pipefail
-MIRROR="C:/dev/iel-build"
+MIRROR="${IEL_BUILD_DIR:-C:/dev/iel-build}"  # override with IEL_BUILD_DIR to build in another folder
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 mkdir -p "$MIRROR"
 cp "$SRC/package.json" "$SRC/package-lock.json" "$SRC/astro.config.mjs" "$MIRROR/"

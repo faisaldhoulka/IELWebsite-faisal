@@ -1,0 +1,70 @@
+---
+// Shared <head> pieces for pages on the revamp design (advisory-led look).
+// Use inside <Fragment slot="head"> on any page that uses SiteHeader/SiteFooter.
+// Loads IBM Plex fonts, the Tailwind CDN and the design's colour/font tokens,
+// so markup can use classes like `text-pine`, `bg-mist`, `font-serif`.
+---
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="shortcut icon" href="IEL Assets/partners/favicon.png" type="image/x-icon" />
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: "#10201D", // body text
+          pine: { DEFAULT: "#314C47", line: "#4F6B65" }, // dark bands, headings
+          accent: { DEFAULT: "#0F4C45", dark: "#0A332E" }, // CTAs, contact band
+          wine: "#693238", // eyebrows, roles
+          signal: { green: "#52B982", red: "#E3432D" },
+          mist: "#F4F6F5", // light bands
+          line: { DEFAULT: "#E3E8E6", strong: "#D3DBD8", soft: "#C9D2CF", dash: "#B9C4C1" },
+          muted: { DEFAULT: "#4A5A56", body: "#3F4F4B" },
+          ondark: { DEFAULT: "#C3D1CD", util: "#D6E2DF", soft: "#E2EEEB" },
+          placeholder: "#DDE4E1",
+        },
+        fontFamily: {
+          sans: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
+          serif: ['"IBM Plex Serif"', "Georgia", "serif"],
+        },
+        maxWidth: { site: "1200px" },
+      },
+    },
+  };
+</script>
+<style is:inline>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+
+  /* Card grids with 1px dividing lines (use with gap-px + border). Lines are drawn by each
+     card, so a row with fewer cards leaves blank space instead of a grey filler block. */
+  .grid-lines { background: #FFFFFF; }
+  .grid-lines > * { box-shadow: 0 0 0 1px #E3E8E6; }
+  .grid-lines-dark { background: #314C47; }
+  .grid-lines-dark > * { box-shadow: 0 0 0 1px #4F6B65; }
+
+  /* Long-form text (policies, disclosures, articles): wrap content in class="iel-prose". */
+  .iel-prose { color: #3F4F4B; font-size: 16px; line-height: 1.7; max-width: 760px; }
+  .iel-prose > * + * { margin-top: 1em; }
+  .iel-prose h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-size: 28px; line-height: 1.2; color: #314C47; margin-top: 2em; }
+  .iel-prose h3 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-size: 21px; line-height: 1.3; color: #10201D; margin-top: 1.6em; }
+  .iel-prose h4 { font-weight: 600; font-size: 16px; color: #10201D; margin-top: 1.4em; }
+  .iel-prose h2:first-child, .iel-prose h3:first-child { margin-top: 0; }
+  .iel-prose ul, .iel-prose ol { padding-left: 1.4em; }
+  .iel-prose ul { list-style: disc; }
+  .iel-prose ol { list-style: decimal; }
+  .iel-prose li + li { margin-top: 0.4em; }
+  .iel-prose li::marker { color: #693238; }
+  .iel-prose a { color: #0F4C45; text-decoration: underline; }
+  .iel-prose a:hover { color: #0A332E; }
+  .iel-prose strong { color: #10201D; font-weight: 600; }
+  .iel-prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .iel-prose th, .iel-prose td { border: 1px solid #E3E8E6; padding: 10px 12px; text-align: left; vertical-align: top; }
+  .iel-prose th { background: #F4F6F5; color: #10201D; font-weight: 600; }
+  .iel-prose .table-wrap { overflow-x: auto; }
+</style>

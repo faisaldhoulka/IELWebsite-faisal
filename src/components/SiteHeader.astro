@@ -1,0 +1,35 @@
+---
+// Revamp header: utility bar (brokerage links) + main navigation.
+// Used by pages on the new design; older pages still use Nav.astro.
+// Links are root-relative files (index.html#...) so they work from any page.
+
+// TODO: no client login URL exists on the current site; set it before launch.
+const CLIENT_LOGIN_URL = "#";
+---
+<div class="bg-pine text-ondark-util text-[13px]">
+  <div class="max-w-site mx-auto px-6 py-2.5 flex flex-wrap justify-between items-center gap-3">
+    <span>PSX TREC holder · VIS entity rating A- / A-2</span>
+    <div class="flex flex-wrap gap-5">
+      <a href="BrokerageService.html" class="text-ondark-util no-underline hover:text-white">Brokerage</a>
+      <a href="OpenAccount.html" class="text-ondark-util no-underline hover:text-white">Open an account</a>
+      <a href={CLIENT_LOGIN_URL} class="text-white no-underline font-semibold">Client login</a>
+    </div>
+  </div>
+</div>
+
+<header class="border-b border-line bg-white">
+  <nav aria-label="Main" class="max-w-site mx-auto px-6 py-[18px] flex flex-wrap items-center justify-between gap-4">
+    <a href="index.html" class="no-underline flex items-center gap-3 text-ink">
+      <img src="Assets/IELTezi-logo-trimmed.webp" alt="IEL" class="h-11 w-auto block" />
+      <span class="text-sm text-muted border-l border-line-soft pl-3">Integrated Equities Limited</span>
+    </a>
+    <div class="flex flex-wrap gap-7 items-center text-[15px] font-medium">
+      <a href="index.html#advisory" class="text-ink no-underline hover:text-accent">Advisory</a>
+      <a href="index.html#transactions" class="text-ink no-underline hover:text-accent">Transactions</a>
+      <a href="index.html#team" class="text-ink no-underline hover:text-accent">Team</a>
+      <a href="Research.html" class="text-ink no-underline hover:text-accent">Insights</a>
+      <a href="About.html" class="text-ink no-underline hover:text-accent">About</a>
+      <a href="index.html#contact" class="bg-accent hover:bg-accent-dark text-white no-underline px-5 py-3 rounded font-semibold">Discuss a mandate</a>
+    </div>
+  </nav>
+</header>

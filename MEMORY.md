@@ -7,7 +7,8 @@ Living project memory. Updated as work progresses, together with [README.md](REA
 - **Stack (`main`, v1.0.0):** static HTML + vanilla JS + `style.css`, data from Supabase.
 - **Stack (`IELAstro`):** Astro 7 static site (21 pages), Tailwind via CDN script (unchanged), same vanilla JS in `public/`.
 - **Hosting:** Vercel, deployed from GitHub. Security headers live in `vercel.json`.
-- **Repo:** https://github.com/tanveer-iel/IELWebsite
+- **Repo (original, do not update):** https://github.com/tanveer-iel/IELWebsite
+- **Working repo (revamp):** https://github.com/faisaldhoulka/IELWebsite-faisal — the only repo this checkout pushes to; a local `.git/hooks/pre-push` guard blocks any other target.
 - **Owner / maintainer:** Tanveer (tanveer@iel.net.pk)
 - **Origin:** copied from UsamaAshraf1/IEL; base build handed over by Anwar Farid sb on 2026-10-06.
 
@@ -43,6 +44,8 @@ Living project memory. Updated as work progresses, together with [README.md](REA
 - 2026-10-07: Keep this file and README.md updated at each meaningful step.
 
 ## Log
+- 2026-11-25: **All 20 inner pages revamped** to the homepage design. Shared pieces: `layouts/RevampPage.astro` (head meta incl. `ogTitle`/`ogDescription`, header, contact band, footer; slots `head`/`scripts`), `PageHero`, `SectionHeading`, `ContactBand`, `.iel-prose` (long text) and `.grid-lines` (1px card grids) in `RevampHead`. Footer now links every page. Old `Nav.astro`/`Footer.astro`, `public/index.js` and `public/supabase.js` are no longer used by any page. Supabase scripts restyled (markup only, queries unchanged); cache tags bumped. Financial statements' 83 hard-coded rows moved from NewReport markup into `STATIC_STATEMENTS` in its JS. `scripts/local-build.sh` accepts `IEL_BUILD_DIR`. Checked: all links/anchors resolve, all 21 pages fine at 375px, live data loads.
+- 2026-11-25: **Revamp started** on branch `revamp-homepage`: homepage rebuilt from the "IEL Advisory Website Revamp" design (advisory-led; IBM Plex Sans/Serif; pine/accent/wine palette). New components `RevampHead.astro` (fonts, Tailwind CDN + colour tokens), `SiteHeader.astro` (utility bar + nav), `SiteFooter.astro`. Other 20 pages still use the old `Nav`/`Footer` until redesigned. Bracketed text ([Client name], [XX], [Portrait], [Logo]) marks content still to supply; Client login URL is a TODO in `SiteHeader.astro`. Contact form posts to the existing `ielapis.u2ventures.io` contact endpoint (added an Email field the design lacked). Rule: the Supabase DB is read-only for the revamp.
 - 2026-10-10: Header: larger Tezi logo (xl:h-[96px]), desktop menu no-wrap (text-sm, nowrap, dropdowns w-max). Checked in headless Chrome at 1280px. Growing the white bar to fit a 208px logo was tried and reverted (looked wrong).
 - 2026-10-10: **Header/footer now single-source.** `index.astro` uses shared `Nav`/`Footer` (was inline copies). Content standardised on `index.html` from `main` (user rule: home header/footer is the standard). Layout differences are props: `Nav navClass`, `Footer extra` + `padTop`. 21 pages build; home keeps its own spacing. Side effect: shared nav alts are now the home ones (e.g. "Change Agency Logo" — template leftover, worth renaming).
 - 2026-10-10: Reviewed codebase; added `Guides/DEVELOPERS_GUIDE.md` and `.vercelignore` (excludes Guides/, docs, scripts from Vercel uploads). Noted: relative asset paths require all pages at site root; `index.astro` keeps its own nav/footer.

@@ -3,3 +3,5 @@ dist/
 .astro/
 _legacy/
 Guides/
+# Supabase schema snapshots and security notes (sensitive; do not commit)
+supabase/
