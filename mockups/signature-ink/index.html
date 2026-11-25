@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IEL Signature — Mockup</title>
+<meta name="robots" content="noindex" />
+<script>document.documentElement.classList.add("js");</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ------------------------------------------------------------------
+   IEL — "Signature ink" mockup (standalone, not part of the Astro build)
+   Direction: private-bank restraint. Deep ink green and stone paper, a light
+   Garamond for display, small-caps labels, hairline rules, roman-numeral
+   sections, classic printed tombstones. The logo's colours appear only as
+   fine accents: light green hairlines on dark, maroon numerals on paper.
+   ------------------------------------------------------------------ */
+:root {
+  --ink: #0D1813;          /* logo ink: dark surfaces */
+  --ink-2: #13221B;
+  --ink-3: #1A2D24;
+  --pine: #265140;         /* logo dark green */
+  --sage: #59B986;         /* logo light green: hairline accent on dark */
+  --maroon: #732E30;       /* logo maroon: numerals on paper */
+  --coral: #DF4531;        /* logo coral: a single dot */
+  --stone: #F4F1EA;        /* paper */
+  --stone-2: #ECE7DC;
+  --white: #FFFFFF;
+  --text: #16211C;
+  --muted: #5C655F;
+  --rule: #D8D2C4;
+  --on-ink: #E6EBE8;
+  --on-ink-muted: #9FB0A8;
+  --rule-ink: rgba(230,235,232,.14);
+  --serif: "Cormorant Garamond", "Garamond", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --max: 1200px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--stone); color: var(--text); font-family: var(--sans); font-size: 15.5px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+@media (max-width: 640px) { .wrap { padding: 0 20px; } }
+[id] { scroll-margin-top: 90px; }
+
+.sc { font-size: 11.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; }
+.serif { font-family: var(--serif); }
+.rule { height: 1px; background: var(--rule); border: 0; margin: 0; }
+.ink { background: var(--ink); color: var(--on-ink); }
+.ink .muted { color: var(--on-ink-muted); }
+.muted { color: var(--muted); }
+.hair { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; font-size: 13.5px; font-weight: 500; letter-spacing: .04em; padding-bottom: 6px; border-bottom: 1px solid currentColor; transition: gap .3s; }
+.hair:hover { gap: 22px; }
+.btn { display: inline-flex; align-items: center; gap: 14px; padding: 16px 28px; font: 500 13px var(--sans); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border: 1px solid currentColor; transition: background .3s, color .3s; }
+.ink .btn:hover { background: var(--on-ink); color: var(--ink); }
+.btn.solid { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.btn.solid:hover { background: var(--pine); border-color: var(--pine); }
+
+.mock-note { background: #08100C; color: var(--on-ink-muted); font-size: 12.5px; text-align: center; padding: 7px 12px; letter-spacing: .02em; }
+.mock-note a { color: var(--on-ink); }
+
+/* ---------------- Header ---------------- */
+.hdr { position: fixed; left: 0; right: 0; top: 33px; z-index: 50; transition: background .4s, top .3s, border-color .4s; border-bottom: 1px solid transparent; color: var(--on-ink); }
+.hdr .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 88px; gap: 24px; }
+.hdr nav { display: flex; gap: 30px; }
+.hdr nav a { text-decoration: none; font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; opacity: .85; transition: opacity .2s; }
+.hdr nav a:hover { opacity: 1; }
+.logo { justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; }
+.logo img { height: 40px; width: auto; }
+.logo .dark { display: none; }
+.hdr .right { justify-self: end; display: flex; align-items: center; gap: 28px; }
+.hdr .right a { text-decoration: none; font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; }
+.hdr .right .meet { border: 1px solid currentColor; padding: 11px 18px; }
+.menu-btn { display: none; background: none; border: 0; color: inherit; font: 500 11.5px var(--sans); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; justify-self: end; }
+.hdr.solid { top: 0; background: rgba(244,241,234,.96); backdrop-filter: blur(10px); border-bottom-color: var(--rule); color: var(--text); }
+.hdr.solid .logo .light { display: none; }
+.hdr.solid .logo .dark { display: block; }
+@media (max-width: 1040px) {
+  .hdr .wrap { grid-template-columns: auto 1fr; }
+  .hdr nav, .hdr .right { display: none; }
+  .logo { justify-self: start; }
+  .menu-btn { display: block; }
+}
+.mnav { display: none; position: fixed; inset: 0; background: var(--ink); color: var(--on-ink); z-index: 80; padding: 28px 24px; flex-direction: column; overflow-y: auto; }
+.mnav.open { display: flex; }
+.mnav button { align-self: flex-end; background: none; border: 0; color: inherit; font: 500 11.5px var(--sans); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; margin-bottom: 28px; }
+.mnav a { text-decoration: none; font-family: var(--serif); font-size: 36px; font-weight: 300; padding: 8px 0; border-bottom: 1px solid var(--rule-ink); display: flex; gap: 16px; align-items: baseline; }
+.mnav a i { font-style: normal; font-family: var(--sans); font-size: 11px; letter-spacing: .2em; color: var(--sage); width: 28px; }
+.mnav small { margin-top: 32px; color: var(--on-ink-muted); }
+.mnav a.sub { font-family: var(--sans); font-size: 15px; border: 0; padding: 6px 0; color: var(--on-ink-muted); }
+
+/* ---------------- Hero ---------------- */
+.hero { position: relative; min-height: clamp(640px, 100vh, 960px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.hero-lines { position: absolute; inset: 0; pointer-events: none; }
+.hero-lines svg { width: 100%; height: 100%; }
+.hero-lines path { fill: none; stroke: var(--sage); stroke-width: .6; opacity: .22; stroke-dasharray: 2400; stroke-dashoffset: 2400; animation: draw 4.5s ease forwards; }
+.hero-lines path:nth-child(2) { animation-delay: .3s; opacity: .14; }
+.hero-lines path:nth-child(3) { animation-delay: .6s; opacity: .1; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.hero-in { position: relative; text-align: center; padding: 180px 0 120px; }
+.hero .sc { color: var(--sage); }
+.hero h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(48px, 7.6vw, 116px); line-height: 1; letter-spacing: -.01em; margin: 36px auto 0; max-width: 14ch; }
+.hero h1 em { font-style: italic; color: #CFE3D8; }
+.hero .lead { max-width: 560px; margin: 40px auto 0; font-size: 17px; color: var(--on-ink-muted); }
+.hero .ctas { margin-top: 52px; display: flex; gap: 36px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.hero .scroll { position: absolute; left: 50%; bottom: 92px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--on-ink-muted); }
+.hero .scroll i { width: 1px; height: 48px; background: linear-gradient(var(--sage), transparent); }
+.creds { position: relative; border-top: 1px solid var(--rule-ink); }
+.creds .wrap { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; }
+.creds span { padding: 22px 28px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-ink-muted); border-left: 1px solid var(--rule-ink); }
+.creds span:first-child { border-left: 0; }
+.creds b { color: var(--on-ink); font-weight: 500; }
+@media (max-width: 760px) { .creds span { border-left: 0; padding: 10px 14px; } .creds .wrap { padding-top: 12px; padding-bottom: 12px; } .hero .scroll { display: none; } }
+
+/* ---------------- Section frame ---------------- */
+.sec { padding: 140px 0; }
+@media (max-width: 800px) { .sec { padding: 88px 0; } }
+.frame { display: grid; grid-template-columns: 220px 1fr; gap: 56px; }
+.label { position: sticky; top: 120px; align-self: start; display: flex; flex-direction: column; gap: 10px; }
+.label .num { font-family: var(--serif); font-size: 30px; font-weight: 400; color: var(--maroon); line-height: 1; }
+.ink .label .num { color: var(--sage); }
+.label .sc { color: var(--muted); }
+.ink .label .sc { color: var(--on-ink-muted); }
+.h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(38px, 4.6vw, 64px); line-height: 1.05; letter-spacing: -.01em; margin: 0; }
+.h2 em { font-style: italic; }
+@media (max-width: 900px) { .frame { grid-template-columns: 1fr; gap: 28px; } .label { position: static; flex-direction: row; align-items: baseline; gap: 14px; } }
+
+/* ---------------- I. The firm ---------------- */
+.firm p.big { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3.2vw, 42px); line-height: 1.28; margin: 0; }
+.firm p.big span { color: var(--muted); }
+.figs { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 80px; border-top: 1px solid var(--text); }
+.figs div { padding: 26px 24px 0 0; }
+.figs dd { margin: 0; font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; white-space: nowrap; }
+.figs dt { margin-top: 12px; font-size: 13px; color: var(--muted); }
+.figs dl { display: contents; }
+@media (max-width: 700px) { .figs { grid-template-columns: 1fr; } .figs div { padding: 22px 0; border-bottom: 1px solid var(--rule); } }
+
+/* ---------------- II. Practice (accordion) ---------------- */
+.practice { background: var(--white); }
+.acc { border-top: 1px solid var(--text); margin-top: 56px; }
+.acc details { border-bottom: 1px solid var(--rule); }
+.acc summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 56px 1fr auto; align-items: baseline; gap: 20px; padding: 30px 0; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary .n { font-size: 12px; letter-spacing: .16em; color: var(--maroon); }
+.acc summary h3 { margin: 0; font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3vw, 40px); line-height: 1.1; transition: transform .35s; }
+.acc summary:hover h3 { transform: translateX(10px); }
+.acc summary .pm { width: 22px; height: 22px; position: relative; }
+.acc summary .pm::before, .acc summary .pm::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--text); transition: transform .35s; }
+.acc summary .pm::after { transform: rotate(90deg); }
+.acc details[open] summary .pm::after { transform: rotate(0); }
+.acc .body { display: grid; grid-template-columns: 56px 1.2fr 1fr; gap: 20px; padding: 0 0 36px; }
+.acc .body p { grid-column: 2; margin: 0; color: var(--muted); font-size: 16px; max-width: 46ch; }
+.acc .body ul { grid-column: 3; list-style: none; margin: 0; padding: 0; font-size: 14.5px; }
+.acc .body li { padding: 9px 0; border-top: 1px solid var(--rule); }
+.acc .body li:first-child { border-top: 0; padding-top: 0; }
+@media (max-width: 760px) { .acc summary { grid-template-columns: 34px 1fr auto; } .acc .body { grid-template-columns: 1fr; padding-left: 54px; } .acc .body p, .acc .body ul { grid-column: 1; } }
+
+/* ---------------- III. Record (classic tombstones) ---------------- */
+.record .intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+.record .note { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--muted); }
+.tombs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
+.tomb { background: var(--white); padding: 10px; border: 1px solid var(--rule); transition: transform .35s, box-shadow .35s; }
+.tomb:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -36px rgba(13,24,19,.5); }
+.tomb .in { border: 1px solid var(--rule); padding: 34px 20px 26px; text-align: center; display: flex; flex-direction: column; align-items: center; min-height: 390px; }
+.tomb .lg { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); font-size: 22px; color: var(--muted); }
+.tomb .cl { margin-top: 22px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; }
+.tomb .ds { margin: 10px 0 0; font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.3; color: var(--muted); }
+.tomb .amt { margin-top: auto; padding-top: 26px; font-family: var(--serif); font-size: 38px; font-weight: 400; line-height: 1; }
+.tomb .rl { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); width: 100%; font-size: 12.5px; color: var(--muted); }
+.tomb .rl b { display: block; color: var(--text); font-weight: 500; font-size: 13px; }
+.tomb .yr { margin-top: 10px; font-size: 11.5px; letter-spacing: .2em; color: var(--maroon); }
+@media (max-width: 1040px) { .tombs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .tombs { grid-template-columns: 1fr; } .tomb .in { min-height: 0; } }
+
+/* ---------------- IV. Sectors (dark) ---------------- */
+.sectors .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; margin-top: 56px; border-top: 1px solid var(--rule-ink); }
+.sectors .cols a { display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--rule-ink); text-decoration: none; transition: padding .3s; }
+.sectors .cols a:hover { padding-left: 10px; }
+.sectors .cols a i { font-style: normal; font-size: 11px; letter-spacing: .16em; color: var(--sage); }
+.sectors .cols a b { font-family: var(--serif); font-weight: 300; font-size: 26px; line-height: 1.15; }
+.sectors .cols a span { font-size: 13px; color: var(--on-ink-muted); text-align: right; }
+.xb { margin-top: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-top: 56px; border-top: 1px solid var(--rule-ink); }
+.xb p.big { font-family: var(--serif); font-weight: 300; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.3; margin: 0; }
+.xb ul { list-style: none; margin: 0; padding: 0; }
+.xb li { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--rule-ink); font-size: 14.5px; }
+.xb li b { font-weight: 500; }
+.xb li span { color: var(--on-ink-muted); }
+@media (max-width: 860px) { .sectors .cols { grid-template-columns: 1fr; } .sectors .cols a span { display: none; } .xb { grid-template-columns: 1fr; } .xb li { grid-template-columns: 1fr; gap: 4px; } }
+
+/* ---------------- V. Leadership ---------------- */
+.quote { display: grid; grid-template-columns: 1fr; margin: 0 0 96px; }
+.quote p { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.22; margin: 0; max-width: 24ch; }
+.quote cite { display: block; margin-top: 28px; font-style: normal; }
+.quote cite { display: flex; align-items: center; gap: 16px; }
+.quote cite img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; filter: grayscale(1); }
+.quote cite > span { display: flex; flex-direction: column; line-height: 1.4; }
+.quote cite b { font-weight: 500; }
+.leaders { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.leader .ph { aspect-ratio: 3 / 4; background: var(--stone-2); position: relative; overflow: hidden; }
+.leader .ph img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.05); transition: filter .6s, transform .8s; }
+.leader:hover .ph img { filter: grayscale(0); transform: scale(1.03); }
+.leader .ph::after { content: ""; position: absolute; inset: 0; background: var(--ink); opacity: 0; transition: opacity .4s; }
+.leader:hover .ph::after { opacity: .08; }
+.leader h3 { margin: 20px 0 4px; font-family: var(--serif); font-weight: 400; font-size: 25px; line-height: 1.15; }
+.leader .sc { color: var(--maroon); font-size: 10.5px; }
+@media (max-width: 960px) { .leaders { grid-template-columns: 1fr 1fr; } }
+
+/* ---------------- VI. Perspectives ---------------- */
+.persp { background: var(--white); }
+.feat { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; margin-top: 56px; text-decoration: none; align-items: end; padding-bottom: 48px; border-bottom: 1px solid var(--text); }
+.feat .art { aspect-ratio: 4 / 3; background: var(--ink); position: relative; overflow: hidden; }
+.feat .art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.feat h3 { margin: 16px 0 16px; font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.4vw, 46px); line-height: 1.08; }
+.feat:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 8px; }
+.feat .sc { color: var(--maroon); }
+.idx { list-style: none; margin: 0; padding: 0; }
+.idx a { display: grid; grid-template-columns: 140px 200px 1fr 30px; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--rule); text-decoration: none; transition: padding .3s, background .3s; }
+.idx a:hover { padding-left: 12px; padding-right: 12px; background: var(--stone); }
+.idx .d { font-size: 13px; color: var(--muted); }
+.idx .t { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--maroon); font-weight: 500; }
+.idx b { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.25; }
+.idx i { font-style: normal; text-align: right; }
+@media (max-width: 860px) { .feat { grid-template-columns: 1fr; } .idx a { grid-template-columns: 1fr auto; gap: 4px 16px; } .idx .d { grid-row: 1; } .idx .t { grid-row: 2; } .idx b { grid-column: 1; } .idx i { grid-row: 1 / 4; grid-column: 2; align-self: center; } }
+
+/* ---------------- Contact ---------------- */
+.contact { text-align: center; }
+.contact .sc { color: var(--sage); }
+.contact h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(42px, 6vw, 88px); line-height: 1.02; margin: 30px auto 0; max-width: 15ch; }
+.contact h2 em { font-style: italic; color: #CFE3D8; }
+.contact .lead { max-width: 520px; margin: 32px auto 0; color: var(--on-ink-muted); font-size: 16.5px; }
+.contact .ctas { margin-top: 48px; display: flex; gap: 32px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.offices { display: grid; grid-template-columns: 1fr 1fr; max-width: 760px; margin: 96px auto 0; border-top: 1px solid var(--rule-ink); text-align: left; }
+.offices div { padding: 28px 28px 0; }
+.offices div + div { border-left: 1px solid var(--rule-ink); }
+.offices h4 { margin: 0 0 10px; color: var(--sage); }
+.offices p { margin: 0; color: var(--on-ink-muted); font-size: 14.5px; }
+.offices a { text-decoration: none; color: var(--on-ink); }
+@media (max-width: 640px) { .offices { grid-template-columns: 1fr; } .offices div + div { border-left: 0; border-top: 1px solid var(--rule-ink); } .offices div { padding: 22px 0; } }
+
+/* ---------------- Footer ---------------- */
+.site-ft { background: #08100C; color: var(--on-ink-muted); font-size: 13.5px; }
+.ft { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; padding: 72px 0 52px; }
+.ft h5 { margin: 0 0 18px; color: var(--on-ink); }
+.ft ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.ft a { text-decoration: none; }
+.ft a:hover { color: var(--on-ink); }
+.ft img { height: 40px; margin-bottom: 18px; }
+.ft p { margin: 0; max-width: 300px; }
+.ft .broker { border: 1px solid var(--rule-ink); padding: 18px; }
+.ft .broker p { margin-bottom: 12px; font-size: 12.5px; }
+.fb { border-top: 1px solid var(--rule-ink); padding: 26px 0 36px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12px; }
+.fb p { margin: 0; max-width: 760px; }
+@media (max-width: 1000px) { .ft { grid-template-columns: 1fr 1fr; } .ft > :first-child { grid-column: 1 / -1; } }
+
+/* reveal */
+.js .rv { opacity: 0; transform: translateY(16px); transition: opacity 1s ease, transform 1s ease; }
+.js .rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .rv { opacity: 1; transform: none; transition: none; } .hero-lines path { animation: none; stroke-dashoffset: 0; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="mock-note">Design mockup — “Signature ink”. Bracketed text marks content to be supplied. Compare: <a href="../advisory-first/index.html">Advisory first</a> · <a href="../daylight-green/index.html">Daylight green</a></div>
+
+<!-- ================= Header ================= -->
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a href="#firm">The firm</a>
+      <a href="#practice">Practice</a>
+      <a href="#record">Record</a>
+      <a href="#leadership">Leadership</a>
+    </nav>
+    <a class="logo" href="#top" aria-label="Integrated Equities Limited — home">
+      <img class="light" src="assets/whiteLogoSvg.svg" alt="IEL" />
+      <img class="dark" src="assets/IELTezi-logo-trimmed.webp" alt="IEL" />
+    </a>
+    <div class="right">
+      <a href="#brokerage">Brokerage ↗</a>
+      <a class="meet" href="#contact">Request a meeting</a>
+    </div>
+    <button class="menu-btn" id="menuOpen" aria-expanded="false" aria-controls="mnav">Menu</button>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Mobile">
+  <button id="menuClose">Close ✕</button>
+  <a href="#firm"><i>I</i>The firm</a>
+  <a href="#practice"><i>II</i>Practice</a>
+  <a href="#record"><i>III</i>Record</a>
+  <a href="#sectors"><i>IV</i>Sectors</a>
+  <a href="#leadership"><i>V</i>Leadership</a>
+  <a href="#perspectives"><i>VI</i>Perspectives</a>
+  <a href="#contact"><i>—</i>Contact</a>
+  <small class="sc">Also at IEL</small>
+  <a class="sub" href="#brokerage">Brokerage &amp; Research ↗</a>
+  <a class="sub" href="#">Investor relations</a>
+  <a class="sub" href="#">Client login</a>
+</nav>
+
+<main id="top">
+
+<!-- ================= Hero ================= -->
+<section class="hero ink">
+  <div class="hero-lines" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path d="M-40 700 C 240 640, 420 720, 640 610 S 1020 420, 1220 380 S 1420 300, 1500 220" />
+      <path d="M-40 760 C 260 700, 460 780, 680 660 S 1060 470, 1260 430 S 1440 350, 1500 280" />
+      <path d="M-40 820 C 280 760, 500 840, 720 710 S 1100 520, 1300 480 S 1460 400, 1500 340" />
+    </svg>
+  </div>
+  <div class="wrap hero-in">
+    <span class="sc rv">Integrated Equities · Independent advisory since [2007/2008]</span>
+    <h1 class="rv">Considered advice for <em>consequential</em> decisions.</h1>
+    <p class="lead rv">Capital markets, mergers and restructurings for boards, founders and investors — led by a partner from the first conversation to the final signature.</p>
+    <div class="ctas rv">
+      <a class="btn" href="#contact">Request a meeting</a>
+      <a class="hair" href="#record">View our record <span>→</span></a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"><span class="sc">Scroll</span><i></i></div>
+  <div class="creds">
+    <div class="wrap">
+      <span>VIS entity rating <b>A- / A-2</b></span>
+      <span>Broker rating <b>BFR 2</b></span>
+      <span>Licensed by <b>SECP</b></span>
+      <span>TREC holder <b>PSX</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= I. The firm ================= -->
+<section class="sec firm" id="firm">
+  <div class="wrap frame">
+    <div class="label"><span class="num">I</span><span class="sc">The firm</span></div>
+    <div>
+      <p class="big rv">Boards and founders call us when a decision will define the decade. <span>We offer independent judgement, a partner on every mandate, and a team that builds the model, drafts the documents and stays in the room until it closes.</span></p>
+      <dl class="figs rv">
+        <div><dd>[XX]+</dd><dt>Transactions advised</dt></div>
+        <div><dd>PKR [XX] bn</dd><dt>Capital raised and transacted</dt></div>
+        <div><dd>[XX]</dd><dt>Years in Pakistan’s capital markets</dt></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= II. Practice ================= -->
+<section class="sec practice" id="practice">
+  <div class="wrap frame">
+    <div class="label"><span class="num">II</span><span class="sc">Practice</span></div>
+    <div>
+      <h2 class="h2 rv">Six disciplines, <em>one</em> accountable partner.</h2>
+      <div class="acc">
+        <details open class="rv"><summary><span class="n">01</span><h3>Equity capital markets</h3><span class="pm"></span></summary>
+          <div class="body"><p>From IPO readiness to listing day: we prepare the company, price the offer and build the book.</p><ul><li>IPOs on the main board and GEM</li><li>Rights issues, offers for sale, private placements</li><li>Book building and underwriting</li></ul></div></details>
+        <details class="rv"><summary><span class="n">02</span><h3>Debt &amp; sukuk</h3><span class="pm"></span></summary>
+          <div class="body"><p>Shariah-compliant and conventional debt, structured, rated and placed.</p><ul><li>Sukuk structuring</li><li>Listed and private TFCs</li><li>Syndication and arrangement</li></ul></div></details>
+        <details class="rv"><summary><span class="n">03</span><h3>Mergers &amp; acquisitions</h3><span class="pm"></span></summary>
+          <div class="body"><p>Buy-side and sell-side counsel for founders, groups and foreign investors.</p><ul><li>Sell-side processes</li><li>Acquisitions and joint ventures</li><li>Due diligence and deal terms</li></ul></div></details>
+        <details class="rv"><summary><span class="n">04</span><h3>Valuation &amp; fairness</h3><span class="pm"></span></summary>
+          <div class="body"><p>Independent numbers a board, a regulator and a counterparty can rely on.</p><ul><li>Independent and fairness opinions</li><li>Financial models and forecasts</li><li>Feasibility studies</li></ul></div></details>
+        <details class="rv"><summary><span class="n">05</span><h3>Restructuring</h3><span class="pm"></span></summary>
+          <div class="body"><p>Balance-sheet repair and lender negotiations, handled with discretion.</p><ul><li>Financial and corporate restructuring</li><li>Creditor negotiations</li><li>Turnaround plans</li></ul></div></details>
+        <details class="rv"><summary><span class="n">06</span><h3>Strategy &amp; real estate</h3><span class="pm"></span></summary>
+          <div class="body"><p>Plans and projects shaped around what investors will fund.</p><ul><li>Market entry and expansion</li><li>Corporate structuring</li><li>Real estate project advisory</li></ul></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= III. Record ================= -->
+<section class="sec record" id="record">
+  <div class="wrap frame">
+    <div class="label"><span class="num">III</span><span class="sc">Record</span></div>
+    <div>
+      <div class="intro">
+        <h2 class="h2 rv">A record built <em>one mandate</em> at a time.</h2>
+        <span class="note rv">These transactions appear as a matter of record only.</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="tombs">
+      <article class="tomb rv"><div class="in"><span class="lg">[C]</span><span class="cl">[Client name]</span><p class="ds">Initial public offering on the Pakistan Stock Exchange</p><span class="amt">PKR [X] bn</span><span class="rl"><b>Lead advisor &amp; arranger</b>Integrated Equities Limited</span><span class="yr">[YEAR]</span></div></article>
+      <article class="tomb rv"><div class="in"><span class="lg">[C]</span><span class="cl">[Client name]</span><p class="ds">Rated, privately placed sukuk</p><span class="amt">PKR [X] bn</span><span class="rl"><b>Arranger</b>Integrated Equities Limited</span><span class="yr">[YEAR]</span></div></article>
+      <article class="tomb rv"><div class="in"><span class="lg">[C]</span><span class="cl">[Client name]</span><p class="ds">Sale of a controlling stake to [foreign strategic]</p><span class="amt">USD [X] m</span><span class="rl"><b>Exclusive financial advisor</b>Integrated Equities Limited</span><span class="yr">[YEAR]</span></div></article>
+      <article class="tomb rv"><div class="in"><span class="lg">[C]</span><span class="cl">[Client name]</span><p class="ds">Underwritten rights issue</p><span class="amt">PKR [X] bn</span><span class="rl"><b>Advisor &amp; underwriter</b>Integrated Equities Limited</span><span class="yr">[YEAR]</span></div></article>
+    </div>
+    <div style="margin-top:48px;text-align:center"><a class="hair rv" href="#">The complete record <span>→</span></a></div>
+  </div>
+</section>
+
+<!-- ================= IV. Sectors ================= -->
+<section class="sec sectors ink" id="sectors">
+  <div class="wrap frame">
+    <div class="label"><span class="num">IV</span><span class="sc">Sectors</span></div>
+    <div>
+      <h2 class="h2 rv">Depth where capital is <em>deployed</em>.</h2>
+      <div class="cols">
+        <a href="#" class="rv"><i>01</i><b>Financial services</b><span>Banks, NBFCs, insurers</span></a>
+        <a href="#" class="rv"><i>02</i><b>Energy &amp; power</b><span>IPPs, oil &amp; gas, renewables</span></a>
+        <a href="#" class="rv"><i>03</i><b>Fertilizer &amp; agriculture</b><span>Agri inputs, food</span></a>
+        <a href="#" class="rv"><i>04</i><b>Cement &amp; materials</b><span>Cement, steel, chemicals</span></a>
+        <a href="#" class="rv"><i>05</i><b>Textiles &amp; consumer</b><span>Exporters, FMCG</span></a>
+        <a href="#" class="rv"><i>06</i><b>Technology &amp; telecom</b><span>Software, fintech</span></a>
+        <a href="#" class="rv"><i>07</i><b>Healthcare &amp; pharma</b><span>Pharma, hospitals</span></a>
+        <a href="#" class="rv"><i>08</i><b>Real estate &amp; infrastructure</b><span>Developers, PPPs</span></a>
+      </div>
+      <div class="xb">
+        <p class="big rv">For international capital, we are the local counsel who knows the regulator, the market and the counterparties.</p>
+        <ul class="rv">
+          <li><b>Inbound investment</b><span>Target search, valuation, SECP and SBP approvals</span></li>
+          <li><b>Diaspora &amp; outbound</b><span>Overseas Pakistani capital and groups expanding abroad</span></li>
+          <li><b>DFIs &amp; funds</b><span>Co-investment, minority stakes and exits</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V. Leadership ================= -->
+<section class="sec" id="leadership">
+  <div class="wrap frame">
+    <div class="label"><span class="num">V</span><span class="sc">Leadership</span></div>
+    <div>
+      <blockquote class="quote rv"><p>“[A two-sentence view on independent advice: what IEL will do for a client, and what it will not.]”</p><cite><img src="assets/team/sardar-ali-wattoo.jpg" alt="" /><span><b>Sardar Ali Wattoo</b><span class="muted">Chief Executive Officer</span></span></cite></blockquote>
+      <div class="leaders">
+        <article class="leader rv"><div class="ph"><img src="assets/team/sardar-ali-wattoo.jpg" alt="Sardar Ali Wattoo" loading="lazy" /></div><h3>Sardar Ali Wattoo</h3><span class="sc">Chief Executive Officer</span></article>
+        <article class="leader rv"><div class="ph"><img src="assets/team/haroon-khalil.jpg" alt="Haroon Khalil" loading="lazy" /></div><h3>Haroon Khalil</h3><span class="sc">Head of Investment Banking</span></article>
+        <article class="leader rv"><div class="ph"><img src="assets/team/kashan-kazmi.jpg" alt="Kashan Kazmi" loading="lazy" /></div><h3>Kashan Kazmi</h3><span class="sc">Chief Operating Officer</span></article>
+        <article class="leader rv"><div class="ph"><img src="assets/team/saniya-tauseef.jpg" alt="Saniya Tauseef" loading="lazy" /></div><h3>Saniya Tauseef</h3><span class="sc">Head of Research</span></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VI. Perspectives ================= -->
+<section class="sec persp" id="perspectives">
+  <div class="wrap frame">
+    <div class="label"><span class="num">VI</span><span class="sc">Perspectives</span></div>
+    <div>
+      <h2 class="h2 rv">Perspectives on <em>markets and capital</em>.</h2>
+      <a class="feat rv" href="#">
+        <div class="art" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#0D1813"/><g stroke="#1F3529" stroke-width="1"><path d="M0 240H400M0 190H400M0 140H400M0 90H400"/></g><path d="M0 250 C 70 240, 110 255, 160 215 S 250 185, 290 150 S 360 100, 400 70" stroke="#59B986" stroke-width="1.5" fill="none"/><circle cx="290" cy="150" r="4" fill="#DF4531"/></svg></div>
+        <div><span class="sc">Outlook · [Month Year]</span><h3>Pakistan capital markets outlook: the window for new listings</h3><p class="muted">[Two-line standfirst on the IPO pipeline, rates and investor appetite.]</p><span class="hair" style="margin-top:14px">Read the outlook <span>→</span></span></div>
+      </a>
+      <ul class="idx">
+        <li class="rv"><a href="#"><span class="d">[Date]</span><span class="t">Viewpoint</span><b>[Sukuk after the rate cycle: what issuers should know]</b><i>→</i></a></li>
+        <li class="rv"><a href="#"><span class="d">[Date]</span><span class="t">Sector note</span><b>[Fertilizer sector: earnings drivers and valuation]</b><i>→</i></a></li>
+        <li class="rv"><a href="#"><span class="d">Daily</span><span class="t">Morning Insights</span><b>Pre-open note on PSX, rates and commodities</b><i>→</i></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Contact ================= -->
+<section class="sec contact ink" id="contact">
+  <div class="wrap">
+    <span class="sc rv">Contact</span>
+    <h2 class="rv">Every mandate begins with a <em>private</em> conversation.</h2>
+    <p class="lead rv">Tell us what you are considering. A partner responds within [one business day], in confidence.</p>
+    <div class="ctas rv">
+      <a class="btn" href="mailto:info@iel.net.pk">Request a meeting</a>
+      <a class="hair" href="tel:+924235741714">+92 42 3574 1714 <span>→</span></a>
+    </div>
+    <div class="offices rv">
+      <div><h4 class="sc">Lahore</h4><p>[Ghazi Interchange, Ring Road address]<br /><a href="tel:+924235741714">+92 42 3574 1714-15</a></p></div>
+      <div><h4 class="sc">Karachi</h4><p>[KSE Building address]<br /><a href="mailto:info@iel.net.pk">info@iel.net.pk</a></p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= Footer ================= -->
+<footer class="site-ft">
+  <div class="wrap">
+    <div class="ft">
+      <div><img src="assets/whiteLogoSvg.svg" alt="IEL" /><p>Integrated Equities Limited — independent financial and transaction advisory, with execution through our PSX brokerage.</p></div>
+      <div><h5 class="sc">Practice</h5><ul><li><a href="#practice">Equity capital markets</a></li><li><a href="#practice">Debt &amp; sukuk</a></li><li><a href="#practice">Mergers &amp; acquisitions</a></li><li><a href="#practice">Valuation</a></li><li><a href="#practice">Restructuring</a></li><li><a href="#practice">Strategy &amp; real estate</a></li></ul></div>
+      <div><h5 class="sc">Firm</h5><ul><li><a href="#firm">About IEL</a></li><li><a href="#leadership">Leadership</a></li><li><a href="#record">Record</a></li><li><a href="#perspectives">Perspectives</a></li><li><a href="#">News</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div><h5 class="sc">Investors</h5><ul><li><a href="#">Financial statements</a></li><li><a href="#">Regulatory disclosures</a></li><li><a href="#">Investor education</a></li><li><a href="#">Complaints</a></li><li><a href="#">Fraud awareness</a></li></ul></div>
+      <div id="brokerage"><h5 class="sc">Brokerage &amp; Research</h5><div class="broker"><p>PSX brokerage for individual, corporate and institutional investors.</p><ul><li><a href="#">Open an account →</a></li><li><a href="#">Research reports</a></li><li><a href="#">Client login</a></li></ul></div></div>
+    </div>
+    <div class="fb">
+      <p>© 2026 Integrated Equities Limited. Licensed by the SECP; TREC holder, Pakistan Stock Exchange. [Licence numbers]. Investments in securities are subject to market risk.</p>
+      <span>Privacy · Terms · Risk disclosure</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header: transparent over the dark hero, stone once scrolled.
+  const hdr = document.getElementById("hdr"), hero = document.querySelector(".hero");
+  const setH = () => hdr.classList.toggle("solid", scrollY > hero.offsetHeight - 100);
+  setH(); addEventListener("scroll", setH, { passive: true });
+  // Reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll(".rv").forEach(el => io.observe(el));
+  // Practice accordion: one open at a time
+  const ds = [...document.querySelectorAll(".acc details")];
+  ds.forEach(d => d.addEventListener("toggle", () => { if (d.open) ds.forEach(o => { if (o !== d) o.open = false; }); }));
+  // Mobile menu
+  const mnav = document.getElementById("mnav"), ob = document.getElementById("menuOpen");
+  const setM = o => { mnav.classList.toggle("open", o); ob.setAttribute("aria-expanded", o); document.body.style.overflow = o ? "hidden" : ""; };
+  ob.onclick = () => setM(true);
+  document.getElementById("menuClose").onclick = () => setM(false);
+  mnav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setM(false)));
+</script>
+</body>
+</html>

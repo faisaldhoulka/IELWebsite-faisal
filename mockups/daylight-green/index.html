@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IEL Daylight — Mockup</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+/* ------------------------------------------------------------------
+   IEL — "Daylight green" mockup (standalone, not part of the Astro build)
+   Direction: light, modern, confident. White and mint surfaces, the logo
+   greens lead, logo dark green for the one dark band, maroon for the close,
+   coral as a highlight. Patterns from peer advisory sites: deal-card grid in
+   the hero, numbers strip, practice cards with scope lists, process steps,
+   filterable tombstones, named team, credentials row, short enquiry form.
+   ------------------------------------------------------------------ */
+:root {
+  --ink: #0D1813;          /* logo ink */
+  --pine: #265140;         /* logo dark green */
+  --pine-2: #2E5E4B;
+  --green: #19A560;        /* logo green */
+  --accent: #13804A;       /* logo green deepened for text and buttons (AA on white) */
+  --green-light: #59B986;  /* logo light green */
+  --mint: #E7F4EC;
+  --mint-2: #F3F9F5;
+  --maroon: #732E30;       /* logo maroon */
+  --coral: #DF4531;        /* logo coral: highlight */
+  --white: #FFFFFF;
+  --line: #DCE7E0;
+  --muted: #4F5E57;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --max: 1240px;
+  --r: 14px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+@media (max-width: 640px) { .wrap { padding: 0 20px; } }
+[id] { scroll-margin-top: 90px; }
+.section { padding: 112px 0; }
+@media (max-width: 800px) { .section { padding: 72px 0; } }
+
+.pill { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--pine); background: #fff; border: 1px solid var(--line); padding: 6px 14px 6px 10px; border-radius: 40px; }
+.pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; }
+.label { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.on-dark .label { color: #A9DDBF; }
+.h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; letter-spacing: -.01em; margin: 12px 0 0; }
+.h2 em { color: var(--accent); }
+.on-dark .h2 em { color: #A9DDBF; }
+.lede { font-size: 18px; color: var(--muted); margin: 0; max-width: 560px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; font-weight: 700; font-size: 15px; text-decoration: none; border-radius: 40px; border: 1px solid transparent; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
+.btn:hover { transform: translateY(-1px); }
+.btn-green { background: var(--accent); color: #fff; }
+.btn-green:hover { background: var(--pine); }
+.btn-line { border-color: rgba(13,24,19,.3); color: var(--ink); background: #fff; }
+.btn-line:hover { border-color: var(--ink); }
+.btn-white { background: #fff; color: var(--maroon); }
+.head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; margin-bottom: 52px; }
+.more { font-weight: 700; font-size: 15px; color: var(--accent); text-decoration: none; }
+.more:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.mock-note { background: var(--pine); color: #D4E5DB; font-size: 13px; text-align: center; padding: 7px 12px; }
+.mock-note a { color: #fff; font-weight: 700; }
+
+/* ---------------- Header ---------------- */
+.hdr { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.hdr .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 24px; }
+.logo { display: flex; align-items: center; text-decoration: none; }
+.logo img { height: 46px; width: auto; }
+.nav { display: flex; gap: 6px; background: var(--mint-2); border: 1px solid var(--line); border-radius: 40px; padding: 5px; }
+.nav a { text-decoration: none; font-size: 14.5px; font-weight: 600; padding: 8px 16px; border-radius: 40px; color: var(--muted); transition: background .2s, color .2s; }
+.nav a:hover { background: #fff; color: var(--ink); }
+.hdr-right { display: flex; align-items: center; gap: 18px; }
+.hdr-right .sec { font-size: 14px; font-weight: 600; text-decoration: none; color: var(--muted); }
+.hdr-right .sec:hover { color: var(--ink); }
+.menu-btn { display: none; background: var(--mint); border: 0; border-radius: 40px; padding: 10px 16px; font: 700 14px var(--sans); cursor: pointer; }
+@media (max-width: 1100px) { .nav, .hdr-right .sec { display: none; } }
+@media (max-width: 760px) { .hdr-right .btn { display: none; } .menu-btn { display: block; } }
+.mnav { display: none; position: fixed; inset: 0; background: #fff; z-index: 80; padding: 24px; flex-direction: column; overflow-y: auto; }
+.mnav.open { display: flex; }
+.mnav button { align-self: flex-end; background: var(--mint); border: 0; border-radius: 40px; padding: 10px 16px; font: 700 14px var(--sans); cursor: pointer; margin-bottom: 16px; }
+.mnav a { text-decoration: none; font-family: var(--serif); font-size: 34px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.mnav a.sub { font-family: var(--sans); font-size: 16px; color: var(--muted); border: 0; padding: 6px 0; }
+.mnav small { margin-top: 26px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* ---------------- Hero ---------------- */
+.hero { background: linear-gradient(180deg, var(--mint) 0%, var(--mint-2) 70%, #fff 100%); position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; width: 760px; height: 760px; right: -260px; top: -320px; border-radius: 50%; border: 1px solid #C5E0CF; box-shadow: 0 0 0 90px rgba(255,255,255,.35), 0 0 0 91px #C5E0CF; pointer-events: none; }
+.hero .hero-main { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; padding-top: 80px; padding-bottom: 64px; align-items: center; }
+.hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(50px, 6.6vw, 96px); line-height: .98; letter-spacing: -.02em; margin: 26px 0 26px; }
+.hero h1 em { color: var(--accent); }
+.hero h1 .hl { position: relative; white-space: nowrap; }
+.hero h1 .hl::after { content: ""; position: absolute; left: 2%; right: 2%; bottom: .04em; height: .09em; background: var(--coral); border-radius: 4px; opacity: .85; }
+.hero .lede { font-size: 19px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+.hero-deals { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.hd { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 6px; min-height: 196px; box-shadow: 0 20px 40px -32px rgba(38,81,64,.5); transition: transform .25s; }
+.hd:hover { transform: translateY(-4px); }
+.hd:nth-child(2) { transform: translateY(24px); }
+.hd:nth-child(2):hover { transform: translateY(20px); }
+.hd:nth-child(4) { transform: translateY(24px); }
+.hd:nth-child(4):hover { transform: translateY(20px); }
+.hd .t { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+.hd b { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.1; margin-top: 4px; }
+.hd span { font-size: 13.5px; color: var(--muted); }
+.hd .v { margin-top: auto; font-family: var(--serif); font-size: 32px; color: var(--pine); line-height: 1; }
+.hd.dark { background: var(--pine); border-color: var(--pine); color: #fff; }
+.hd.dark .t { color: #A9DDBF; }
+.hd.dark span { color: #D4E5DB; }
+.hd.dark .v { color: #fff; }
+@media (max-width: 960px) { .hero .hero-main { grid-template-columns: 1fr; } .hd:nth-child(2), .hd:nth-child(4) { transform: none; } }
+@media (max-width: 480px) { .hero-deals { grid-template-columns: 1fr; } .hd { min-height: 0; } }
+
+.stats { position: relative; margin-top: 16px; padding-bottom: 72px; }
+.stats dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border: 1px solid var(--line); border-radius: var(--r); }
+.stats div { padding: 26px 28px; border-left: 1px solid var(--line); display: flex; flex-direction: column-reverse; }
+.stats div:first-child { border-left: 0; }
+.stats dd { margin: 0; font-family: var(--serif); font-size: clamp(32px, 3.4vw, 46px); line-height: 1.05; color: var(--pine); }
+.stats dt { font-size: 13.5px; color: var(--muted); }
+@media (max-width: 800px) { .stats dl { grid-template-columns: 1fr 1fr; } .stats div { border-left: 0; border-top: 1px solid var(--line); padding: 18px 20px; } .stats div:nth-child(-n+2) { border-top: 0; } .stats div:nth-child(even) { border-left: 1px solid var(--line); } }
+
+/* ---------------- Practices ---------------- */
+.pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pc { border: 1px solid var(--line); border-radius: var(--r); padding: 30px 28px 28px; text-decoration: none; display: flex; flex-direction: column; gap: 14px; background: #fff; transition: border-color .25s, box-shadow .25s, background .25s; position: relative; }
+.pc:hover { border-color: var(--green-light); background: var(--mint-2); box-shadow: 0 22px 44px -34px rgba(38,81,64,.6); }
+.pc .n { width: 40px; height: 40px; border-radius: 50%; background: var(--mint); color: var(--pine); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.pc h3 { margin: 6px 0 0; font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.05; }
+.pc p { margin: 0; color: var(--muted); font-size: 15px; }
+.pc ul { margin: 4px 0 0; padding: 14px 0 0; border-top: 1px dashed var(--line); list-style: none; display: grid; gap: 6px; font-size: 14px; }
+.pc li::before { content: "→ "; color: var(--accent); font-weight: 700; }
+.pc .go { margin-top: auto; padding-top: 8px; font-size: 14px; font-weight: 700; color: var(--accent); }
+@media (max-width: 960px) { .pcards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .pcards { grid-template-columns: 1fr; } }
+
+/* ---------------- How a mandate runs ---------------- */
+.process { background: var(--mint-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: s; position: relative; }
+.steps::before { content: ""; position: absolute; left: 22px; right: 22px; top: 22px; height: 2px; background: repeating-linear-gradient(90deg, var(--green-light) 0 8px, transparent 8px 14px); }
+.step { position: relative; padding-right: 28px; }
+.step::before { counter-increment: s; content: counter(s); width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; position: relative; box-shadow: 0 0 0 6px var(--mint-2); }
+.step:last-child::before { background: var(--coral); }
+.step h3 { margin: 22px 0 6px; font-family: var(--serif); font-weight: 400; font-size: 28px; }
+.step p { margin: 0; color: var(--muted); font-size: 15px; }
+.process .note { margin-top: 44px; display: flex; gap: 14px; align-items: center; font-size: 15px; color: var(--muted); }
+.process .note b { color: var(--ink); }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; gap: 36px 0; } .steps::before { display: none; } }
+@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+/* ---------------- Transactions ---------------- */
+.deals { background: var(--pine); color: #fff; }
+.deals .lede { color: #D4E5DB; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.chips button { background: transparent; border: 1px solid rgba(255,255,255,.28); color: #D4E5DB; padding: 9px 18px; border-radius: 40px; font: 600 14px var(--sans); cursor: pointer; transition: all .2s; }
+.chips button:hover { border-color: #fff; color: #fff; }
+.chips button.on { background: #fff; border-color: #fff; color: var(--pine); }
+.tgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.tomb { background: var(--pine-2); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r); padding: 26px 24px 22px; display: flex; flex-direction: column; min-height: 300px; transition: background .2s, transform .2s; }
+.tomb:hover { background: #33684F; transform: translateY(-3px); }
+.tomb .top { display: flex; justify-content: space-between; align-items: center; }
+.tomb .lg { width: 48px; height: 48px; border-radius: 10px; background: rgba(255,255,255,.1); display: grid; place-items: center; font-family: var(--serif); font-size: 20px; color: #D4E5DB; }
+.tomb .st { font-size: 12px; font-weight: 700; color: var(--ink); background: #A9DDBF; padding: 4px 10px; border-radius: 30px; }
+.tomb .ty { margin-top: 22px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: #A9DDBF; }
+.tomb h3 { margin: 6px 0 4px; font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.1; }
+.tomb p { margin: 0; font-size: 14px; color: #D4E5DB; }
+.tomb .v { margin-top: auto; padding-top: 22px; font-family: var(--serif); font-size: 34px; line-height: 1; }
+.tomb .rl { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.16); font-size: 13px; color: #D4E5DB; display: flex; justify-content: space-between; gap: 10px; }
+.tomb[hidden] { display: none; }
+.dfoot { margin-top: 32px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; color: #D4E5DB; font-size: 14.5px; }
+.dfoot .more { color: #fff; }
+@media (max-width: 1060px) { .tgrid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .tgrid { grid-template-columns: 1fr; } .tomb { min-height: 0; } }
+
+/* ---------------- Sectors + cross-border ---------------- */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.tags a { text-decoration: none; border: 1px solid var(--line); border-radius: 40px; padding: 11px 18px; font-size: 15px; font-weight: 600; background: #fff; transition: all .2s; }
+.tags a:hover { background: var(--mint); border-color: var(--green-light); }
+.tags a span { color: var(--muted); font-weight: 400; }
+.xb { background: var(--mint); border-radius: 22px; padding: 40px; }
+.xb h3 { font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.05; margin: 10px 0 14px; }
+.xb p { margin: 0 0 22px; color: var(--muted); }
+.xb ul { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 10px; }
+.xb li { background: #fff; border-radius: 10px; padding: 14px 16px; font-size: 14.5px; display: grid; grid-template-columns: 150px 1fr; gap: 12px; }
+.xb li b { color: var(--pine); }
+.xb li span { color: var(--muted); }
+@media (max-width: 960px) { .split { grid-template-columns: 1fr; gap: 48px; } .xb { padding: 28px 22px; } .xb li { grid-template-columns: 1fr; gap: 2px; } }
+
+/* ---------------- People ---------------- */
+.people { background: var(--mint-2); }
+.pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.person { background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.person .ph { aspect-ratio: 1 / 1; background: var(--mint); overflow: hidden; }
+.person .ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+.person:hover .ph img { transform: scale(1.04); }
+.person div:last-child { padding: 18px 20px 22px; }
+.person b { display: block; font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.15; }
+.person span { font-size: 14px; color: var(--accent); font-weight: 600; }
+.person p { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+@media (max-width: 1000px) { .pgrid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .pgrid { grid-template-columns: 1fr; } }
+
+/* ---------------- Insights ---------------- */
+.ilist { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
+.ifeat { background: var(--ink); color: #fff; border-radius: 22px; padding: 40px; text-decoration: none; display: flex; flex-direction: column; min-height: 380px; position: relative; overflow: hidden; }
+.ifeat svg { position: absolute; right: 0; bottom: 0; width: 70%; height: auto; opacity: .9; }
+.ifeat .label { color: #A9DDBF; }
+.ifeat h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3vw, 42px); line-height: 1.05; margin: 14px 0 12px; max-width: 16ch; position: relative; }
+.ifeat p { margin: 0; color: #C9D6CF; max-width: 34ch; position: relative; }
+.ifeat .go { margin-top: auto; padding-top: 24px; font-weight: 700; position: relative; }
+.irows { display: flex; flex-direction: column; gap: 12px; }
+.irow { border: 1px solid var(--line); border-radius: var(--r); padding: 20px 22px; text-decoration: none; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: center; transition: background .2s, border-color .2s; }
+.irow:hover { background: var(--mint-2); border-color: var(--green-light); }
+.irow .label { font-size: 11.5px; grid-column: 1; }
+.irow b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.2; grid-column: 1; }
+.irow i { grid-column: 2; grid-row: 1 / 3; font-style: normal; width: 40px; height: 40px; border-radius: 50%; background: var(--mint); display: grid; place-items: center; color: var(--accent); font-weight: 700; }
+@media (max-width: 900px) { .ilist { grid-template-columns: 1fr; } .ifeat { min-height: 320px; padding: 30px 26px; } }
+
+/* ---------------- Credentials ---------------- */
+.creds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 72px; }
+.creds div { border: 1px solid var(--line); border-radius: var(--r); padding: 20px 22px; display: flex; gap: 14px; align-items: center; }
+.creds b { font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--pine); white-space: nowrap; }
+.creds span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+@media (max-width: 900px) { .creds { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .creds { grid-template-columns: 1fr; } }
+
+/* ---------------- Contact ---------------- */
+.contact { padding: 0 0 112px; }
+.cbox { background: var(--maroon); color: #fff; border-radius: 28px; padding: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; position: relative; overflow: hidden; }
+.cbox::after { content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(255,255,255,.14); left: -160px; bottom: -220px; box-shadow: 0 0 0 60px rgba(255,255,255,.03); }
+.cbox .label { color: #F6CBC2; }
+.cbox .h2 { position: relative; z-index: 1; }
+.cbox .h2 em { color: #F6CBC2; }
+.cbox .lede { color: #EED6D3; margin-top: 18px; position: relative; z-index: 1; }
+.cbox .offices { display: flex; gap: 36px; margin-top: 36px; font-size: 14.5px; color: #EED6D3; position: relative; z-index: 1; flex-wrap: wrap; }
+.cbox .offices b { display: block; color: #fff; }
+.cbox .offices a { text-decoration: none; }
+form.enq { background: #fff; color: var(--ink); border-radius: 18px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; position: relative; z-index: 1; }
+form.enq label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+form.enq .full { grid-column: 1 / -1; }
+form.enq input, form.enq select, form.enq textarea { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font: 400 15.5px var(--sans); color: var(--ink); background: var(--mint-2); outline: none; }
+form.enq input:focus, form.enq select:focus, form.enq textarea:focus { border-color: var(--accent); background: #fff; }
+form.enq textarea { min-height: 90px; resize: vertical; }
+form.enq .row { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+form.enq small { color: var(--muted); font-size: 12.5px; }
+@media (max-width: 900px) { .cbox { grid-template-columns: 1fr; padding: 40px 24px; border-radius: 20px; } form.enq { grid-template-columns: 1fr; padding: 22px; } }
+
+/* ---------------- Footer ---------------- */
+footer { background: var(--ink); color: #B9C8C0; font-size: 14px; }
+.ft { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; padding: 72px 0 52px; }
+.ft h5 { margin: 0 0 16px; color: #fff; font-size: 13px; font-weight: 700; }
+.ft ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.ft a { text-decoration: none; }
+.ft a:hover { color: #fff; }
+.ft img { height: 46px; margin-bottom: 18px; }
+.ft p { margin: 0; max-width: 300px; }
+.ft .broker { background: rgba(255,255,255,.05); border-radius: 12px; padding: 18px; }
+.ft .broker p { font-size: 13px; margin-bottom: 12px; }
+.fb { border-top: 1px solid rgba(255,255,255,.1); padding: 26px 0 36px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12.5px; }
+.fb p { margin: 0; max-width: 760px; }
+@media (max-width: 1000px) { .ft { grid-template-columns: 1fr 1fr; } .ft > :first-child { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+
+<div class="mock-note">Design mockup — “Daylight green”. Bracketed text marks content to be supplied. Compare: <a href="../advisory-first/index.html">Advisory first</a> · <a href="../signature-ink/index.html">Signature ink</a></div>
+
+<!-- ================= Header ================= -->
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Integrated Equities Limited — home"><img src="assets/IELTezi-logo-trimmed.webp" alt="IEL" /></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#practices">Practices</a>
+      <a href="#approach">Approach</a>
+      <a href="#transactions">Transactions</a>
+      <a href="#sectors">Sectors</a>
+      <a href="#people">People</a>
+      <a href="#insights">Insights</a>
+    </nav>
+    <div class="hdr-right">
+      <a class="sec" href="#brokerage">Brokerage ↗</a>
+      <a class="btn btn-green" href="#contact">Discuss a mandate</a>
+      <button class="menu-btn" id="menuOpen" aria-expanded="false" aria-controls="mnav">Menu</button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" aria-label="Mobile">
+  <button id="menuClose">Close ✕</button>
+  <a href="#practices">Practices</a>
+  <a href="#approach">Approach</a>
+  <a href="#transactions">Transactions</a>
+  <a href="#sectors">Sectors</a>
+  <a href="#people">People</a>
+  <a href="#insights">Insights</a>
+  <a href="#contact">Contact</a>
+  <small>Also at IEL</small>
+  <a class="sub" href="#brokerage">Brokerage &amp; Research ↗</a>
+  <a class="sub" href="#">Investor relations</a>
+  <a class="sub" href="#">Client login</a>
+</nav>
+
+<main id="top">
+
+<!-- ================= Hero ================= -->
+<section class="hero">
+  <div class="wrap hero-main">
+    <div>
+      <span class="pill"><i></i>Independent advisory · Rated A- by VIS</span>
+      <h1>Advice that gets <em>deals</em> <span class="hl">done.</span></h1>
+      <p class="lede">IPOs, sukuk, mergers and restructurings for companies, sponsors and international investors — partner-led from first model to closing.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-green" href="#contact">Discuss a mandate →</a>
+        <a class="btn btn-line" href="#transactions">See our transactions</a>
+      </div>
+    </div>
+    <div class="hero-deals" aria-label="Recent transactions">
+      <article class="hd dark"><span class="t">IPO · [Year]</span><b>[Client name]</b><span>PSX main board listing</span><span class="v">PKR [X] bn</span></article>
+      <article class="hd"><span class="t">Sukuk · [Year]</span><b>[Client name]</b><span>Rated, privately placed</span><span class="v">PKR [X] bn</span></article>
+      <article class="hd"><span class="t">Sell-side M&amp;A · [Year]</span><b>[Client name]</b><span>Stake sale to [foreign strategic]</span><span class="v">USD [X] m</span></article>
+      <article class="hd"><span class="t">Rights issue · [Year]</span><b>[Client name]</b><span>Underwritten</span><span class="v">PKR [X] bn</span></article>
+    </div>
+  </div>
+  <div class="wrap stats">
+    <dl>
+      <div><dt>Advising since</dt><dd>[2007/2008]</dd></div>
+      <div><dt>Transactions advised</dt><dd>[XX]+</dd></div>
+      <div><dt>Capital raised and transacted</dt><dd>PKR [XX] bn</dd></div>
+      <div><dt>Offices</dt><dd>Lahore · Karachi</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ================= Practices ================= -->
+<section class="section" id="practices">
+  <div class="wrap">
+    <div class="head-row">
+      <div><span class="label">Practices</span><h2 class="h2">Six practices, <em>one team</em></h2></div>
+      <p class="lede">Every mandate is led by a partner and staffed across valuation, regulation and investor coverage.</p>
+    </div>
+    <div class="pcards">
+      <a class="pc" href="#contact"><span class="n">01</span><h3>Equity capital markets</h3><p>From IPO readiness to listing day.</p><ul><li>IPOs, main board and GEM</li><li>Rights issues and offers for sale</li><li>Book building and underwriting</li></ul><span class="go">Discuss an ECM mandate →</span></a>
+      <a class="pc" href="#contact"><span class="n">02</span><h3>Debt &amp; sukuk</h3><p>Structured, rated and placed.</p><ul><li>Sukuk structuring</li><li>Listed and private TFCs</li><li>Syndication and arrangement</li></ul><span class="go">Discuss a debt mandate →</span></a>
+      <a class="pc" href="#contact"><span class="n">03</span><h3>Mergers &amp; acquisitions</h3><p>Buy-side, sell-side and inbound.</p><ul><li>Sell-side processes</li><li>Acquisitions and joint ventures</li><li>Due diligence and deal terms</li></ul><span class="go">Discuss an M&amp;A mandate →</span></a>
+      <a class="pc" href="#contact"><span class="n">04</span><h3>Valuation &amp; modelling</h3><p>Numbers a board can rely on.</p><ul><li>Independent and fairness valuations</li><li>Financial models and forecasts</li><li>Feasibility studies</li></ul><span class="go">Request a valuation →</span></a>
+      <a class="pc" href="#contact"><span class="n">05</span><h3>Restructuring</h3><p>When the capital structure no longer fits.</p><ul><li>Financial and corporate restructuring</li><li>Lender negotiations</li><li>Turnaround plans</li></ul><span class="go">Talk to us in confidence →</span></a>
+      <a class="pc" href="#contact"><span class="n">06</span><h3>Strategy &amp; real estate</h3><p>Plans investors will fund.</p><ul><li>Go-to-market and expansion</li><li>Corporate structuring</li><li>Real estate project advisory</li></ul><span class="go">Start a conversation →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Approach ================= -->
+<section class="section process" id="approach">
+  <div class="wrap">
+    <div class="head-row">
+      <div><span class="label">How a mandate runs</span><h2 class="h2">One partner, <em>first model to close</em></h2></div>
+      <p class="lede">The same team stays with the transaction at every stage, and our own brokerage carries it through to execution.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Assess</h3><p>Readiness review, valuation range and the options worth pursuing.</p></div>
+      <div class="step"><h3>Structure</h3><p>Instrument, terms, Shariah and regulatory route, financial model.</p></div>
+      <div class="step"><h3>Market</h3><p>Documents, investor and buyer outreach, approvals from SECP and PSX.</p></div>
+      <div class="step"><h3>Close</h3><p>Pricing, allocation and settlement through IEL’s PSX brokerage.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Transactions ================= -->
+<section class="section deals on-dark" id="transactions">
+  <div class="wrap">
+    <div class="head-row">
+      <div><span class="label">Selected transactions</span><h2 class="h2">A record built <em>one mandate at a time</em></h2></div>
+      <p class="lede">Transactions on which IEL has acted. Values in PKR unless stated.</p>
+    </div>
+    <div class="chips" role="group" aria-label="Filter transactions">
+      <button class="on" data-f="all">All</button>
+      <button data-f="ecm">Equity capital markets</button>
+      <button data-f="debt">Debt &amp; sukuk</button>
+      <button data-f="ma">M&amp;A</button>
+      <button data-f="other">Valuation &amp; execution</button>
+    </div>
+    <div class="tgrid">
+      <article class="tomb" data-t="ecm"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Initial public offering</span><h3>[Client name]</h3><p>Listing on the PSX main board</p><span class="v">PKR [X] bn</span><div class="rl"><span>Lead advisor</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="debt"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Sukuk</span><h3>[Client name]</h3><p>Privately placed, rated sukuk</p><span class="v">PKR [X] bn</span><div class="rl"><span>Arranger</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="ma"><div class="top"><span class="lg">[C]</span><span class="st">Advising</span></div><span class="ty">Sell-side M&amp;A</span><h3>[Client name]</h3><p>Sale of a controlling stake to [foreign strategic]</p><span class="v">USD [X] m</span><div class="rl"><span>Financial advisor</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="other"><div class="top"><span class="lg">[C]</span><span class="st">Executed</span></div><span class="ty">Block execution</span><h3>[Client name]</h3><p>Block trade through IEL brokerage</p><span class="v">[X] m shares</span><div class="rl"><span>Executing broker</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="ecm"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Rights issue</span><h3>[Client name]</h3><p>Underwritten rights issue</p><span class="v">PKR [X] bn</span><div class="rl"><span>Advisor &amp; underwriter</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="debt"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Term finance certificate</span><h3>[Client name]</h3><p>Listed TFC for working capital</p><span class="v">PKR [X] bn</span><div class="rl"><span>Lead arranger</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="ma"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Buy-side M&amp;A</span><h3>[Client name]</h3><p>Acquisition of [target] in [sector]</p><span class="v">PKR [X] bn</span><div class="rl"><span>Financial advisor</span><span>[Year]</span></div></article>
+      <article class="tomb" data-t="other"><div class="top"><span class="lg">[C]</span><span class="st">Advised</span></div><span class="ty">Valuation</span><h3>[Client name]</h3><p>Independent valuation for board approval</p><span class="v">Undisclosed</span><div class="rl"><span>Valuer</span><span>[Year]</span></div></article>
+    </div>
+    <div class="dfoot"><span>Showing <b id="dealCount">8</b> of [XX] transactions</span><a class="more" href="#">Full transaction record →</a></div>
+  </div>
+</section>
+
+<!-- ================= Sectors + cross-border ================= -->
+<section class="section" id="sectors">
+  <div class="wrap split">
+    <div>
+      <span class="label">Sector expertise</span>
+      <h2 class="h2">Depth where <em>Pakistan’s capital</em> is deployed</h2>
+      <p class="lede" style="margin-top:20px">Our advisers sit beside a research desk that covers the listed market daily, so every view on value rests on live comparables.</p>
+      <div class="tags">
+        <a href="#">Financial services <span>· banks, NBFCs</span></a>
+        <a href="#">Energy &amp; power <span>· IPPs, renewables</span></a>
+        <a href="#">Fertilizer &amp; agriculture</a>
+        <a href="#">Cement &amp; materials</a>
+        <a href="#">Textiles &amp; consumer <span>· exporters</span></a>
+        <a href="#">Technology &amp; telecom</a>
+        <a href="#">Healthcare &amp; pharma</a>
+        <a href="#">Real estate &amp; infrastructure</a>
+      </div>
+    </div>
+    <div class="xb">
+      <span class="label">Cross-border</span>
+      <h3>Connecting Pakistan with international capital</h3>
+      <p>The local adviser who knows the regulator, the market and the counterparties.</p>
+      <ul>
+        <li><b>Inbound investment</b><span>Target search, valuation, SECP and SBP approvals.</span></li>
+        <li><b>Diaspora &amp; outbound</b><span>Overseas Pakistani capital and groups expanding abroad.</span></li>
+        <li><b>DFIs &amp; funds</b><span>Co-investment, minority stakes and exits.</span></li>
+      </ul>
+      <a class="btn btn-green" href="#contact">Speak to our cross-border team →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= People ================= -->
+<section class="section people" id="people">
+  <div class="wrap">
+    <div class="head-row">
+      <div><span class="label">People</span><h2 class="h2">The team <em>who lead your mandate</em></h2></div>
+      <a class="more" href="#">Meet the full team →</a>
+    </div>
+    <div class="pgrid">
+      <article class="person"><div class="ph"><img src="assets/team/sardar-ali-wattoo.jpg" alt="Sardar Ali Wattoo" loading="lazy" /></div><div><b>Sardar Ali Wattoo</b><span>Chief Executive Officer</span><p>28+ years across equity and debt listings, syndications, M&amp;A and project development.</p></div></article>
+      <article class="person"><div class="ph"><img src="assets/team/haroon-khalil.jpg" alt="Haroon Khalil" loading="lazy" /></div><div><b>Haroon Khalil</b><span>Head of Investment Banking</span><p>Restructuring, M&amp;A and PSX listings. ACCA, MBA from LUMS.</p></div></article>
+      <article class="person"><div class="ph"><img src="assets/team/kashan-kazmi.jpg" alt="Kashan Kazmi" loading="lazy" /></div><div><b>Kashan Kazmi</b><span>Chief Operating Officer</span><p>25+ years in capital markets, asset management and brokerage; former CEO, First Capital Investments.</p></div></article>
+      <article class="person"><div class="ph"><img src="assets/team/saniya-tauseef.jpg" alt="Saniya Tauseef" loading="lazy" /></div><div><b>Saniya Tauseef</b><span>Head of Research</span><p>12+ years across research, ratings and credit risk, including senior roles at PACRA.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Insights + credentials ================= -->
+<section class="section" id="insights">
+  <div class="wrap">
+    <div class="head-row">
+      <div><span class="label">Insights</span><h2 class="h2">Perspectives on <em>markets and capital</em></h2></div>
+      <a class="more" href="#">All insights →</a>
+    </div>
+    <div class="ilist">
+      <a class="ifeat" href="#">
+        <svg viewBox="0 0 420 240" fill="none" aria-hidden="true"><path d="M0 220 C 60 210, 100 228, 150 190 S 240 160, 290 130 S 370 80, 420 40" stroke="#19A560" stroke-width="3"/><path d="M0 220 C 60 210, 100 228, 150 190 S 240 160, 290 130 S 370 80, 420 40 L420 240 L0 240 Z" fill="#19A560" opacity=".14"/><circle cx="290" cy="130" r="7" fill="#DF4531"/></svg>
+        <span class="label">Outlook · [Month Year]</span>
+        <h3>Pakistan capital markets outlook: the window for new listings</h3>
+        <p>[Two-line standfirst on the IPO pipeline, rates and investor appetite.]</p>
+        <span class="go">Read now →</span>
+      </a>
+      <div class="irows">
+        <a class="irow" href="#"><span class="label">Viewpoint · [Date]</span><b>[Sukuk after the rate cycle: what issuers should know]</b><i>→</i></a>
+        <a class="irow" href="#"><span class="label">Sector note · [Date]</span><b>[Fertilizer sector: earnings drivers and valuation]</b><i>→</i></a>
+        <a class="irow" href="#"><span class="label">Morning Insights · Daily</span><b>Pre-open note on PSX, rates and commodities</b><i>→</i></a>
+        <a class="irow" href="#"><span class="label">Market Closing · Daily</span><b>End-of-day PSX wrap</b><i>→</i></a>
+      </div>
+    </div>
+    <div class="creds" aria-label="Credentials">
+      <div><b>A- / A-2</b><span>VIS entity rating, long / short term</span></div>
+      <div><b>BFR 2</b><span>VIS broker fiduciary rating</span></div>
+      <div><b>SECP</b><span>Licensed and regulated</span></div>
+      <div><b>PSX</b><span>TREC holder</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Contact ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="cbox">
+      <div>
+        <span class="label">Contact</span>
+        <h2 class="h2">Start a <em>confidential</em> conversation.</h2>
+        <p class="lede">Tell us what you are considering. A partner replies within [one business day].</p>
+        <div class="offices">
+          <div><b>Lahore</b>[Ghazi Interchange, Ring Road]<br /><a href="tel:+924235741714">+92 42 3574 1714-15</a></div>
+          <div><b>Karachi</b>[KSE Building]<br /><a href="mailto:info@iel.net.pk">info@iel.net.pk</a></div>
+        </div>
+      </div>
+      <form class="enq" id="enq" novalidate>
+        <label>Name<input name="name" autocomplete="name" /></label>
+        <label>Organisation<input name="company" autocomplete="organization" /></label>
+        <label>Email<input name="email" type="email" autocomplete="email" /></label>
+        <label>Mandate
+          <select name="mandate"><option>Equity capital markets</option><option>Debt and sukuk</option><option>Mergers and acquisitions</option><option>Valuation</option><option>Restructuring</option><option>Strategy</option><option>Cross-border</option></select>
+        </label>
+        <label class="full">Brief description<textarea name="description"></textarea></label>
+        <div class="row"><small>Mockup only — this form does not send.</small><button class="btn btn-green" type="submit">Send enquiry →</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= Footer ================= -->
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div><img src="assets/whiteLogoSvg.svg" alt="IEL" /><p>Integrated Equities Limited — independent financial and transaction advisory, with execution through our PSX brokerage.</p></div>
+      <div><h5>Practices</h5><ul><li><a href="#practices">Equity capital markets</a></li><li><a href="#practices">Debt &amp; sukuk</a></li><li><a href="#practices">Mergers &amp; acquisitions</a></li><li><a href="#practices">Valuation</a></li><li><a href="#practices">Restructuring</a></li><li><a href="#practices">Strategy &amp; real estate</a></li></ul></div>
+      <div><h5>Firm</h5><ul><li><a href="#">About IEL</a></li><li><a href="#people">People</a></li><li><a href="#transactions">Transactions</a></li><li><a href="#insights">Insights</a></li><li><a href="#">News</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div><h5>Investors</h5><ul><li><a href="#">Financial statements</a></li><li><a href="#">Regulatory disclosures</a></li><li><a href="#">Investor education</a></li><li><a href="#">Complaints</a></li><li><a href="#">Fraud awareness</a></li></ul></div>
+      <div id="brokerage"><h5>Brokerage &amp; Research</h5><div class="broker"><p>PSX brokerage for individual, corporate and institutional investors.</p><ul><li><a href="#">Open an account →</a></li><li><a href="#">Research reports</a></li><li><a href="#">Client login</a></li></ul></div></div>
+    </div>
+    <div class="fb">
+      <p>© 2026 Integrated Equities Limited. Licensed by the SECP; TREC holder, Pakistan Stock Exchange. [Licence numbers]. Investments in securities are subject to market risk.</p>
+      <span>Privacy · Terms · Risk disclosure</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Transaction filter
+  const tombs = [...document.querySelectorAll(".tomb")];
+  document.querySelectorAll(".chips button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".chips button").forEach(x => x.classList.toggle("on", x === b));
+    let n = 0; tombs.forEach(t => { const s = b.dataset.f === "all" || t.dataset.t === b.dataset.f; t.hidden = !s; if (s) n++; });
+    document.getElementById("dealCount").textContent = n;
+  }));
+  // Practice cards preselect the mandate
+  const sel = document.querySelector('#enq select'), map = ["Equity capital markets","Debt and sukuk","Mergers and acquisitions","Valuation","Restructuring","Strategy"];
+  document.querySelectorAll(".pc").forEach((c, i) => c.addEventListener("click", () => { sel.value = map[i]; }));
+  document.getElementById("enq").addEventListener("submit", e => { e.preventDefault(); alert("Mockup only — form not connected."); });
+  // Mobile menu
+  const mnav = document.getElementById("mnav"), ob = document.getElementById("menuOpen");
+  const setM = o => { mnav.classList.toggle("open", o); ob.setAttribute("aria-expanded", o); document.body.style.overflow = o ? "hidden" : ""; };
+  ob.onclick = () => setM(true);
+  document.getElementById("menuClose").onclick = () => setM(false);
+  mnav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setM(false)));
+</script>
+</body>
+</html>

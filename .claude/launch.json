@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "iel-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/dev/iel-build/node_modules/astro/bin/astro.mjs", "preview", "--root", "C:/dev/iel-build", "--port", "4321"],
+      "port": 4321
+    },
+    {
+      "name": "mockups",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4400", "--directory", "D:/IEL/IELWebsite-faisal/mockups"],
+      "port": 4400
+    }
+  ]
+}

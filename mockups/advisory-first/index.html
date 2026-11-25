@@ -260,6 +260,19 @@ footer { background: var(--ink); color: var(--on-dark); font-size: 14px; }
 .ft-bottom p { margin: 0; max-width: 760px; }
 @media (max-width: 1000px) { .ft-top { grid-template-columns: 1fr 1fr; } .ft-brand { grid-column: 1 / -1; } }
 
+/* ---------------- Logo-colour section backgrounds ----------------
+   Light tints of the logo green and coral, and one solid maroon band.
+   Each redefines --line so dividers stay visible on its colour. */
+.bg-mint { background: #E7F4EC; --line: #C5E0CF; --accent: #0F6B3E; }
+.bg-blush { background: #FAEDE9; --line: #EDCFC6; }
+.bg-mint .cap a:hover, .bg-mint .sector:hover { background: rgba(255,255,255,.65); }
+.bg-mint .ins-item:hover, .bg-blush .person:hover h3 { color: var(--pine); }
+.bg-maroon { background: var(--maroon); color: #fff; --line: rgba(255,255,255,.2); }
+.bg-maroon .eyebrow { color: #F6CBC2; }
+.bg-maroon .lede, .bg-maroon .sector span { color: #EED6D3; }
+.bg-maroon .sector svg { stroke: #F6CBC2; }
+.bg-maroon .sector:hover { background: rgba(255,255,255,.07); }
+
 /* reveal on scroll */
 .js .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
 .js .rv.in { opacity: 1; transform: none; }
@@ -381,7 +394,7 @@ footer { background: var(--ink); color: var(--on-dark); font-size: 14px; }
 </section>
 
 <!-- ================= Capabilities ================= -->
-<section class="section" id="advisory">
+<section class="section bg-mint" id="advisory">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -438,7 +451,7 @@ footer { background: var(--ink); color: var(--on-dark); font-size: 14px; }
 </section>
 
 <!-- ================= Sectors ================= -->
-<section class="section" id="sectors">
+<section class="section bg-maroon on-dark" id="sectors">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -508,7 +521,7 @@ footer { background: var(--ink); color: var(--on-dark); font-size: 14px; }
 </section>
 
 <!-- ================= People ================= -->
-<section class="section" id="people">
+<section class="section bg-blush" id="people">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -527,7 +540,7 @@ footer { background: var(--ink); color: var(--on-dark); font-size: 14px; }
 </section>
 
 <!-- ================= Insights ================= -->
-<section class="section" id="insights" style="padding-top:0">
+<section class="section bg-mint" id="insights">
   <div class="wrap">
     <div class="sec-head">
       <div>
