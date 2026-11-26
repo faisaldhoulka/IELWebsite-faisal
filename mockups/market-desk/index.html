@@ -255,6 +255,67 @@ footer { background: var(--ink); color: var(--on-ink-muted); padding: 64px 0 28p
 .foot-grid a:hover { color: var(--on-ink); }
 .disclaimer { border-top: 1px solid var(--line-ink); margin-top: 44px; padding-top: 20px; font-size: 12.5px; line-height: 1.6; }
 
+/* Hero mandates panel */
+.deals { background: linear-gradient(180deg, var(--ink-3), var(--ink-2)); border: 1px solid var(--line-ink); border-radius: 10px; padding: 24px 24px 18px; box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+.deals-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-bottom: 14px; }
+.deals-top h2 { margin: 0; color: var(--green); }
+.deals-total { font-size: 13px; color: var(--on-ink-muted); }
+.deals-total b { color: var(--on-ink); font-weight: 600; }
+.deals ul { list-style: none; margin: 0; padding: 0; }
+.deal { display: grid; grid-template-columns: 52px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-top: 1px solid var(--line-ink); }
+.deal .lg { width: 52px; height: 52px; border: 1px dashed rgba(255,255,255,.25); border-radius: 6px; display: grid; place-items: center; font-size: 10.5px; color: var(--on-ink-muted); }
+.deal .who b { display: block; font-family: var(--serif); font-weight: 500; font-size: 19px; }
+.deal .who span { font-size: 13px; color: var(--on-ink-muted); }
+.deal .amt { text-align: right; font-family: var(--serif); font-size: 21px; white-space: nowrap; }
+.deal .amt i { display: block; font-style: normal; font-family: var(--sans); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--green); margin-top: 2px; }
+.deals-link { display: inline-block; margin-top: 10px; padding-top: 14px; font-weight: 600; font-size: 14px; text-decoration: none; color: var(--on-ink); border-top: 1px solid var(--line-ink); width: 100%; }
+.deals-link:hover { color: var(--green); }
+
+/* Practices */
+.prac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.prac { background: var(--card); padding: 30px 28px 26px; text-decoration: none; display: flex; flex-direction: column; transition: background .2s; }
+.prac:hover { background: #FBFAF6; }
+.prac .n { font-family: var(--serif); color: var(--green-deep); font-size: 15px; }
+.prac h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.15; margin: 14px 0 10px; }
+.prac p { color: var(--muted); font-size: 15px; margin: 0 0 22px; }
+.prac .go { margin-top: auto; font-weight: 600; font-size: 14px; color: var(--green-deep); }
+.prac:hover .go { text-decoration: underline; }
+
+/* Markets band */
+.mk-grid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 20px; align-items: stretch; }
+.side-strip { background: rgba(255,255,255,.03); border: 1px solid var(--line-ink); border-radius: 10px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr); }
+.side-strip .tile, .side-strip .tile:last-child { grid-column: auto; border-right: 0 !important; border-top: 0 !important; }
+.side-strip .tile { display: grid; grid-template-columns: 1fr 112px; column-gap: 16px; align-items: center; padding: 14px 20px; border: 0; border-bottom: 1px solid var(--line-ink); }
+.side-strip .tile:last-child { border-bottom: 0; }
+.side-strip .tile .name { color: var(--on-ink-muted); }
+.side-strip .tile .val { font-size: 20px; }
+.side-strip .tile svg { grid-column: 2; grid-row: 1 / 4; margin: 0; height: 40px; }
+
+/* Contact */
+.ct-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+.ct-grid h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3.6vw, 48px); line-height: 1.06; margin: 12px 0 16px; }
+.ct-grid p { color: var(--on-ink-muted); margin: 0 0 28px; max-width: 520px; }
+.ct-grid .eyebrow { color: var(--green); }
+.ct-list { margin: 0; }
+.ct-list div { padding: 16px 0; border-top: 1px solid var(--line-ink); }
+.ct-list div:first-child { border-top: 0; padding-top: 0; }
+.ct-list dt { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--green); }
+.ct-list dd { margin: 4px 0 0; color: var(--on-ink); font-size: 15px; }
+@media (max-width: 1120px) {
+  .mk-grid, .ct-grid { grid-template-columns: 1fr; }
+  .prac-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .prac-grid { grid-template-columns: 1fr; }
+  .prac { padding: 24px 20px; }
+  .deals { padding: 18px 16px 14px; }
+  .deal { grid-template-columns: 1fr auto; gap: 10px; }
+  .deal .lg { display: none; }
+  .deal .who b { font-size: 17px; }
+  .deal .amt { font-size: 18px; }
+  .side-strip .tile { grid-template-columns: 1fr 90px; padding: 14px 16px; }
+}
+
 /* Reveal */
 .rv { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
 .rv.in { opacity: 1; transform: none; }
@@ -314,7 +375,7 @@ footer { background: var(--ink); color: var(--on-ink-muted); padding: 64px 0 28p
 </head>
 <body>
 
-<div class="mock-note">Design mockup — “Market desk”. All market figures are sample data; the live site would read them from a PSX data feed. Bracketed text marks content to be supplied. Compare: <a href="../advisory-first/index.html">Advisory first</a> · <a href="../signature-ink/index.html">Signature ink</a> · <a href="../daylight-green/index.html">Daylight green</a> · <a href="../dark-green/index.html">Dark green</a></div>
+<div class="mock-note">Design mockup — “Market desk”, advisory-led. All market figures are sample data; the live site would read them from a PSX data feed. Bracketed text marks content to be supplied. Compare: <a href="../advisory-first/index.html">Advisory first</a> · <a href="../signature-ink/index.html">Signature ink</a> · <a href="../daylight-green/index.html">Daylight green</a> · <a href="../dark-green/index.html">Dark green</a></div>
 
 <!-- Ticker tape -->
 <div class="tape on-ink" aria-label="Market ticker (sample data)">
@@ -326,77 +387,147 @@ footer { background: var(--ink); color: var(--on-ink-muted); padding: 64px 0 28p
   <div class="wrap">
     <a class="brand" href="#" aria-label="Integrated Equities Limited — home"><img src="assets/whiteLogoSvg.svg" alt="IEL" /></a>
     <nav class="nav" aria-label="Main">
-      <a href="#markets" class="on">Markets</a>
+      <a href="#practices" class="on">Advisory</a>
+      <a href="#transactions">Transactions</a>
       <a href="#research">Research</a>
-      <a href="#account">Brokerage</a>
-      <a href="#advisory">Advisory</a>
+      <a href="#markets">Markets</a>
       <a href="#about">About</a>
-      <a href="#">Investors</a>
+      <a href="#account">Brokerage</a>
     </nav>
     <div class="hdr-cta">
       <a class="btn btn-ghost" href="#">Client login</a>
-      <a class="btn btn-primary" href="#account">Open an account</a>
+      <a class="btn btn-primary" href="#contact">Discuss a mandate</a>
       <button class="menu-btn" aria-label="Open menu">☰</button>
     </div>
   </div>
 </header>
 
-<!-- Hero -->
-<section class="hero on-ink" id="markets">
+<!-- Hero: advisory leads -->
+<section class="hero on-ink" id="transactions">
   <div class="wrap hero-grid">
     <div>
-      <span class="sc eyebrow">Brokerage · Research · Advisory</span>
-      <h1>Pakistan’s markets, <em>read closely.</em></h1>
-      <p class="lead">Live PSX data, research published before the open, and execution on the Pakistan Stock Exchange — from a firm that also advises on the transactions behind the tickers.</p>
+      <span class="sc eyebrow">Investment banking · Transaction advisory</span>
+      <h1>Advice for the deals that shape <em>Pakistan’s markets.</em></h1>
+      <p class="lead">We advise companies, sponsors and boards on raising capital, listing, buying and selling — with valuations grounded in how the Pakistan Stock Exchange actually prices assets, every trading day.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#account">Open a trading account</a>
-        <a class="btn btn-ghost" href="#research">Read today’s Morning Insights</a>
+        <a class="btn btn-primary" href="#contact">Discuss a mandate</a>
+        <a class="btn btn-ghost" href="#practices">Our advisory practices</a>
       </div>
       <div class="creds">
-        <span><b>PSX</b> TREC holder</span>
-        <span><b>SECP</b> licensed broker</span>
         <span>VIS rating <b>A- / A-2</b></span>
+        <span><b>PSX</b> TREC holder</span>
+        <span><b>SECP</b> licensed</span>
         <span><b>[Since 2007]</b></span>
-        <span><b>[XX]</b> listed companies covered</span>
       </div>
     </div>
 
-    <div class="board" aria-label="KSE-100 market board">
-      <div class="board-top">
-        <div>
-          <div class="board-title"><span class="live" aria-hidden="true"></span> KSE-100 Index · <span id="asof">Close, 15:30 PKT</span></div>
-          <div class="board-level num">
-            <span class="big" id="lvl">—</span>
-            <span class="chg" id="chg">—</span>
-          </div>
-        </div>
-        <div class="tabs" role="tablist" aria-label="Chart range">
-          <button role="tab" aria-selected="true" data-r="1D">1D</button>
-          <button role="tab" aria-selected="false" data-r="1W">1W</button>
-          <button role="tab" aria-selected="false" data-r="1M">1M</button>
-          <button role="tab" aria-selected="false" data-r="1Y">1Y</button>
-        </div>
+    <aside class="deals" aria-labelledby="deals-h">
+      <div class="deals-top">
+        <h2 id="deals-h" class="sc">Selected mandates</h2>
+        <span class="deals-total num"><b>PKR [XX]bn</b> advised since [Year]</span>
       </div>
-      <div class="chart" id="heroChart"><div class="tip num" id="tip"></div></div>
-      <div class="stats num" id="stats"></div>
-      <div class="breadth">
-        <div class="breadth-bar" aria-hidden="true">
-          <i style="flex:248;background:var(--up-ink)"></i><i style="flex:38;background:#5E7268"></i><i style="flex:162;background:var(--down-ink)"></i>
-        </div>
-        <div class="breadth-legend num"><span><span class="up">▲ 248</span> advancers</span><span>38 unchanged</span><span><span class="down">▼ 162</span> decliners</span></div>
+      <ul>
+        <li class="deal"><span class="lg">[Logo]</span><span class="who"><b>[Client name]</b><span>Initial public offering · PSX Main Board</span></span><span class="amt num">PKR [X.X]bn<i>Lead adviser · [Year]</i></span></li>
+        <li class="deal"><span class="lg">[Logo]</span><span class="who"><b>[Client name]</b><span>Privately placed sukuk</span></span><span class="amt num">PKR [X.X]bn<i>Arranger · [Year]</i></span></li>
+        <li class="deal"><span class="lg">[Logo]</span><span class="who"><b>[Client name]</b><span>Acquisition of a [XX]% stake</span></span><span class="amt num">PKR [X.X]bn<i>Buy-side adviser · [Year]</i></span></li>
+        <li class="deal"><span class="lg">[Logo]</span><span class="who"><b>[Client name]</b><span>Rights issue</span></span><span class="amt num">PKR [X.X]bn<i>Consultant · [Year]</i></span></li>
+      </ul>
+      <a class="deals-link" href="#">All transactions →</a>
+    </aside>
+  </div>
+</section>
+
+<!-- Practices -->
+<section class="sec" id="practices" aria-labelledby="prac-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="sc eyebrow">Advisory practices</span>
+        <h2 id="prac-h">Six practices, one accountable team from first model to closing</h2>
       </div>
-      <div style="margin-top:14px"><span class="sample">Sample data</span></div>
+      <p>Each mandate is led by a senior partner and supported by our research desk, so pricing, timing and investor appetite are tested against the live market.</p>
+    </div>
+    <div class="prac-grid">
+      <a class="prac rv" href="#"><span class="n">01</span><h3>Equity capital markets</h3><p>IPOs, rights issues and offers for sale on the PSX: readiness, valuation, book-building and listing.</p><span class="go">Explore →</span></a>
+      <a class="prac rv" href="#"><span class="n">02</span><h3>Debt &amp; sukuk</h3><p>Term finance certificates, sukuk and structured debt, placed with banks, insurers and funds.</p><span class="go">Explore →</span></a>
+      <a class="prac rv" href="#"><span class="n">03</span><h3>Mergers &amp; acquisitions</h3><p>Buy-side and sell-side mandates, tender offers and compliance with the takeover regulations.</p><span class="go">Explore →</span></a>
+      <a class="prac rv" href="#"><span class="n">04</span><h3>Valuation &amp; fairness</h3><p>Independent valuations and fairness opinions for boards, regulators and minority shareholders.</p><span class="go">Explore →</span></a>
+      <a class="prac rv" href="#"><span class="n">05</span><h3>Strategy consulting</h3><p>Growth strategy, capital structure and restructuring for sponsors and family-owned groups.</p><span class="go">Explore →</span></a>
+      <a class="prac rv" href="#"><span class="n">06</span><h3>Real estate advisory</h3><p>REIT structuring, project feasibility and capital raising for real estate developers.</p><span class="go">Explore →</span></a>
     </div>
   </div>
 </section>
 
-<!-- Index strip -->
-<div class="wrap strip">
-  <div class="strip-grid num" id="strip"></div>
-</div>
+<!-- Credentials + team -->
+<section class="sec" id="about" style="padding-top:0" aria-labelledby="team-h">
+  <div class="wrap">
+    <div class="cred-band num rv">
+      <div><b>PKR [XX]bn</b><span>capital raised and transactions advised</span></div>
+      <div><b>[XX]</b><span>listed companies under research coverage</span></div>
+      <div><b>[XX,XXX]</b><span>client accounts</span></div>
+      <div><b>[XX]</b><span>years on the Pakistan Stock Exchange</span></div>
+    </div>
+
+    <div class="sec-head rv" style="margin-top:80px">
+      <div>
+        <span class="sc eyebrow">Leadership</span>
+        <h2 id="team-h">The partners who lead your mandate</h2>
+      </div>
+      <a class="link" href="#">About IEL →</a>
+    </div>
+    <div class="team">
+      <article class="person rv"><div class="ph"><img src="assets/team/sardar-ali-wattoo.jpg" alt="Sardar Ali Wattoo" loading="lazy" /></div><h3>Sardar Ali Wattoo</h3><span>Chief Executive Officer</span></article>
+      <article class="person rv"><div class="ph"><img src="assets/team/kashan-kazmi.jpg" alt="Kashan Kazmi" loading="lazy" /></div><h3>Kashan Kazmi</h3><span>Chief Operating Officer</span></article>
+      <article class="person rv"><div class="ph"><img src="assets/team/haroon-khalil.jpg" alt="Haroon Khalil" loading="lazy" /></div><h3>Haroon Khalil</h3><span>Head of Investment Banking</span></article>
+      <article class="person rv"><div class="ph"><img src="assets/team/saniya-tauseef.jpg" alt="Saniya Tauseef" loading="lazy" /></div><h3>Saniya Tauseef</h3><span>Head of Research</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- Markets: supporting the advice -->
+<section class="sec dark on-ink" id="markets" aria-labelledby="mk-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <span class="sc eyebrow">Market intelligence</span>
+        <h2 id="mk-h">The market behind every mandate</h2>
+      </div>
+      <p>The desk that prices your transaction trades the market every day. Live PSX data, flows and research, open to every visitor.</p>
+    </div>
+    <div class="mk-grid">
+      <div class="board" aria-label="KSE-100 market board">
+        <div class="board-top">
+          <div>
+            <div class="board-title"><span class="live" aria-hidden="true"></span> KSE-100 Index · <span id="asof">Close, 15:30 PKT</span></div>
+            <div class="board-level num">
+              <span class="big" id="lvl">—</span>
+              <span class="chg" id="chg">—</span>
+            </div>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Chart range">
+            <button role="tab" aria-selected="true" data-r="1D">1D</button>
+            <button role="tab" aria-selected="false" data-r="1W">1W</button>
+            <button role="tab" aria-selected="false" data-r="1M">1M</button>
+            <button role="tab" aria-selected="false" data-r="1Y">1Y</button>
+          </div>
+        </div>
+        <div class="chart" id="heroChart"><div class="tip num" id="tip"></div></div>
+        <div class="stats num" id="stats"></div>
+        <div class="breadth">
+          <div class="breadth-bar" aria-hidden="true">
+            <i style="flex:248;background:var(--up-ink)"></i><i style="flex:38;background:#5E7268"></i><i style="flex:162;background:var(--down-ink)"></i>
+          </div>
+          <div class="breadth-legend num"><span><span class="up">▲ 248</span> advancers</span><span>38 unchanged</span><span><span class="down">▼ 162</span> decliners</span></div>
+        </div>
+        <div style="margin-top:14px"><span class="sample">Sample data</span></div>
+      </div>
+      <div class="side-strip num" id="strip" aria-label="Index snapshot"></div>
+    </div>
+  </div>
+</section>
 
 <!-- Market pulse -->
-<section class="sec" aria-labelledby="pulse-h">
+<section class="sec" aria-labelledby="pulse-h" style="padding-bottom:64px">
   <div class="wrap">
     <div class="sec-head rv">
       <div>
@@ -504,59 +635,8 @@ footer { background: var(--ink); color: var(--on-ink-muted); padding: 64px 0 28p
   </div>
 </section>
 
-<!-- Advisory -->
-<section class="sec dark on-ink" id="advisory" aria-labelledby="adv-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <div>
-        <span class="sc eyebrow">Investment banking &amp; advisory</span>
-        <h2 id="adv-h">The same market insight, applied to your transaction</h2>
-      </div>
-      <p>We advise companies on raising capital, listing and changing hands — with valuation grounded in how investors actually price Pakistani assets.</p>
-    </div>
-    <div class="adv-grid">
-      <div class="adv rv"><span class="n">01</span><h3>Equity capital markets</h3><p>IPOs, rights issues and offers for sale on the PSX, from readiness to book-building.</p></div>
-      <div class="adv rv"><span class="n">02</span><h3>Debt &amp; sukuk</h3><p>Term finance certificates, sukuk and structured debt, placed with banks and funds.</p></div>
-      <div class="adv rv"><span class="n">03</span><h3>M&amp;A</h3><p>Buy-side and sell-side mandates, tender offers and takeover regulations.</p></div>
-      <div class="adv rv"><span class="n">04</span><h3>Valuation &amp; strategy</h3><p>Fairness opinions, business valuations and strategy for boards and sponsors.</p></div>
-    </div>
-    <div class="tombs">
-      <div class="tomb rv"><div class="logo">[Client logo]</div><b>PKR [X.X]bn</b><span>Initial public offering</span><div class="role">Lead adviser · [Year]</div></div>
-      <div class="tomb rv"><div class="logo">[Client logo]</div><b>PKR [X.X]bn</b><span>Sukuk issue</span><div class="role">Arranger · [Year]</div></div>
-      <div class="tomb rv"><div class="logo">[Client logo]</div><b>[XX]%</b><span>Stake acquisition</span><div class="role">Buy-side adviser · [Year]</div></div>
-      <div class="tomb rv"><div class="logo">[Client logo]</div><b>PKR [X.X]bn</b><span>Rights issue</span><div class="role">Consultant · [Year]</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- Credentials + team -->
-<section class="sec" id="about" aria-labelledby="team-h">
-  <div class="wrap">
-    <div class="cred-band num rv">
-      <div><b>[XX]</b><span>years on the Pakistan Stock Exchange</span></div>
-      <div><b>[XX]</b><span>listed companies under research coverage</span></div>
-      <div><b>[XX,XXX]</b><span>client accounts</span></div>
-      <div><b>PKR [XX]bn</b><span>transactions advised</span></div>
-    </div>
-
-    <div class="sec-head rv" style="margin-top:80px">
-      <div>
-        <span class="sc eyebrow">Leadership</span>
-        <h2 id="team-h">The people behind the desk</h2>
-      </div>
-      <a class="link" href="#">About IEL →</a>
-    </div>
-    <div class="team">
-      <article class="person rv"><div class="ph"><img src="assets/team/sardar-ali-wattoo.jpg" alt="Sardar Ali Wattoo" loading="lazy" /></div><h3>Sardar Ali Wattoo</h3><span>Chief Executive Officer</span></article>
-      <article class="person rv"><div class="ph"><img src="assets/team/kashan-kazmi.jpg" alt="Kashan Kazmi" loading="lazy" /></div><h3>Kashan Kazmi</h3><span>Chief Operating Officer</span></article>
-      <article class="person rv"><div class="ph"><img src="assets/team/haroon-khalil.jpg" alt="Haroon Khalil" loading="lazy" /></div><h3>Haroon Khalil</h3><span>Head of Investment Banking</span></article>
-      <article class="person rv"><div class="ph"><img src="assets/team/saniya-tauseef.jpg" alt="Saniya Tauseef" loading="lazy" /></div><h3>Saniya Tauseef</h3><span>Head of Research</span></article>
-    </div>
-  </div>
-</section>
-
 <!-- Open account -->
-<div class="wrap" id="account">
+<div class="wrap" id="account" style="margin-bottom:96px">
   <div class="account rv">
     <div>
       <span class="sc" style="color:var(--green-deep)">Brokerage</span>
@@ -575,7 +655,25 @@ footer { background: var(--ink); color: var(--on-ink-muted); padding: 64px 0 28p
   </div>
 </div>
 
-<footer class="on-ink">
+<!-- Contact -->
+<section class="sec dark on-ink" id="contact" aria-labelledby="ct-h">
+  <div class="wrap ct-grid">
+    <div>
+      <span class="sc eyebrow">Start a conversation</span>
+      <h2 id="ct-h">Every mandate begins with a confidential conversation.</h2>
+      <p>Tell us what you are considering: a listing, a raise, an acquisition or a valuation. A partner will reply within one working day.</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="#">Request a meeting</a><a class="btn btn-ghost" href="#">advisory@[domain]</a></div>
+    </div>
+    <dl class="ct-list">
+      <div><dt>Investment banking</dt><dd>Haroon Khalil, Head of Investment Banking<br />[Phone] · [Email]</dd></div>
+      <div><dt>Research</dt><dd>Saniya Tauseef, Head of Research<br />[Phone] · [Email]</dd></div>
+      <div><dt>Brokerage &amp; accounts</dt><dd>[Phone] · [Email]</dd></div>
+      <div><dt>Office</dt><dd>[Office address], Lahore</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer class="on-ink" style="margin-top:0">
   <div class="wrap">
     <div class="foot-grid">
       <div><img src="assets/whiteLogoSvg.svg" alt="IEL" /><p>Integrated Equities Limited — PSX brokerage, research and transaction advisory.<br />[Office address], Lahore · [Phone]</p></div>
@@ -674,8 +772,8 @@ document.fonts && document.fonts.ready.then(redraw);
 function spark(s, up) {
   const min = Math.min(...s), max = Math.max(...s), sp = max - min || 1;
   const pts = s.map((v, i) => `${(i / (s.length - 1) * 100).toFixed(2)},${(30 - (v - min) / sp * 26).toFixed(2)}`).join(' ');
-  const c = up ? '#0E7A45' : '#B42318';
-  return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,32 ${pts} 100,32" fill="${c}" opacity=".08"/><polyline points="${pts}" fill="none" stroke="${c}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
+  const c = up ? '#43D88F' : '#FF8C7C'; // the strip now sits on the dark markets band
+  return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,32 ${pts} 100,32" fill="${c}" opacity=".12"/><polyline points="${pts}" fill="none" stroke="${c}" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
 }
 
 /* ---------- Ticker tape + index strip ---------- */
@@ -695,7 +793,7 @@ const strip = [
 document.getElementById('strip').innerHTML = strip.map(([n, v, d, seed]) => {
   const pct = d / (v - d) * 100, s = walk(v - d - Math.abs(d) * 0.4, v, 40, Math.abs(d) * 0.5 + v * 0.002, seed);
   const good = n.includes('USD') || n.includes('PKRV') ? d <= 0 : d >= 0; // weaker dollar / lower yield = good
-  return `<div class="tile"><div class="name">${n}</div><div class="val">${fmt(v)}</div><div class="d ${d >= 0 ? 'up' : 'down'}" style="color:${good ? 'var(--up)' : 'var(--down)'}">${arrow(d)} ${sign(d)} (${sign(pct)}%)</div>${spark(s, good)}</div>`;
+  return `<div class="tile"><div class="name">${n}</div><div class="val">${fmt(v)}</div><div class="d ${good ? 'up' : 'down'}">${arrow(d)} ${sign(d)} (${sign(pct)}%)</div>${spark(s, good)}</div>`;
 }).join('');
 
 /* ---------- Movers ---------- */
