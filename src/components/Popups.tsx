@@ -19,12 +19,13 @@ export type PopupNotice = {
 const STORAGE_KEY = 'dualPopupDismissed'
 
 /**
- * Homepage notices (Shareholder Agahi, fraud awareness), shown together when the homepage
- * opens, as on the old site. Closing any of them closes all; ticking "Don't show this
+ * Homepage notices (Shareholder Agahi, fraud awareness), shown one after the other when the
+ * homepage opens. Closing a notice shows the next; Escape closes all. Ticking "Don’t show this
  * again" remembers it in this browser.
  */
 export function Popups({ notices, dontShowAgainLabel }: { notices: PopupNotice[]; dontShowAgainLabel: string }) {
   const [open, setOpen] = useState(false)
+  const [index, setIndex] = useState(0)
   const [remember, setRemember] = useState(false)
 
   useEffect(() => {
@@ -37,7 +38,8 @@ export function Popups({ notices, dontShowAgainLabel }: { notices: PopupNotice[]
     if (!dismissed && notices.length) setOpen(true)
   }, [notices.length])
 
-  const close = () => {
+  // Escape, a click on the backdrop or the last notice's button closes everything.
+  const finish = () => {
     if (remember) {
       try {
         localStorage.setItem(STORAGE_KEY, 'true')
@@ -47,19 +49,25 @@ export function Popups({ notices, dontShowAgainLabel }: { notices: PopupNotice[]
     }
     setOpen(false)
   }
+  const isLast = index >= notices.length - 1
+  const next = () => (isLast ? finish() : setIndex((i) => i + 1))
 
   if (!notices.length) return null
+  const n = notices[Math.min(index, notices.length - 1)]
 
   return (
-    <Dialog open={open} onClose={close} labelledBy="popup-title-0" className="w-[1080px]">
-      <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))] items-start">
-        {notices.map((n, i) => (
-          <section key={n.title} className="relative bg-white text-ink p-7 md:p-8 flex flex-col gap-4 border-t-4 border-t-accent">
-            <CloseButton onClick={close} />
-            {n.eyebrow && <span className={`${EYEBROW} text-wine`}>{n.eyebrow}</span>}
-            <h2 id={`popup-title-${i}`} className="m-0 pr-10 font-serif font-medium text-[24px] md:text-[28px] leading-[1.2] text-pine">
-              {n.title}
-            </h2>
+    <Dialog open={open} onClose={finish} labelledBy="popup-title" className="w-[640px]">
+      <section key={index} className="relative bg-white text-ink p-7 md:p-9 flex flex-col gap-4 border-t-4 border-t-accent">
+        <CloseButton onClick={next} label={isLast ? 'Close' : 'Close and show the next notice'} />
+        {notices.length > 1 && (
+          <span className="text-[13px] text-muted font-semibold">
+            Notice {index + 1} of {notices.length}
+          </span>
+        )}
+        {n.eyebrow && <span className={`${EYEBROW} text-wine`}>{n.eyebrow}</span>}
+        <h2 id="popup-title" className="m-0 pr-10 font-serif font-medium text-[24px] md:text-[28px] leading-[1.2] text-pine">
+          {n.title}
+        </h2>
             {n.body}
             {n.links.length > 0 && (
               <div className="flex flex-wrap gap-3">
@@ -86,22 +94,20 @@ export function Popups({ notices, dontShowAgainLabel }: { notices: PopupNotice[]
                 ))}
               </div>
             )}
-            {n.closeLabel && (
-              <button
-                type="button"
-                onClick={close}
-                className="self-start bg-accent hover:bg-accent-dark text-white border-0 rounded px-5 py-3 font-sans font-semibold text-[15px] cursor-pointer"
-              >
-                {n.closeLabel}
-              </button>
-            )}
-          </section>
-        ))}
-      </div>
-      <label className="mt-3 flex items-center gap-2 text-white text-[15px] cursor-pointer">
-        <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="w-4 h-4 accent-accent" />
-        {dontShowAgainLabel}
-      </label>
+        <div className="mt-2 pt-5 border-t border-line flex flex-wrap items-center justify-between gap-4">
+          <label className="flex items-center gap-2 text-[15px] text-muted-body cursor-pointer">
+            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="w-4 h-4 accent-accent" />
+            {dontShowAgainLabel}
+          </label>
+          <button
+            type="button"
+            onClick={next}
+            className="bg-accent hover:bg-accent-dark text-white border-0 rounded px-5 py-3 font-sans font-semibold text-[15px] cursor-pointer"
+          >
+            {n.closeLabel || (isLast ? 'Close' : 'Next notice →')}
+          </button>
+        </div>
+      </section>
     </Dialog>
   )
 }
