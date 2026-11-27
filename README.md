@@ -36,11 +36,15 @@ Requires Node `^24.22.3` (or `^22.23.5`), npm and Docker.
 ```bash
 cp .env.example .env          # fill in PAYLOAD_SECRET and SUPABASE_ANON_KEY
 npm install
-npm run db:up                 # local Postgres on port 5433
+npm run db:up                 # local Postgres on port 5432
 npm run migrate               # create the CMS tables
+npm run seed                  # load the current site's content into the CMS (once)
 npm run dev                   # http://localhost:3000, admin at /admin
 ```
 The first account created at `/admin` is always an admin. Uploads need `SUPABASE_CMS_EMAIL` / `SUPABASE_CMS_PASSWORD`; without them the admin works but uploads are off.
+
+### Seed content
+`scripts/seed.ts` loads the current site's content (homepage, 12 pages, team, services, transactions, partners, reports, static financial statements, menus, footer, settings) from `scripts/seed-data/`. It refuses to run if pages exist; `npm run seed -- --reset` replaces seeded content (users, media and the change log are never touched). Legal page text lives in `scripts/seed-data/legal/*.html` (extracted once from the Astro build by `scripts/extract-legal-html.ts`). Supabase data is never seeded: it is read live.
 
 ### Changing the CMS schema
 1. Edit a collection, global or block.

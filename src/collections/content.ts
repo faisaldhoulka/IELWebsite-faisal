@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { pageBlocks } from '../blocks/page'
+import { buttonsField } from '../blocks/shared'
 import { orderField, seoField, slugField } from '../fields'
 import { cmsTag } from '../hooks/revalidate'
 import { contentCollection } from './_shared'
@@ -18,12 +19,35 @@ export const Pages: CollectionConfig = contentCollection({
     { name: 'title', type: 'text', required: true },
     slugField(),
     {
+      name: 'template',
+      type: 'select',
+      defaultValue: 'standard',
+      options: [
+        { label: 'Standard', value: 'standard' },
+        { label: 'Legal (sidebar: legal pages + contents)', value: 'legal' },
+        { label: 'Document (sidebar: contents only)', value: 'document' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+    {
       name: 'hero',
       type: 'group',
       fields: [
         { name: 'eyebrow', type: 'text' },
         { name: 'title', type: 'text', admin: { description: 'Leave empty to use the page title.' } },
         { name: 'intro', type: 'textarea' },
+        buttonsField('buttons', 3),
+        {
+          name: 'aside',
+          type: 'group',
+          label: 'Side card (optional)',
+          fields: [
+            { name: 'title', type: 'text' },
+            { name: 'text', type: 'textarea' },
+            { name: 'linkLabel', type: 'text' },
+            { name: 'linkPath', type: 'text' },
+          ],
+        },
       ],
     },
     { name: 'layout', type: 'blocks', blocks: pageBlocks },
@@ -44,15 +68,16 @@ export const TeamMembers: CollectionConfig = contentCollection(
       {
         name: 'group',
         type: 'select',
-        defaultValue: 'leadership',
+        defaultValue: 'management',
         options: [
-          { label: 'Leadership', value: 'leadership' },
-          { label: 'Board', value: 'board' },
+          { label: 'Key management', value: 'management' },
+          { label: 'Board of directors', value: 'board' },
         ],
       },
-      { name: 'shortBio', type: 'textarea', admin: { description: 'Two lines for cards.' } },
-      { name: 'bio', type: 'richText', admin: { description: 'Full bio for the About page.' } },
+      { name: 'bio', type: 'textarea', admin: { description: 'Full bio (About page, "Read bio").' } },
+      { name: 'shortBio', type: 'textarea', admin: { description: 'Optional two-line version for homepage cards; the full bio is shortened if empty.' } },
       { name: 'portrait', type: 'upload', relationTo: 'media' },
+      { name: 'portraitPath', type: 'text', admin: { description: 'Existing photo on the site, e.g. /IEL Assets/Members/x.png (used if no upload).' } },
       { name: 'showOnHomepage', type: 'checkbox', defaultValue: false, admin: { position: 'sidebar' } },
       orderField,
     ],
@@ -121,9 +146,10 @@ export const CorporateReports: CollectionConfig = contentCollection({
   defaultSort: '-date',
   fields: [
     { name: 'title', type: 'text', required: true },
-    { name: 'date', type: 'date', required: true },
+    { name: 'date', type: 'date' },
     { name: 'file', type: 'upload', relationTo: 'media' },
     { name: 'path', type: 'text', admin: { description: 'Existing PDF on the site (used if no upload).' } },
+    orderField,
   ],
 })
 

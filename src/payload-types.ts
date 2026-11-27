@@ -107,12 +107,14 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     homepage: Homepage;
+    'account-opening': AccountOpening;
     navigation: Navigation;
     footer: Footer;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'account-opening': AccountOpeningSelect<false> | AccountOpeningSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
@@ -156,6 +158,7 @@ export interface Page {
    * Used in the page address, e.g. "about" → /about
    */
   slug: string;
+  template?: ('standard' | 'legal' | 'document') | null;
   hero?: {
     eyebrow?: string | null;
     /**
@@ -163,6 +166,28 @@ export interface Page {
      */
     title?: string | null;
     intro?: string | null;
+    buttons?:
+      | {
+          label: string;
+          type?: ('path' | 'page' | 'url' | 'file') | null;
+          /**
+           * e.g. /research or /about#team
+           */
+          path?: string | null;
+          page?: (number | null) | Page;
+          url?: string | null;
+          file?: (number | null) | Media;
+          newTab?: boolean | null;
+          style?: ('primary' | 'secondary') | null;
+          id?: string | null;
+        }[]
+      | null;
+    aside?: {
+      title?: string | null;
+      text?: string | null;
+      linkLabel?: string | null;
+      linkPath?: string | null;
+    };
   };
   layout?:
     | (
@@ -171,6 +196,11 @@ export interface Page {
              * Optional section id for links like /#transactions (letters, numbers, dashes).
              */
             anchor?: string | null;
+            /**
+             * Optional heading shown beside the text.
+             */
+            eyebrow?: string | null;
+            title?: string | null;
             content: {
               root: {
                 type: string;
@@ -199,11 +229,16 @@ export interface Page {
             title?: string | null;
             intro?: string | null;
             background?: ('white' | 'mist' | 'pine') | null;
+            numbered?: boolean | null;
             cards?:
               | {
                   title: string;
                   text?: string | null;
                   image?: (number | null) | Media;
+                  /**
+                   * Existing image on the site (used if no upload).
+                   */
+                  imagePath?: string | null;
                   link?: {
                     label?: string | null;
                     type?: ('path' | 'page' | 'url' | 'file') | null;
@@ -222,6 +257,54 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'cardGrid';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title?: string | null;
+            intro?: string | null;
+            background?: ('white' | 'mist' | 'pine') | null;
+            logos?:
+              | {
+                  /**
+                   * Used as the alt text.
+                   */
+                  name: string;
+                  image?: (number | null) | Media;
+                  /**
+                   * Existing image on the site (used if no upload).
+                   */
+                  imagePath?: string | null;
+                  url?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'logoGrid';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            intro?: string | null;
+            showContactLink?: boolean | null;
+            items?:
+              | {
+                  question: string;
+                  answer: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'faq';
           }
         | {
             /**
@@ -256,10 +339,26 @@ export interface Page {
             eyebrow?: string | null;
             title?: string | null;
             intro?: string | null;
-            group?: ('leadership' | 'board' | 'all') | null;
+            /**
+             * Each group is shown as its own list, in this order.
+             */
+            groups: ('board' | 'management')[];
             id?: string | null;
             blockName?: string | null;
             blockType: 'teamList';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            intro?: string | null;
+            showButton?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accountOpening';
           }
         | {
             hidden?: boolean | null;
@@ -440,30 +539,20 @@ export interface TeamMember {
   id: number;
   name: string;
   role: string;
-  group?: ('leadership' | 'board') | null;
+  group?: ('management' | 'board') | null;
   /**
-   * Two lines for cards.
+   * Full bio (About page, "Read bio").
+   */
+  bio?: string | null;
+  /**
+   * Optional two-line version for homepage cards; the full bio is shortened if empty.
    */
   shortBio?: string | null;
-  /**
-   * Full bio for the About page.
-   */
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   portrait?: (number | null) | Media;
+  /**
+   * Existing photo on the site, e.g. /IEL Assets/Members/x.png (used if no upload).
+   */
+  portraitPath?: string | null;
   showOnHomepage?: boolean | null;
   /**
    * Lower numbers show first.
@@ -528,12 +617,16 @@ export interface Announcement {
 export interface CorporateReport {
   id: number;
   title: string;
-  date: string;
+  date?: string | null;
   file?: (number | null) | Media;
   /**
    * Existing PDF on the site (used if no upload).
    */
   path?: string | null;
+  /**
+   * Lower numbers show first.
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -722,12 +815,34 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  template?: T;
   hero?:
     | T
     | {
         eyebrow?: T;
         title?: T;
         intro?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              path?: T;
+              page?: T;
+              url?: T;
+              file?: T;
+              newTab?: T;
+              style?: T;
+              id?: T;
+            };
+        aside?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              linkLabel?: T;
+              linkPath?: T;
+            };
       };
   layout?:
     | T
@@ -736,6 +851,8 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               anchor?: T;
+              eyebrow?: T;
+              title?: T;
               content?: T;
               id?: T;
               blockName?: T;
@@ -748,12 +865,14 @@ export interface PagesSelect<T extends boolean = true> {
               title?: T;
               intro?: T;
               background?: T;
+              numbered?: T;
               cards?:
                 | T
                 | {
                     title?: T;
                     text?: T;
                     image?: T;
+                    imagePath?: T;
                     link?:
                       | T
                       | {
@@ -765,6 +884,44 @@ export interface PagesSelect<T extends boolean = true> {
                           file?: T;
                           newTab?: T;
                         };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        logoGrid?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              background?: T;
+              logos?:
+                | T
+                | {
+                    name?: T;
+                    image?: T;
+                    imagePath?: T;
+                    url?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        faq?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              showContactLink?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
                     id?: T;
                   };
               id?: T;
@@ -794,7 +951,18 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               title?: T;
               intro?: T;
-              group?: T;
+              groups?: T;
+              id?: T;
+              blockName?: T;
+            };
+        accountOpening?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              showButton?: T;
               id?: T;
               blockName?: T;
             };
@@ -891,9 +1059,10 @@ export interface TeamMembersSelect<T extends boolean = true> {
   name?: T;
   role?: T;
   group?: T;
-  shortBio?: T;
   bio?: T;
+  shortBio?: T;
   portrait?: T;
+  portraitPath?: T;
   showOnHomepage?: T;
   order?: T;
   updatedAt?: T;
@@ -935,6 +1104,7 @@ export interface CorporateReportsSelect<T extends boolean = true> {
   date?: T;
   file?: T;
   path?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1327,6 +1497,30 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "account-opening".
+ */
+export interface AccountOpening {
+  id: number;
+  accounts?:
+    | {
+        name: string;
+        steps?:
+          | {
+              title: string;
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  buttonLabel?: string | null;
+  buttonPath?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation".
  */
 export interface Navigation {
@@ -1439,6 +1633,21 @@ export interface Footer {
     pdf?: (number | null) | Media;
   };
   copyright?: string | null;
+  bottomLinks?:
+    | {
+        label: string;
+        type?: ('path' | 'page' | 'url' | 'file') | null;
+        /**
+         * e.g. /research or /about#team
+         */
+        path?: string | null;
+        page?: (number | null) | Page;
+        url?: string | null;
+        file?: (number | null) | Media;
+        newTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1715,6 +1924,30 @@ export interface HomepageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "account-opening_select".
+ */
+export interface AccountOpeningSelect<T extends boolean = true> {
+  accounts?:
+    | T
+    | {
+        name?: T;
+        steps?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  buttonLabel?: T;
+  buttonPath?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation_select".
  */
 export interface NavigationSelect<T extends boolean = true> {
@@ -1798,6 +2031,18 @@ export interface FooterSelect<T extends boolean = true> {
         pdf?: T;
       };
   copyright?: T;
+  bottomLinks?:
+    | T
+    | {
+        label?: T;
+        type?: T;
+        path?: T;
+        page?: T;
+        url?: T;
+        file?: T;
+        newTab?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

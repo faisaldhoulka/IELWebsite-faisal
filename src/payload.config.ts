@@ -1,6 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
@@ -19,7 +18,8 @@ import {
 } from './collections/content'
 import { Media } from './collections/Media'
 import { Users } from './collections/Users'
-import { Footer, Homepage, Navigation, SiteSettings } from './globals'
+import { AccountOpening, Footer, Homepage, Navigation, SiteSettings } from './globals'
+import { editor } from './lib/editor'
 import { migrations } from './migrations'
 import { supabaseStorageAdapter } from './lib/storage/supabaseStorage'
 
@@ -51,8 +51,8 @@ export default buildConfig({
     Users,
     AuditLog,
   ],
-  globals: [Homepage, Navigation, Footer, SiteSettings],
-  editor: lexicalEditor(),
+  globals: [Homepage, AccountOpening, Navigation, Footer, SiteSettings],
+  editor,
   secret: process.env.PAYLOAD_SECRET || '',
   graphQL: { disable: true },
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },

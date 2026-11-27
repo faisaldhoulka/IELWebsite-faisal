@@ -84,6 +84,7 @@ export const Footer: GlobalConfig = contentGlobal(
         ],
       },
       { name: 'copyright', type: 'text', defaultValue: 'Integrated Equities Limited. All rights reserved.' },
+      { name: 'bottomLinks', type: 'array', fields: linkFields },
     ],
   },
   LAYOUT,
@@ -98,3 +99,35 @@ export const Homepage: GlobalConfig = contentGlobal({
     seoField,
   ],
 })
+
+// Shared "Open your account in minutes" steps, shown on the service pages and Open Account.
+export const AccountOpening: GlobalConfig = contentGlobal(
+  {
+    slug: 'account-opening',
+    label: 'Account opening steps',
+    admin: { group: 'Content' },
+    fields: [
+      {
+        name: 'accounts',
+        type: 'array',
+        minRows: 1,
+        fields: [
+          { name: 'name', type: 'text', required: true },
+          {
+            name: 'steps',
+            type: 'array',
+            minRows: 1,
+            maxRows: 6,
+            fields: [
+              { name: 'title', type: 'text', required: true },
+              { name: 'text', type: 'textarea', required: true },
+            ],
+          },
+        ],
+      },
+      { name: 'buttonLabel', type: 'text', defaultValue: 'Get started' },
+      { name: 'buttonPath', type: 'text', defaultValue: '/open-account' },
+    ],
+  },
+  ['cms:pages'],
+)

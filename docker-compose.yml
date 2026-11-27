@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ielcms
     ports:
-      - "5433:5432"   # 5433 on the host: 5432 is often taken by another local Postgres
+      - "5432:5432"
     volumes:
       - ielcms-data:/var/lib/postgresql/data
 volumes:

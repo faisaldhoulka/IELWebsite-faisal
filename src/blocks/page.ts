@@ -1,4 +1,4 @@
-import type { Block } from 'payload'
+import type { Block, Field } from 'payload'
 
 import { linkFields } from '../fields'
 import { anchorField, buttonsField, sectionHeading } from './shared'
@@ -6,10 +6,26 @@ import { CtaBandBlock } from './homepage'
 
 // Body blocks for text pages (About, services, legal pages, …), plan §4.
 
+const background: Field = {
+  name: 'background',
+  type: 'select',
+  defaultValue: 'white',
+  options: [
+    { label: 'White', value: 'white' },
+    { label: 'Light green', value: 'mist' },
+    { label: 'Dark green', value: 'pine' },
+  ],
+}
+
 export const RichTextBlock: Block = {
   slug: 'richText',
   labels: { singular: 'Text', plural: 'Text' },
-  fields: [anchorField, { name: 'content', type: 'richText', required: true }],
+  fields: [
+    anchorField,
+    { name: 'eyebrow', type: 'text', admin: { description: 'Optional heading shown beside the text.' } },
+    { name: 'title', type: 'text' },
+    { name: 'content', type: 'richText', required: true },
+  ],
 }
 
 export const CardGridBlock: Block = {
@@ -18,16 +34,8 @@ export const CardGridBlock: Block = {
   fields: [
     anchorField,
     ...sectionHeading.map((f) => ('name' in f && f.name === 'title' ? { ...f, required: false } : f)),
-    {
-      name: 'background',
-      type: 'select',
-      defaultValue: 'white',
-      options: [
-        { label: 'White', value: 'white' },
-        { label: 'Light green', value: 'mist' },
-        { label: 'Dark green', value: 'pine' },
-      ],
-    },
+    background,
+    { name: 'numbered', type: 'checkbox', defaultValue: false, label: 'Number the cards (01, 02, …)' },
     {
       name: 'cards',
       type: 'array',
@@ -36,6 +44,7 @@ export const CardGridBlock: Block = {
         { name: 'title', type: 'text', required: true },
         { name: 'text', type: 'textarea' },
         { name: 'image', type: 'upload', relationTo: 'media' },
+        { name: 'imagePath', type: 'text', admin: { description: 'Existing image on the site (used if no upload).' } },
         { name: 'link', type: 'group', fields: linkFields.map((f) => ('name' in f && f.name === 'label' ? { ...f, required: false } : f)) },
       ],
     },
@@ -68,7 +77,69 @@ export const TeamListBlock: Block = {
   fields: [
     anchorField,
     ...sectionHeading.map((f) => ('name' in f && f.name === 'title' ? { ...f, required: false } : f)),
-    { name: 'group', type: 'select', options: [{ label: 'Leadership', value: 'leadership' }, { label: 'Board', value: 'board' }, { label: 'All', value: 'all' }], defaultValue: 'all' },
+    {
+      name: 'groups',
+      type: 'select',
+      hasMany: true,
+      required: true,
+      defaultValue: ['board', 'management'],
+      options: [
+        { label: 'Board of directors', value: 'board' },
+        { label: 'Key management', value: 'management' },
+      ],
+      admin: { description: 'Each group is shown as its own list, in this order.' },
+    },
+  ],
+}
+
+export const LogoGridBlock: Block = {
+  slug: 'logoGrid',
+  labels: { singular: 'Logo grid', plural: 'Logo grids' },
+  fields: [
+    anchorField,
+    ...sectionHeading.map((f) => ('name' in f && f.name === 'title' ? { ...f, required: false } : f)),
+    background,
+    {
+      name: 'logos',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'name', type: 'text', required: true, admin: { description: 'Used as the alt text.' } },
+        { name: 'image', type: 'upload', relationTo: 'media' },
+        { name: 'imagePath', type: 'text', admin: { description: 'Existing image on the site (used if no upload).' } },
+        { name: 'url', type: 'text' },
+      ],
+    },
+  ],
+}
+
+export const FaqBlock: Block = {
+  slug: 'faq',
+  labels: { singular: 'FAQs', plural: 'FAQs' },
+  fields: [
+    anchorField,
+    ...sectionHeading,
+    { name: 'showContactLink', type: 'checkbox', defaultValue: true, label: 'Show "Something else on your mind? Contact us."' },
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'question', type: 'text', required: true },
+        { name: 'answer', type: 'textarea', required: true },
+      ],
+    },
+  ],
+}
+
+// Renders the shared account-opening steps (global `account-opening`), edited in one place.
+export const AccountOpeningBlock: Block = {
+  slug: 'accountOpening',
+  labels: { singular: 'Account opening steps', plural: 'Account opening steps' },
+  fields: [
+    anchorField,
+    ...sectionHeading,
+    { name: 'showButton', type: 'checkbox', defaultValue: true, label: 'Show the "Get started" button' },
   ],
 }
 
@@ -78,4 +149,14 @@ export const ButtonsBlock: Block = {
   fields: [buttonsField('buttons', 3)],
 }
 
-export const pageBlocks: Block[] = [RichTextBlock, CardGridBlock, FileListBlock, TeamListBlock, CtaBandBlock, ButtonsBlock]
+export const pageBlocks: Block[] = [
+  RichTextBlock,
+  CardGridBlock,
+  LogoGridBlock,
+  FaqBlock,
+  FileListBlock,
+  TeamListBlock,
+  AccountOpeningBlock,
+  CtaBandBlock,
+  ButtonsBlock,
+]
