@@ -29,8 +29,28 @@ export const SiteSettings: GlobalConfig = contentGlobal(
         fields: [
           { name: 'phone', type: 'text' },
           { name: 'phoneHref', type: 'text', admin: { description: 'Dial string, e.g. +924235741714' } },
+          {
+            name: 'otherPhones',
+            type: 'array',
+            label: 'Other phone numbers',
+            admin: { description: 'Shown under the main number in the footer.' },
+            fields: [
+              { name: 'number', type: 'text', required: true },
+              { name: 'href', type: 'text', admin: { description: 'Dial string, e.g. +924235692606' } },
+            ],
+          },
           { name: 'email', type: 'email' },
           { name: 'addresses', type: 'array', fields: [{ name: 'city', type: 'text' }, { name: 'address', type: 'textarea' }] },
+        ],
+      },
+      {
+        name: 'ratings',
+        type: 'group',
+        label: 'Credit ratings',
+        admin: { description: 'Rating statement and links to the full rating reports.' },
+        fields: [
+          { name: 'text', type: 'textarea' },
+          { name: 'reports', type: 'array', label: 'Rating reports', fields: linkFields },
         ],
       },
       { name: 'clientLoginUrl', type: 'text', admin: { description: 'Client login link in the utility bar.' } },
@@ -83,6 +103,24 @@ export const Footer: GlobalConfig = contentGlobal(
           { name: 'pdf', type: 'upload', relationTo: 'media', admin: { description: 'Upload to replace the PDF above.' } },
         ],
       },
+      {
+        name: 'investorComplaints',
+        type: 'group',
+        label: 'Investor complaint links',
+        fields: [
+          { name: 'title', type: 'text', defaultValue: 'Investor complaints' },
+          { name: 'links', type: 'array', fields: linkFields },
+        ],
+      },
+      {
+        name: 'vendorNotice',
+        type: 'group',
+        label: 'Back-office vendor notice',
+        fields: [
+          { name: 'title', type: 'text' },
+          { name: 'text', type: 'textarea' },
+        ],
+      },
       { name: 'copyright', type: 'text', defaultValue: 'Integrated Equities Limited. All rights reserved.' },
       { name: 'bottomLinks', type: 'array', fields: linkFields },
     ],
@@ -97,6 +135,41 @@ export const Homepage: GlobalConfig = contentGlobal({
   fields: [
     { name: 'sections', type: 'blocks', blocks: homepageBlocks },
     seoField,
+  ],
+})
+
+// Notices shown together in one overlay when the homepage opens (as on the old site:
+// the Shareholder Agahi notice and the fraud-awareness notice). A visitor who ticks
+// "Don't show this again" never sees them again in that browser.
+export const Popups: GlobalConfig = contentGlobal({
+  slug: 'popups',
+  label: 'Homepage pop-ups',
+  admin: { group: 'Content' },
+  fields: [
+    { name: 'enabled', type: 'checkbox', defaultValue: true, admin: { description: 'Untick to stop showing the pop-ups.' } },
+    { name: 'dontShowAgainLabel', type: 'text', defaultValue: 'Don’t show this again' },
+    {
+      name: 'notices',
+      type: 'array',
+      admin: { description: 'Shown side by side, in this order.' },
+      fields: [
+        { name: 'eyebrow', type: 'text' },
+        { name: 'title', type: 'text', required: true },
+        { name: 'body', type: 'richText' },
+        { name: 'links', type: 'array', label: 'Buttons', maxRows: 3, fields: linkFields },
+        {
+          name: 'images',
+          type: 'array',
+          maxRows: 4,
+          fields: [
+            { name: 'path', type: 'text', admin: { description: 'Existing image on the site.' } },
+            { name: 'image', type: 'upload', relationTo: 'media', admin: { description: 'Upload to replace the image above.' } },
+            { name: 'alt', type: 'text' },
+          ],
+        },
+        { name: 'closeLabel', type: 'text', admin: { description: 'Text of the button that closes the pop-up, e.g. "I understand – proceed to website". Leave empty for just the × button.' } },
+      ],
+    },
   ],
 })
 

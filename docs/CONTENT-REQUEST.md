@@ -9,8 +9,8 @@ Everything that is already on iel.net.pk (service texts, team bios, legal pages,
 | # | Item | What we need | Where it appears |
 |---|---|---|---|
 | 1 | **Selected transactions** | At least 4 (ideally 6–12) past mandates. For each: client name (or "Undisclosed client" if it cannot be named), year, type (IPO / listing, debt or sukuk, M&A, block trade, other), one-line description, size (PKR bn or no. of shares) and IEL's role (e.g. lead advisor, arranger, financial advisor, executing broker). Please confirm each client has agreed to be named. | Homepage "Recent mandates" and the transactions list |
-| 2 | **Headline figures** | (a) Number of transactions advised to date. (b) Total capital raised and transacted, in PKR bn. Please give the "as of" date for both. | Homepage hero |
-| 3 | **Year founded** | The current site says "since 2007" on the homepage but "incorporated July 01, 2008" on the Regulatory page. Which should we use? | Homepage hero, About |
+| 2 | **Headline figures** | (a) Number of transactions advised to date. (b) Total capital raised and transacted, in PKR bn. Please give the "as of" date for both. (The current homepage says "151 million shares": is that still accurate, and what does it measure?) | Homepage hero |
+| 3 | **Year founded** | The current homepage says both "Regulatory excellence since 2007" and "earned our clients' trust since 2008", and the Regulatory page says "incorporated July 01, 2008". Which should we use? | Homepage hero, About |
 | 4 | **Response-time promise** | The contact section says "A partner replies within one business day." Can IEL commit to this, or what should it say? | Homepage contact section |
 | 5 | **Client login link** | The design has a "Client login" button. Please send the web address of the trading portal (and App Store / Google Play links if there is a mobile app). | Header |
 | 6 | **Consultation booking link** | "Book a free consultation" currently opens a HubSpot calendar under the name *jessica-brennan*, which does not look like an IEL account. Please send IEL's own booking link, or tell us to point the button to the contact form instead. | Header menu, service pages |
@@ -34,7 +34,7 @@ Everything that is already on iel.net.pk (service texts, team bios, legal pages,
 | 14 | **Ratings** | Are VIS entity rating A- / A-2 and broker fiduciary rating BFR 2 still current? Date of the latest rating action, and a link to the rating report if it may be shown. |
 | 15 | **Financial statements** | Not on the current site: Annual audited statements for 30 June 2026, quarterly statements for 30 September 2026, and the Liquid Capital Balance for November 2025. Please send them if they are available. |
 | 16 | **Social media** | Links to IEL's LinkedIn, Facebook, X, YouTube etc., if they should appear in the footer. |
-| 17 | **Contact details** | Confirm the phone (+92 42 3574 1714-15), email (info@iel.net.pk) and both addresses (Lahore: 30 Cricketers Colony, NETSOL Avenue; Karachi: Room 134, 3rd floor, KSE Building). Is there a separate Karachi phone number? |
+| 17 | **Contact details** | Confirm the phone (+92 42 3574 1714-15), email (info@iel.net.pk) and both addresses (Lahore: 30 Cricketers Colony, NETSOL Avenue; Karachi: Room 134, 3rd floor, KSE Building). The current footer and Regulatory page also list +92 42 3569 2606: what is it (second line, fax, Karachi?) and should it stay? The fraud-awareness pop-up gives a helpline, 0345 0091263: is it still in use? |
 
 ## Format
 

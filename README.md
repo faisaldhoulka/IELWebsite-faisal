@@ -21,7 +21,7 @@ This branch (`nextjs-rebuild`) rebuilds the site in **Next.js with Payload CMS**
 src/app/(frontend)/   public pages, layout, design tokens (globals.css), form routes
 src/app/(payload)/    Payload admin and REST routes (generated; don't edit)
 src/collections/      CMS collections (content.ts, Media, Users, AuditLog)
-src/globals/          Homepage, Header menu, Footer, Site settings
+src/globals/          Homepage, Homepage pop-ups, Account opening, Header menu, Footer, Site settings
 src/blocks/           homepage and page section blocks
 src/access/ hooks/    roles, change log, publish-on-save
 src/lib/              supabase-data, storage adapter, forms, cms helpers
@@ -44,7 +44,7 @@ npm run dev                   # http://localhost:3000, admin at /admin
 The first account created at `/admin` is always an admin. Uploads need `SUPABASE_CMS_EMAIL` / `SUPABASE_CMS_PASSWORD`; without them the admin works but uploads are off.
 
 ### Seed content
-`scripts/seed.ts` loads the current site's content (homepage, 12 pages, team, services, transactions, partners, reports, static financial statements, menus, footer, settings) from `scripts/seed-data/`. It refuses to run if pages exist; `npm run seed -- --reset` replaces seeded content (users, media and the change log are never touched). Legal page text lives in `scripts/seed-data/legal/*.html` (extracted once from the Astro build by `scripts/extract-legal-html.ts`). Supabase data is never seeded: it is read live.
+`scripts/seed.ts` loads the current site's content (homepage, 12 pages, team, services, transactions, partners, reports, static financial statements, menus, footer, settings, homepage pop-ups) from `scripts/seed-data/`. It refuses to run if pages exist; `npm run seed -- --reset` replaces seeded content (users, media and the change log are never touched). Legal page text lives in `scripts/seed-data/legal/*.html` (extracted once from the Astro build by `scripts/extract-legal-html.ts`). Supabase data is never seeded: it is read live.
 
 ### Changing the CMS schema
 1. Edit a collection, global or block.

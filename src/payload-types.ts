@@ -107,6 +107,7 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     homepage: Homepage;
+    popups: Popup;
     'account-opening': AccountOpening;
     navigation: Navigation;
     footer: Footer;
@@ -114,6 +115,7 @@ export interface Config {
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    popups: PopupsSelect<false> | PopupsSelect<true>;
     'account-opening': AccountOpeningSelect<false> | AccountOpeningSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
@@ -1497,6 +1499,78 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popups".
+ */
+export interface Popup {
+  id: number;
+  /**
+   * Untick to stop showing the pop-ups.
+   */
+  enabled?: boolean | null;
+  dontShowAgainLabel?: string | null;
+  /**
+   * Shown side by side, in this order.
+   */
+  notices?:
+    | {
+        eyebrow?: string | null;
+        title: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        links?:
+          | {
+              label: string;
+              type?: ('path' | 'page' | 'url' | 'file') | null;
+              /**
+               * e.g. /research or /about#team
+               */
+              path?: string | null;
+              page?: (number | null) | Page;
+              url?: string | null;
+              file?: (number | null) | Media;
+              newTab?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        images?:
+          | {
+              /**
+               * Existing image on the site.
+               */
+              path?: string | null;
+              /**
+               * Upload to replace the image above.
+               */
+              image?: (number | null) | Media;
+              alt?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Text of the button that closes the pop-up, e.g. "I understand – proceed to website". Leave empty for just the × button.
+         */
+        closeLabel?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "account-opening".
  */
 export interface AccountOpening {
@@ -1632,6 +1706,28 @@ export interface Footer {
      */
     pdf?: (number | null) | Media;
   };
+  investorComplaints?: {
+    title?: string | null;
+    links?:
+      | {
+          label: string;
+          type?: ('path' | 'page' | 'url' | 'file') | null;
+          /**
+           * e.g. /research or /about#team
+           */
+          path?: string | null;
+          page?: (number | null) | Page;
+          url?: string | null;
+          file?: (number | null) | Media;
+          newTab?: boolean | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  vendorNotice?: {
+    title?: string | null;
+    text?: string | null;
+  };
   copyright?: string | null;
   bottomLinks?:
     | {
@@ -1681,11 +1777,45 @@ export interface SiteSetting {
      * Dial string, e.g. +924235741714
      */
     phoneHref?: string | null;
+    /**
+     * Shown under the main number in the footer.
+     */
+    otherPhones?:
+      | {
+          number: string;
+          /**
+           * Dial string, e.g. +924235692606
+           */
+          href?: string | null;
+          id?: string | null;
+        }[]
+      | null;
     email?: string | null;
     addresses?:
       | {
           city?: string | null;
           address?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Rating statement and links to the full rating reports.
+   */
+  ratings?: {
+    text?: string | null;
+    reports?:
+      | {
+          label: string;
+          type?: ('path' | 'page' | 'url' | 'file') | null;
+          /**
+           * e.g. /research or /about#team
+           */
+          path?: string | null;
+          page?: (number | null) | Page;
+          url?: string | null;
+          file?: (number | null) | Media;
+          newTab?: boolean | null;
           id?: string | null;
         }[]
       | null;
@@ -1924,6 +2054,46 @@ export interface HomepageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popups_select".
+ */
+export interface PopupsSelect<T extends boolean = true> {
+  enabled?: T;
+  dontShowAgainLabel?: T;
+  notices?:
+    | T
+    | {
+        eyebrow?: T;
+        title?: T;
+        body?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              path?: T;
+              page?: T;
+              url?: T;
+              file?: T;
+              newTab?: T;
+              id?: T;
+            };
+        images?:
+          | T
+          | {
+              path?: T;
+              image?: T;
+              alt?: T;
+              id?: T;
+            };
+        closeLabel?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "account-opening_select".
  */
 export interface AccountOpeningSelect<T extends boolean = true> {
@@ -2030,6 +2200,29 @@ export interface FooterSelect<T extends boolean = true> {
         pdfPath?: T;
         pdf?: T;
       };
+  investorComplaints?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              path?: T;
+              page?: T;
+              url?: T;
+              file?: T;
+              newTab?: T;
+              id?: T;
+            };
+      };
+  vendorNotice?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+      };
   copyright?: T;
   bottomLinks?:
     | T
@@ -2074,12 +2267,36 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         phone?: T;
         phoneHref?: T;
+        otherPhones?:
+          | T
+          | {
+              number?: T;
+              href?: T;
+              id?: T;
+            };
         email?: T;
         addresses?:
           | T
           | {
               city?: T;
               address?: T;
+              id?: T;
+            };
+      };
+  ratings?:
+    | T
+    | {
+        text?: T;
+        reports?:
+          | T
+          | {
+              label?: T;
+              type?: T;
+              path?: T;
+              page?: T;
+              url?: T;
+              file?: T;
+              newTab?: T;
               id?: T;
             };
       };

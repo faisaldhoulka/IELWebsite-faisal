@@ -25,6 +25,7 @@ export const siteSettings = {
   contact: {
     phone: '+92 42 3574 1714-15',
     phoneHref: '+924235741714',
+    otherPhones: [{ number: '+92 42 3569 2606', href: '+924235692606' }],
     email: 'info@iel.net.pk',
     addresses: [
       { city: 'Lahore', address: '30 Cricketers Colony, 3rd floor, NETSOL Avenue, Ghazi Interchange, Ring Road' },
@@ -34,6 +35,14 @@ export const siteSettings = {
   // No client login URL exists on the current site yet (to be supplied before launch).
   clientLoginUrl: '',
   bookingUrl: BOOKING_URL,
+  // Rating statement and report links from the old homepage, word for word.
+  ratings: {
+    text: 'Our brokerage is proudly rated BFR 2 & Entity Rating Long Term A- and Short Term A-2 by VIS Credit Rating Company',
+    reports: [
+      L('View Full Entity Rating', '/IEL Assets/PDF/Rating/ENTITY 2026.pdf', true),
+      L('View Full BFR Rating', '/IEL Assets/PDF/Rating/OP_01044604005_00010446.pdf', true),
+    ],
+  },
   defaultSeo: {
     title: 'IEL | Financial and Transaction Advisory in Pakistan',
     description:
@@ -122,6 +131,19 @@ export const footer = {
     },
   ],
   complaints: { buttonLabel: 'Complaints (SECP, PSX)', pdfPath: COMPLAINTS_PDF },
+  // Old footer: "Investor Complaints" links ("PSX Complaint Mgmnt", "SECP Complaint Mgmnt").
+  investorComplaints: {
+    title: 'Investor complaints',
+    links: [
+      X('PSX complaint management', 'https://www.psx.com.pk/psx/resources-and-tools/investors/investors-complaints'),
+      X('SECP complaint management', 'https://sdms.secp.gov.pk/'),
+    ],
+  },
+  // Old footer notice, word for word.
+  vendorNotice: {
+    title: 'Smart Stock System — Our Backoffice Software Vendor',
+    text: 'At our brokerage, we leverage the Smart Stock System as our trusted backoffice software solution. This system helps ensure efficient trade processing, seamless settlements, and accurate client account management, enabling us to deliver a secure and reliable trading experience for all our customers.',
+  },
   copyright: 'Integrated Equities Limited. Licensed by SECP. PSX TREC holder.',
   bottomLinks: [L('Privacy policy', '/privacy')],
 }
@@ -295,6 +317,66 @@ export const staticStatements = [
 export const corporateReports = [{ title: 'SLGL Corporate Report', path: '/IEL Assets/PDF/SLGL Corporate Report .pdf' }]
 
 // ── Account opening steps (identical on all five service pages) ──────────────
+
+// ── Homepage pop-ups (old index.html #dualPopupContainer, text word for word) ───
+// `bodyHtml` is converted to rich text by the seed. The old fraud notice's internal
+// heading "WEBSITE POPUP — FRAUD AWARENESS NOTICE" is left out; "IMPORTANT NOTICE"
+// becomes the eyebrow.
+
+export const popups = {
+  enabled: true,
+  dontShowAgainLabel: 'Don’t show this again',
+  notices: [
+    {
+      title: 'Shareholder Agahi – Your Gateway to Shareholder Insights',
+      bodyHtml:
+        '<p>Pakistan’s first comprehensive platform, developed by <strong>PICG</strong> and <strong>CDC</strong>, dedicated to enhancing shareholder awareness and empowerment.</p>' +
+        '<p>Discover real-time updates, rights, and governance insights. Empower yourself with accurate information.</p>',
+      links: [X('Explore the Portal', 'https://www.shareholderagahi.com/'), X('Watch Tutorial (Urdu)', 'https://www.youtube.com/watch?v=O7iCRiKJ37A')],
+      images: [
+        { path: '/IEL Assets/pop_up_img1.jpg', alt: '' },
+        { path: '/IEL Assets/pop-up-img2.png', alt: '' },
+        { path: '/IEL Assets/pop-up-img3.jpg', alt: '' },
+      ],
+    },
+    {
+      eyebrow: 'Important notice',
+      title: 'Beware of Fraudulent Schemes',
+      bodyHtml: [
+        '<h4>Misusing the Name of IEL</h4>',
+        '<p>Fraudulent individuals and entities are increasingly misusing the identity of licensed Securities Brokers through fake profiles, apps, unauthorized WhatsApp numbers, and misleading social media pages to deceive investors.</p>',
+        '<h3>What to watch out for</h3>',
+        '<ul>',
+        '<li><strong>Fake WhatsApp Numbers &amp; Apps:</strong> Unauthorized mobile apps and WhatsApp numbers impersonating licensed brokers.</li>',
+        '<li><strong>Fake Social Media Profiles:</strong> Profiles falsely impersonating directors or executives of brokerage houses.</li>',
+        '<li><strong>Requests for OTPs &amp; Funds:</strong> Demands for OTPs, personal information, or money through unofficial channels.</li>',
+        '<li><strong>Misleading Pages &amp; Links:</strong> Fake pages with no official affiliation to any PSX-licensed brokerage firm.</li>',
+        '</ul>',
+        '<h3>Please note</h3>',
+        '<ul>',
+        '<li>IEL has NO affiliation with any unofficial pages, profiles, apps, or WhatsApp numbers.</li>',
+        '<li>We NEVER request OTPs, personal information, funds, or investments through unofficial platforms.</li>',
+        '<li>All communication is conducted ONLY through our official phone numbers, website, email, and verified social media handles.</li>',
+        '</ul>',
+        '<h3>How to stay protected</h3>',
+        '<ul>',
+        '<li>Always verify the authenticity of any communication before engaging.</li>',
+        '<li>Confirm licensed entities through the SECP and PSX official websites before transacting.</li>',
+        '<li>Transact ONLY through official banking channels linked to licensed brokers.</li>',
+        '<li>Regularly visit SECP, PSX, CDC, and NCCPL websites for authentic updates and public alerts.</li>',
+        '<li>When in doubt, contact our official representatives directly before taking any action.</li>',
+        '</ul>',
+        '<h3>Official channels</h3>',
+        '<ul>',
+        '<li><strong>Website:</strong> www.iel.net.pk</li>',
+        '<li><strong>Email:</strong> info@iel.net.pk</li>',
+        '<li><strong>Helpline:</strong> 0345 0091263</li>',
+        '</ul>',
+      ].join(''),
+      closeLabel: 'I Understand – Proceed to Website',
+    },
+  ],
+}
 
 export const accountOpening = {
   accounts: [

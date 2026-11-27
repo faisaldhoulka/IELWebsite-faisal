@@ -18,7 +18,7 @@ import {
 } from './collections/content'
 import { Media } from './collections/Media'
 import { Users } from './collections/Users'
-import { AccountOpening, Footer, Homepage, Navigation, SiteSettings } from './globals'
+import { AccountOpening, Footer, Homepage, Navigation, Popups, SiteSettings } from './globals'
 import { editor } from './lib/editor'
 import { migrations } from './migrations'
 import { supabaseStorageAdapter } from './lib/storage/supabaseStorage'
@@ -51,7 +51,7 @@ export default buildConfig({
     Users,
     AuditLog,
   ],
-  globals: [Homepage, AccountOpening, Navigation, Footer, SiteSettings],
+  globals: [Homepage, Popups, AccountOpening, Navigation, Footer, SiteSettings],
   editor,
   secret: process.env.PAYLOAD_SECRET || '',
   graphQL: { disable: true },

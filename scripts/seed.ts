@@ -28,6 +28,7 @@ import {
   membersDir,
   navigation,
   partners,
+  popups,
   services,
   siteSettings,
   staticStatements,
@@ -76,7 +77,11 @@ async function main() {
   await setGlobal('navigation', navigation)
   await setGlobal('footer', footer)
   await setGlobal('account-opening', accountOpening)
-  log('globals: site settings, header menu, footer, account opening')
+  await setGlobal('popups', {
+    ...popups,
+    notices: popups.notices.map(({ bodyHtml, ...notice }) => ({ ...notice, body: toLexical(bodyHtml) })),
+  })
+  log('globals: site settings, header menu, footer, account opening, homepage pop-ups')
 
   // ── Pages ──────────────────────────────────────────────────────────────────
   const pageIds = new Map<string, number | string>()
