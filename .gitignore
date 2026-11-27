@@ -5,3 +5,7 @@ _legacy/
 Guides/
 # Supabase schema snapshots and security notes (sensitive; do not commit)
 supabase/
+# Secrets: never commit (example files are fine)
+.env
+.env.*
+!.env.example
