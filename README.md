@@ -46,7 +46,9 @@ npm run migrate               # create the CMS tables
 npm run seed                  # load the current site's content into the CMS (once)
 npm run dev                   # http://localhost:3000, admin at /admin
 ```
-The first account created at `/admin` is always an admin. Uploads need `SUPABASE_CMS_EMAIL` / `SUPABASE_CMS_PASSWORD`; without them the admin works but uploads are off.
+The first account created at `/admin` is always an admin. Uploads need `SUPABASE_CMS_EMAIL` / `SUPABASE_CMS_PASSWORD` in `.env` (never in `.env.example`, which is committed); without them the admin works but uploads are off. With them, files go straight from the browser to the `website-cms` bucket through a short-lived signed URL, so PDFs up to the 10 MB limit work on Vercel despite its ~4.5 MB request cap.
+
+For local testing you can keep a test admin's login in `.env` as `LOCAL_TEST_ADMIN_EMAIL` / `LOCAL_TEST_ADMIN_PASSWORD` (local only).
 
 ### Seed content
 `scripts/seed.ts` loads the current site's content (homepage, 12 pages, team, services, transactions, partners, reports, static financial statements, menus, footer, settings, homepage pop-ups) from `scripts/seed-data/`. It refuses to run if pages exist; `npm run seed -- --reset` replaces seeded content (users, media and the change log are never touched). Legal page text lives in `scripts/seed-data/legal/*.html` (extracted once from the Astro build by `scripts/extract-legal-html.ts`). Supabase data is never seeded: it is read live.

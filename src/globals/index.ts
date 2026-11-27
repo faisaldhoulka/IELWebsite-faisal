@@ -12,7 +12,7 @@ export const SiteSettings: GlobalConfig = contentGlobal(
   {
     slug: 'site-settings',
     label: 'Site settings',
-    admin: { group: 'Settings' },
+    admin: { group: 'Settings', description: 'Utility bar, phone numbers, email, addresses, credit ratings, client login and booking links, default search-engine text. Admins only.' },
     access: { update: adminOnly }, // plan §4: settings are admin-only
     fields: [
       {
@@ -66,7 +66,7 @@ export const Navigation: GlobalConfig = contentGlobal(
   {
     slug: 'navigation',
     label: 'Header menu',
-    admin: { group: 'Settings' },
+    admin: { group: 'Settings', description: 'The main menu and the button at the top right of every page.' },
     fields: [
       {
         name: 'items',
@@ -86,7 +86,7 @@ export const Navigation: GlobalConfig = contentGlobal(
 export const Footer: GlobalConfig = contentGlobal(
   {
     slug: 'footer',
-    admin: { group: 'Settings' },
+    admin: { group: 'Settings', description: 'Footer link columns, complaints pop-up, investor complaint links, back-office vendor notice and copyright line.' },
     fields: [
       { name: 'about', type: 'textarea' },
       { name: 'columns', type: 'array', fields: [{ name: 'title', type: 'text', required: true }, { name: 'links', type: 'array', fields: linkFields }] },
@@ -130,7 +130,11 @@ export const Footer: GlobalConfig = contentGlobal(
 
 export const Homepage: GlobalConfig = contentGlobal({
   slug: 'homepage',
-  admin: { group: 'Content' },
+  admin: {
+    group: 'Content',
+    description: 'The homepage sections, in order. Drag to reorder; tick "Hide this section" to hide one. Lists (services, transactions, team, associated companies) are edited in their own collections.',
+    preview: () => `${process.env.NEXT_PUBLIC_SITE_URL || ''}/`,
+  },
   versions: { max: 25 }, // decision 5: version history on the homepage
   fields: [
     { name: 'sections', type: 'blocks', blocks: homepageBlocks },
@@ -144,14 +148,14 @@ export const Homepage: GlobalConfig = contentGlobal({
 export const Popups: GlobalConfig = contentGlobal({
   slug: 'popups',
   label: 'Homepage pop-ups',
-  admin: { group: 'Content' },
+  admin: { group: 'Content', description: 'Notices shown one after the other when someone opens the homepage.' },
   fields: [
     { name: 'enabled', type: 'checkbox', defaultValue: true, admin: { description: 'Untick to stop showing the pop-ups.' } },
     { name: 'dontShowAgainLabel', type: 'text', defaultValue: 'Don’t show this again' },
     {
       name: 'notices',
       type: 'array',
-      admin: { description: 'Shown side by side, in this order.' },
+      admin: { description: 'Shown one after the other, in this order.' },
       fields: [
         { name: 'eyebrow', type: 'text' },
         { name: 'title', type: 'text', required: true },
@@ -178,7 +182,7 @@ export const AccountOpening: GlobalConfig = contentGlobal(
   {
     slug: 'account-opening',
     label: 'Account opening steps',
-    admin: { group: 'Content' },
+    admin: { group: 'Content', description: 'Account types with their steps and FAQs, shared by the service pages, Brokerage and Open Account.' },
     fields: [
       {
         name: 'accounts',

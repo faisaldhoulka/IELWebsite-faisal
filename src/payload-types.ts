@@ -150,6 +150,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Every page except the homepage and the live-data pages (Research, News, Financial statements, Corporate reports). The address is the slug, e.g. about → /about.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
@@ -575,6 +577,8 @@ export interface Media {
   };
 }
 /**
+ * Advisory service cards on the homepage; their titles are also the choices in the enquiry form.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
@@ -595,6 +599,8 @@ export interface Service {
   createdAt: string;
 }
 /**
+ * Selected transactions in the homepage "Recent mandates" section. Featured ones show first.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "transactions".
  */
@@ -629,6 +635,8 @@ export interface Transaction {
   createdAt: string;
 }
 /**
+ * Board and management on the About page. Tick "Show on homepage" for the leaders in the homepage Leadership section.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
@@ -659,6 +667,8 @@ export interface TeamMember {
   createdAt: string;
 }
 /**
+ * Logos in the homepage "Associated companies" strip.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partners".
  */
@@ -708,6 +718,8 @@ export interface Announcement {
   createdAt: string;
 }
 /**
+ * PDFs on the Corporate reports page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "corporate-reports".
  */
@@ -1423,6 +1435,8 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * The homepage sections, in order. Drag to reorder; tick "Hide this section" to hide one. Lists (services, transactions, team, associated companies) are edited in their own collections.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage".
  */
@@ -1663,6 +1677,8 @@ export interface Homepage {
   createdAt?: string | null;
 }
 /**
+ * Notices shown one after the other when someone opens the homepage.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "popups".
  */
@@ -1674,7 +1690,7 @@ export interface Popup {
   enabled?: boolean | null;
   dontShowAgainLabel?: string | null;
   /**
-   * Shown side by side, in this order.
+   * Shown one after the other, in this order.
    */
   notices?:
     | {
@@ -1735,6 +1751,8 @@ export interface Popup {
   createdAt?: string | null;
 }
 /**
+ * Account types with their steps and FAQs, shared by the service pages, Brokerage and Open Account.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "account-opening".
  */
@@ -1770,6 +1788,8 @@ export interface AccountOpening {
   createdAt?: string | null;
 }
 /**
+ * The main menu and the button at the top right of every page.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navigation".
  */
@@ -1825,6 +1845,8 @@ export interface Navigation {
   createdAt?: string | null;
 }
 /**
+ * Footer link columns, complaints pop-up, investor complaint links, back-office vendor notice and copyright line.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
@@ -1924,6 +1946,8 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Utility bar, phone numbers, email, addresses, credit ratings, client login and booking links, default search-engine text. Admins only.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */

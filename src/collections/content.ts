@@ -12,7 +12,13 @@ const HOME = [cmsTag('homepage')]
 
 export const Pages: CollectionConfig = contentCollection({
   slug: 'pages',
-  admin: { group: 'Content', useAsTitle: 'title', defaultColumns: ['title', 'slug', 'updatedAt'] },
+  admin: {
+    group: 'Content',
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'template', 'updatedAt'],
+    description: 'Every page except the homepage and the live-data pages (Research, News, Financial statements, Corporate reports). The address is the slug, e.g. about → /about.',
+    preview: (doc) => `${process.env.NEXT_PUBLIC_SITE_URL || ''}/${doc.slug}`,
+  },
   // Version history on pages (decision 5); content is live on save (no drafts).
   versions: { maxPerDoc: 25 },
   fields: [
@@ -72,7 +78,12 @@ export const TeamMembers: CollectionConfig = contentCollection(
   {
     slug: 'team-members',
     labels: { singular: 'Team member', plural: 'Team' },
-    admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'role', 'group', 'order'] },
+    admin: {
+      group: 'Content',
+      useAsTitle: 'name',
+      defaultColumns: ['name', 'role', 'group', 'showOnHomepage', 'order'],
+      description: 'Board and management on the About page. Tick "Show on homepage" for the leaders in the homepage Leadership section.',
+    },
     defaultSort: 'order',
     fields: [
       { name: 'name', type: 'text', required: true },
@@ -100,7 +111,12 @@ export const TeamMembers: CollectionConfig = contentCollection(
 export const Transactions: CollectionConfig = contentCollection(
   {
     slug: 'transactions',
-    admin: { group: 'Content', useAsTitle: 'client', defaultColumns: ['client', 'year', 'practice', 'featured'] },
+    admin: {
+      group: 'Content',
+      useAsTitle: 'client',
+      defaultColumns: ['client', 'year', 'practice', 'featured'],
+      description: 'Selected transactions in the homepage "Recent mandates" section. Featured ones show first.',
+    },
     defaultSort: 'order',
     fields: [
       { name: 'client', type: 'text', required: true },
@@ -122,7 +138,12 @@ export const Services: CollectionConfig = contentCollection(
   {
     slug: 'services',
     labels: { singular: 'Service', plural: 'Services' },
-    admin: { group: 'Content', useAsTitle: 'title', defaultColumns: ['title', 'order'] },
+    admin: {
+      group: 'Content',
+      useAsTitle: 'title',
+      defaultColumns: ['title', 'order'],
+      description: 'Advisory service cards on the homepage; their titles are also the choices in the enquiry form.',
+    },
     defaultSort: 'order',
     fields: [
       { name: 'title', type: 'text', required: true },
@@ -139,7 +160,7 @@ export const Partners: CollectionConfig = contentCollection(
   {
     slug: 'partners',
     labels: { singular: 'Associated company', plural: 'Associated companies' },
-    admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'order'] },
+    admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'order'], description: 'Logos in the homepage "Associated companies" strip.' },
     defaultSort: 'order',
     fields: [
       { name: 'name', type: 'text', required: true },
@@ -154,7 +175,7 @@ export const Partners: CollectionConfig = contentCollection(
 
 export const CorporateReports: CollectionConfig = contentCollection({
   slug: 'corporate-reports',
-  admin: { group: 'Reports', useAsTitle: 'title', defaultColumns: ['title', 'date'] },
+  admin: { group: 'Reports', useAsTitle: 'title', defaultColumns: ['title', 'date'], description: 'PDFs on the Corporate reports page.' },
   defaultSort: '-date',
   fields: [
     { name: 'title', type: 'text', required: true },
@@ -201,7 +222,8 @@ export const Announcements: CollectionConfig = contentCollection(
   {
     slug: 'announcements',
     labels: { singular: 'Announcement / disclosure', plural: 'Announcements' },
-    admin: { group: 'Content', useAsTitle: 'title', defaultColumns: ['title', 'date', 'showOnHomepageUntil'] },
+    // Not shown on the website yet; hidden from editors until a section uses it.
+    admin: { group: 'Content', hidden: true, useAsTitle: 'title', defaultColumns: ['title', 'date', 'showOnHomepageUntil'] },
     defaultSort: '-date',
     fields: [
       { name: 'title', type: 'text', required: true },
