@@ -19,6 +19,11 @@ This branch (`nextjs-rebuild`) rebuilds the site in **Next.js with Payload CMS**
 ## Project structure
 ```
 src/app/(frontend)/   public pages, layout, design tokens (globals.css), form routes
+                      [...slug] renders every CMS page (About, services, legal, Contact, Open Account, Learn);
+                      research, news, financial-statements, corporate-reports and learn/[id] are coded routes
+src/app/              sitemap.ts, robots.ts
+src/components/       Header, Footer, Popups, RichText, ui (hero, headings, buttons), blocks/ (homepage
+                      and page blocks), forms/ (enquiry, contact, open account), browsers for research/statements
 src/app/(payload)/    Payload admin and REST routes (generated; don't edit)
 src/collections/      CMS collections (content.ts, Media, Users, AuditLog)
 src/globals/          Homepage, Homepage pop-ups, Account opening, Header menu, Footer, Site settings

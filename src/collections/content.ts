@@ -42,10 +42,22 @@ export const Pages: CollectionConfig = contentCollection({
           type: 'group',
           label: 'Side card (optional)',
           fields: [
+            {
+              name: 'form',
+              type: 'select',
+              defaultValue: 'none',
+              options: [
+                { label: 'No form', value: 'none' },
+                { label: 'Open-account sign-up (name and mobile)', value: 'openAccount' },
+              ],
+              admin: { description: 'Show a form inside the side card.' },
+            },
             { name: 'title', type: 'text' },
             { name: 'text', type: 'textarea' },
             { name: 'linkLabel', type: 'text' },
             { name: 'linkPath', type: 'text' },
+            { name: 'secondLinkLabel', type: 'text' },
+            { name: 'secondLinkPath', type: 'text' },
           ],
         },
       ],

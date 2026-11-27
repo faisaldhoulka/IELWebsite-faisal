@@ -81,4 +81,12 @@
   .iel-prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
   .iel-prose th, .iel-prose td { border: 1px solid var(--color-line); padding: 10px 12px; text-align: left; vertical-align: top; }
   .iel-prose th { background: var(--color-mist); color: var(--color-ink); font-weight: 600; }
+  .iel-prose .table-wrap { overflow-x: auto; }
+  .iel-prose .table-wrap table th:first-child { white-space: nowrap; }
+
+  /* Modals (native <dialog>): dimmed page behind, content scrolls inside. */
+  .iel-dialog { overflow: auto; }
+  .iel-dialog::backdrop { background: rgb(13 24 19 / 0.78); }
+  .iel-dialog .iel-prose { font-size: 15px; }
+  .iel-dialog .iel-prose h3 { font-size: 18px; margin-top: 1.2em; }
 }

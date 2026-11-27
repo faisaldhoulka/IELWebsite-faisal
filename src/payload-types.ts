@@ -185,10 +185,16 @@ export interface Page {
         }[]
       | null;
     aside?: {
+      /**
+       * Show a form inside the side card.
+       */
+      form?: ('none' | 'openAccount') | null;
       title?: string | null;
       text?: string | null;
       linkLabel?: string | null;
       linkPath?: string | null;
+      secondLinkLabel?: string | null;
+      secondLinkPath?: string | null;
     };
   };
   layout?:
@@ -234,6 +240,10 @@ export interface Page {
             numbered?: boolean | null;
             cards?:
               | {
+                  /**
+                   * Optional large figure above the title, e.g. "0.15%".
+                   */
+                  value?: string | null;
                   title: string;
                   text?: string | null;
                   image?: (number | null) | Media;
@@ -313,10 +323,17 @@ export interface Page {
              * Optional section id for links like /#transactions (letters, numbers, dashes).
              */
             anchor?: string | null;
+            eyebrow?: string | null;
             title?: string | null;
+            intro?: string | null;
+            style?: ('list' | 'cards') | null;
             files?:
               | {
                   label: string;
+                  /**
+                   * Short description (cards style).
+                   */
+                  text?: string | null;
                   date?: string | null;
                   /**
                    * Upload a new PDF, or use the path below for an existing one.
@@ -357,10 +374,88 @@ export interface Page {
             eyebrow?: string | null;
             title: string;
             intro?: string | null;
+            style?: ('accordion' | 'tabs') | null;
             showButton?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'accountOpening';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            intro?: string | null;
+            details?:
+              | {
+                  label: string;
+                  value: string;
+                  /**
+                   * Optional link, e.g. mailto:support@iel.net.pk or tel:+924235741714
+                   */
+                  href?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            complaints?: {
+              title?: string | null;
+              text?: string | null;
+              email?: string | null;
+              personLabel?: string | null;
+              personName?: string | null;
+              personRole?: string | null;
+              phone?: string | null;
+              /**
+               * Dial string, e.g. +923450091263
+               */
+              phoneHref?: string | null;
+            };
+            formTitle?: string | null;
+            formIntro?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            intro?: string | null;
+            offices?:
+              | {
+                  name: string;
+                  address?: string | null;
+                  /**
+                   * Google Maps "Embed a map" link (https://www.google.com/maps/embed?…).
+                   */
+                  mapUrl?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'offices';
+          }
+        | {
+            /**
+             * Optional section id for links like /#transactions (letters, numbers, dashes).
+             */
+            anchor?: string | null;
+            eyebrow?: string | null;
+            title: string;
+            intro?: string | null;
+            /**
+             * Leave empty to show all.
+             */
+            limit?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'articles';
           }
         | {
             hidden?: boolean | null;
@@ -840,10 +935,13 @@ export interface PagesSelect<T extends boolean = true> {
         aside?:
           | T
           | {
+              form?: T;
               title?: T;
               text?: T;
               linkLabel?: T;
               linkPath?: T;
+              secondLinkLabel?: T;
+              secondLinkPath?: T;
             };
       };
   layout?:
@@ -871,6 +969,7 @@ export interface PagesSelect<T extends boolean = true> {
               cards?:
                 | T
                 | {
+                    value?: T;
                     title?: T;
                     text?: T;
                     image?: T;
@@ -933,11 +1032,15 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               anchor?: T;
+              eyebrow?: T;
               title?: T;
+              intro?: T;
+              style?: T;
               files?:
                 | T
                 | {
                     label?: T;
+                    text?: T;
                     date?: T;
                     file?: T;
                     path?: T;
@@ -964,7 +1067,69 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               title?: T;
               intro?: T;
+              style?: T;
               showButton?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactForm?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              details?:
+                | T
+                | {
+                    label?: T;
+                    value?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              complaints?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    email?: T;
+                    personLabel?: T;
+                    personName?: T;
+                    personRole?: T;
+                    phone?: T;
+                    phoneHref?: T;
+                  };
+              formTitle?: T;
+              formIntro?: T;
+              id?: T;
+              blockName?: T;
+            };
+        offices?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              offices?:
+                | T
+                | {
+                    name?: T;
+                    address?: T;
+                    mapUrl?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        articles?:
+          | T
+          | {
+              anchor?: T;
+              eyebrow?: T;
+              title?: T;
+              intro?: T;
+              limit?: T;
               id?: T;
               blockName?: T;
             };
@@ -1585,9 +1750,20 @@ export interface AccountOpening {
               id?: string | null;
             }[]
           | null;
+        /**
+         * Shown on pages that use the "Tabs" style (Open Account).
+         */
+        faqs?:
+          | {
+              question: string;
+              answer: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
+  faqTitle?: string | null;
   buttonLabel?: string | null;
   buttonPath?: string | null;
   updatedAt?: string | null;
@@ -2108,8 +2284,16 @@ export interface AccountOpeningSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
+        faqs?:
+          | T
+          | {
+              question?: T;
+              answer?: T;
+              id?: T;
+            };
         id?: T;
       };
+  faqTitle?: T;
   buttonLabel?: T;
   buttonPath?: T;
   updatedAt?: T;

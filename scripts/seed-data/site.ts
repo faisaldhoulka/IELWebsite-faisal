@@ -334,9 +334,9 @@ export const popups = {
         '<p>Discover real-time updates, rights, and governance insights. Empower yourself with accurate information.</p>',
       links: [X('Explore the Portal', 'https://www.shareholderagahi.com/'), X('Watch Tutorial (Urdu)', 'https://www.youtube.com/watch?v=O7iCRiKJ37A')],
       images: [
-        { path: '/IEL Assets/pop_up_img1.jpg', alt: '' },
-        { path: '/IEL Assets/pop-up-img2.png', alt: '' },
-        { path: '/IEL Assets/pop-up-img3.jpg', alt: '' },
+        { path: '/IEL Assets/pop_up_img1.jpg', alt: 'Shareholder Agahi' },
+        { path: '/IEL Assets/pop-up-img2.png', alt: 'Pakistan Institute of Corporate Governance (PICG)' },
+        { path: '/IEL Assets/pop-up-img3.jpg', alt: 'Central Depository Company (CDC)' },
       ],
     },
     {

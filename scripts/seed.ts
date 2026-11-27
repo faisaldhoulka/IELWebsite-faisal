@@ -18,7 +18,8 @@ import { getPayload, type CollectionSlug, type GlobalSlug } from 'payload'
 
 import { editor } from '../src/lib/editor'
 import config from '../src/payload.config'
-import { homepage, pages } from './seed-data/pages'
+import { homepage, pages as basePages } from './seed-data/pages'
+import { accountFaqs, extraPages } from './seed-data/pages-extra'
 import {
   accountOpening,
   board,
@@ -35,6 +36,7 @@ import {
   transactions,
 } from './seed-data/site'
 
+const pages = [...basePages, ...extraPages]
 const RESET = process.argv.includes('--reset')
 const SEEDED: CollectionSlug[] = [
   'transactions',
@@ -76,7 +78,10 @@ async function main() {
   await setGlobal('site-settings', siteSettings)
   await setGlobal('navigation', navigation)
   await setGlobal('footer', footer)
-  await setGlobal('account-opening', accountOpening)
+  await setGlobal('account-opening', {
+    ...accountOpening,
+    accounts: accountOpening.accounts.map((a) => ({ ...a, faqs: accountFaqs[a.name] ?? [] })),
+  })
   await setGlobal('popups', {
     ...popups,
     notices: popups.notices.map(({ bodyHtml, ...notice }) => ({ ...notice, body: toLexical(bodyHtml) })),
