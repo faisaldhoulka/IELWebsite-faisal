@@ -189,18 +189,105 @@ export const partners = [
 ]
 
 // ── Financial statements kept on the site (STATIC_STATEMENTS) ────────────────
-// Kept exactly as on the current site: all seven under the Audited Financials tab,
-// including the four LCB documents (decided 27 Nov 2026).
+// All 83 hard-coded statements, in the same tabs and order as on iel.net.pk
+// (the 61 LCB reports under LCB, decided 27 Nov 2026). Statements published through
+// the IEL app admin panel come from Supabase and are merged in at render time.
 
+const PDF = '/IEL Assets/PDF/'
 const AUDITED = 'Audited Financials 30 June'
+const HALF_YEAR = 'Half Yearly 31 Dec'
+const Q_SEPT = 'Quarter Ended 30 Sept'
+const Q_MARCH = 'Quarter Ended 31 March'
+const LCB = 'LCB'
 export const staticStatements = [
-  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2020', path: '/IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30 2020.pdf' },
-  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2021', path: '/IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30 2021.pdf' },
-  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2022', path: '/IEL Assets/PDF/Audited Financials 30 June/IEL Audited Financial Statements June 30, 2022.pdf' },
-  { tab: AUDITED, title: 'LCB thims Aug 2025', path: '/IEL Assets/PDF/LCB/FY 2025/LCB THIMS AUG 25.pdf' },
-  { tab: AUDITED, title: 'LCB thims September 2025', path: '/IEL Assets/PDF/LCB/Liquid Capital Balance -September 2025.pdf' },
-  { tab: AUDITED, title: 'LCB thims October 2025', path: '/IEL Assets/PDF/LCB/Liquid Capital Balance -October 2025.pdf' },
-  { tab: AUDITED, title: 'LCB thims December 2025', path: '/IEL Assets/PDF/LCB/FY 2025/LCB December 2025.pdf' },
+  // Audited Financials 30 June
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2020', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30 2020.pdf' },
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2021', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30 2021.pdf' },
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2022', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30, 2022.pdf' },
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2023', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30, 2023.pdf' },
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2024', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30, 2024.pdf' },
+  { tab: AUDITED, title: 'IEL Audited Financial Statements June 30 2025', path: PDF + 'Audited Financials 30 June/IEL Audited Financial Statements June 30 2025.pdf' },
+  // Half Yearly 31 Dec
+  { tab: HALF_YEAR, title: 'Half Yearly 31 December 2020', path: PDF + 'Half Yearly 31 Dec/Half Yearly 31 December 2020.pdf' },
+  { tab: HALF_YEAR, title: 'Half Yearly 31 December 2021', path: PDF + 'Half Yearly 31 Dec/Half Yearly 31 December 2021.pdf' },
+  { tab: HALF_YEAR, title: 'Half Yearly 31 December 2022', path: PDF + 'Half Yearly 31 Dec/Half Yearly 31 December 2022.pdf' },
+  { tab: HALF_YEAR, title: 'Half Yearly 31 December 2023', path: PDF + 'Half Yearly 31 Dec/Half Yearly 31 December 2023.pdf' },
+  { tab: HALF_YEAR, title: 'Half Yearly 31 December 2024', path: PDF + 'Half Yearly 31 Dec/Half Yearly 31 December 2024.pdf' },
+  // Quarter Ended 30 Sept
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2020', path: PDF + 'Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2020.pdf' },
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2021', path: PDF + 'Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2021.pdf' },
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2022', path: PDF + 'Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2022.pdf' },
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2023', path: PDF + 'Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2023.pdf' },
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2024', path: PDF + 'Quarter Ended 30 September/FS IEL Period Ended  Sept 30, 2024.pdf' },
+  { tab: Q_SEPT, title: 'FS IEL Period Ended Sept 30, 2025', path: PDF + 'Quarter Ended 30 September/Financial statement  - Sep end 25-merged.pdf' },
+  // Quarter Ended 31 March
+  { tab: Q_MARCH, title: 'FS IEL Period Ended Mar 31, 2021', path: PDF + 'Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2021.pdf' },
+  { tab: Q_MARCH, title: 'FS IEL Period Ended Mar 31, 2022', path: PDF + 'Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2022.pdf' },
+  { tab: Q_MARCH, title: 'FS IEL Period Ended Mar 31, 2023', path: PDF + 'Quarter Ended 31 March/FS IEL Period Ended  Mar 31, 2023.pdf' },
+  { tab: Q_MARCH, title: 'FS IEL Period Ended Mar 31, 2024', path: PDF + 'Quarter Ended 31 March/FS IEL Period Ended  Mar31, 2024.pdf' },
+  { tab: Q_MARCH, title: 'FS IEL Period Ended Mar 31, 2025', path: PDF + 'Quarter Ended 31 March/March 2025 - Upload Version.pdf' },
+  // LCB
+  { tab: LCB, title: 'LCB July 2020', path: PDF + 'LCB/FY 2021/1-LCB July 2020.pdf' },
+  { tab: LCB, title: 'LCB Aug 2020', path: PDF + 'LCB/FY 2021/2-LCB Aug 2020.pdf' },
+  { tab: LCB, title: 'September 2020', path: PDF + 'LCB/FY 2021/3. September  2020.pdf' },
+  { tab: LCB, title: 'LCB October 2020', path: PDF + 'LCB/FY 2021/4. October 2020.pdf' },
+  { tab: LCB, title: 'LCB November 2020', path: PDF + 'LCB/FY 2021/5. November  2020.pdf' },
+  { tab: LCB, title: 'LCB December 2020', path: PDF + 'LCB/FY 2021/6. December 2020.pdf' },
+  { tab: LCB, title: 'LCB January 2021', path: PDF + 'LCB/FY 2021/7. January 2021.pdf' },
+  { tab: LCB, title: 'LCB Feb 2021', path: PDF + 'LCB/FY 2021/8. LCB Feb 2021.pdf' },
+  { tab: LCB, title: 'LCB May 2021', path: PDF + 'LCB/FY 2021/11. LCB May 2021.pdf' },
+  { tab: LCB, title: 'LCB June 2021', path: PDF + 'LCB/FY 2021/12. LCB June 2021.pdf' },
+  { tab: LCB, title: 'LCB July 2021', path: PDF + 'LCB/FY 2022/1.LCB July 2021.pdf' },
+  { tab: LCB, title: 'LCB Aug 2021', path: PDF + 'LCB/FY 2022/2.LCB Aug 2021.pdf' },
+  { tab: LCB, title: 'September 2021', path: PDF + 'LCB/FY 2022/3.LCB Sept 2021.pdf' },
+  { tab: LCB, title: 'LCB October 2021', path: PDF + 'LCB/FY 2022/4.LCB Oct 2021.pdf' },
+  { tab: LCB, title: 'LCB November 2021', path: PDF + 'LCB/FY 2022/5. LCB Nov 2021.pdf' },
+  { tab: LCB, title: 'LCB December 2021', path: PDF + 'LCB/FY 2022/6.LCB December 2021.pdf' },
+  { tab: LCB, title: 'LCB January 2022', path: PDF + 'LCB/FY 2022/7. LCB Jan 2022.pdf' },
+  { tab: LCB, title: 'LCB Feb 2022', path: PDF + 'LCB/FY 2022/8.LCB Feb 2022.pdf' },
+  { tab: LCB, title: 'LCB March 2022', path: PDF + 'LCB/FY 2022/9.LCB March 2022.pdf' },
+  { tab: LCB, title: 'LCB June 2022', path: PDF + 'LCB/FY 2022/12. LCB Jun 2022.pdf' },
+  { tab: LCB, title: 'LCB July 2022', path: PDF + 'LCB/FY 2023/1.LCB July 2022.pdf' },
+  { tab: LCB, title: 'LCB Aug 2022', path: PDF + 'LCB/FY 2023/2.LCB Aug 2022.pdf' },
+  { tab: LCB, title: 'September 2022', path: PDF + 'LCB/FY 2023/3.LCB Sept 2022.pdf' },
+  { tab: LCB, title: 'LCB October 2022', path: PDF + 'LCB/FY 2023/4. LCB Oct 2022.pdf' },
+  { tab: LCB, title: 'LCB November 2022', path: PDF + 'LCB/FY 2023/5.LCB Nov 2022.pdf' },
+  { tab: LCB, title: 'LCB December 2022', path: PDF + 'LCB/FY 2023/6.LCB Dec 2022.pdf' },
+  { tab: LCB, title: 'LCB January 2023', path: PDF + 'LCB/FY 2023/7.LCB Jan 2023.pdf' },
+  { tab: LCB, title: 'LCB Feb 2023', path: PDF + 'LCB/FY 2023/8.LCB Feb 2023.pdf' },
+  { tab: LCB, title: 'LCB March 2023', path: PDF + 'LCB/FY 2023/9.LCB MARCH 2023.pdf' },
+  { tab: LCB, title: 'LCB Apr 2023', path: PDF + 'LCB/FY 2023/10.LCB Apr 2023.pdf' },
+  { tab: LCB, title: 'LCB May 2023', path: PDF + 'LCB/FY 2023/11.LCB May 2023.pdf' },
+  { tab: LCB, title: 'LCB June 2023', path: PDF + 'LCB/FY 2023/12.LCB June 2023.pdf' },
+  { tab: LCB, title: 'LCB July 2023', path: PDF + 'LCB/FY 2024/1. LCB July 2023.pdf' },
+  { tab: LCB, title: 'LCB Aug 2023', path: PDF + 'LCB/FY 2024/2. LCB Aug 2023.pdf' },
+  { tab: LCB, title: 'September 2023', path: PDF + 'LCB/FY 2024/3. LCB Sept 2023.pdf' },
+  { tab: LCB, title: 'LCB October 2023', path: PDF + 'LCB/FY 2024/4. LCB OCT 2023.pdf' },
+  { tab: LCB, title: 'LCB November 2023', path: PDF + 'LCB/FY 2024/5. LCB NOV 2023.pdf' },
+  { tab: LCB, title: 'LCB December 2023', path: PDF + 'LCB/FY 2024/6. LCB Dec 2023.pdf' },
+  { tab: LCB, title: 'LCB January 2024', path: PDF + 'LCB/FY 2024/7. LCB  JAN 2024.pdf' },
+  { tab: LCB, title: 'LCB Feb 2024', path: PDF + 'LCB/FY 2024/8. LCB FEB 2024.pdf' },
+  { tab: LCB, title: 'LCB March 2024', path: PDF + 'LCB/FY 2024/9. LCB THIMS MAR 2024.pdf' },
+  { tab: LCB, title: 'LCB Apr 2024', path: PDF + 'LCB/FY 2024/10.LCB THIMS APR 2024.pdf' },
+  { tab: LCB, title: 'LCB May 2024', path: PDF + 'LCB/FY 2024/11.LCB THIMS MAY 2024.pdf' },
+  { tab: LCB, title: 'LCB June 2024', path: PDF + 'LCB/FY 2024/12. LCB THIMS JUNE 2024.pdf' },
+  { tab: LCB, title: 'LCB thims July 2024', path: PDF + 'LCB/FY 2025/1.LCB THIMS JULY 2024.pdf' },
+  { tab: LCB, title: 'LCB thims Aug 2024', path: PDF + 'LCB/FY 2025/2. LCB THIMS AUG 2024.pdf' },
+  { tab: LCB, title: 'LCB thims September 2024', path: PDF + 'LCB/FY 2025/3.LCB THIMS SEP 2024.pdf' },
+  { tab: LCB, title: 'LCB thims October 2024', path: PDF + 'LCB/FY 2025/4.LCB THIMS OCT 2024.pdf' },
+  { tab: LCB, title: 'LCB thims November 2024', path: PDF + 'LCB/FY 2025/5.LCB THIMS NOV 2024.pdf' },
+  { tab: LCB, title: 'LCB thims December 2024', path: PDF + 'LCB/FY 2025/6.LCB THIMS DEC 2024.pdf' },
+  { tab: LCB, title: 'LCB thims January 2025', path: PDF + 'LCB/FY 2025/7. LCB THIMS January 2025.pdf' },
+  { tab: LCB, title: 'LCB thims Feb 2025', path: PDF + 'LCB/FY 2025/8. LCB THIMS February 2025.pdf' },
+  { tab: LCB, title: 'LCB thims March 2025', path: PDF + 'LCB/FY 2025/9.LCB THIMS MARCH 25.pdf' },
+  { tab: LCB, title: 'LCB thims Apr 2025', path: PDF + 'LCB/FY 2025/10.LCB THIMS APRIL 25.pdf' },
+  { tab: LCB, title: 'LCB thims May 2025', path: PDF + 'LCB/FY 2025/11.LCB THIMS MAY 25.pdf' },
+  { tab: LCB, title: 'LCB thims June 2025', path: PDF + 'LCB/FY 2025/12. LCB THIMS JUNE 25.pdf' },
+  { tab: LCB, title: 'LCB thims July 2025', path: PDF + 'LCB/FY 2025/LCB THIMS JULY 25.pdf' },
+  { tab: LCB, title: 'LCB thims Aug 2025', path: PDF + 'LCB/FY 2025/LCB THIMS AUG 25.pdf' },
+  { tab: LCB, title: 'LCB thims September 2025', path: PDF + 'LCB/Liquid Capital Balance -September 2025.pdf' },
+  { tab: LCB, title: 'LCB thims October 2025', path: PDF + 'LCB/Liquid Capital Balance -October 2025.pdf' },
+  { tab: LCB, title: 'LCB thims December 2025', path: PDF + 'LCB/FY 2025/LCB December 2025.pdf' },
 ]
 
 // ── Corporate reports (Reports.astro) ────────────────────────────────────────
