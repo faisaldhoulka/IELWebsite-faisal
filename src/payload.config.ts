@@ -40,6 +40,8 @@ export default buildConfig({
   routes: { admin: '/admin', api: '/api/cms' },
   admin: {
     user: Users.slug,
+    // Built-in avatar: no Gravatar requests (blocked by the CSP and would send a hash of staff emails).
+    avatar: 'default',
     meta: { titleSuffix: ' · IEL CMS', robots: 'noindex, nofollow' },
     importMap: { baseDir: path.resolve(dirname) },
     components: { beforeDashboard: ['/components/admin/DashboardGuide#DashboardGuide'] },

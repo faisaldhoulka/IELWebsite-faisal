@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer'
 import { Header, type NavItem } from '@/components/Header'
 import { getGlobal } from '@/lib/cms'
 import { toSiteLink, toSiteLinks } from '@/lib/links'
+import { openGraph } from '@/lib/seo'
 import './globals.css'
 
 // Self-hosted by next/font at build time (no request to Google from visitors' browsers).
@@ -23,7 +24,32 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: title, template: '%s | IEL' },
     description,
     icons: { icon: '/IEL Assets/partners/favicon.png' },
-    openGraph: { type: 'website', siteName: 'Integrated Equities Limited', title, description, images: ['/Assets/whiteLogoSvg.svg'] },
+    openGraph: openGraph({ title, description }),
+  }
+}
+
+/** Structured data for search engines: the firm, its offices and contact details (from Site settings). */
+function organisationJsonLd(settings: Awaited<ReturnType<typeof getGlobal<'site-settings'>>>) {
+  const c = settings.contact ?? {}
+  const phones = [c.phone, ...(c.otherPhones ?? []).map((p) => p.number)].filter(Boolean)
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialService',
+    name: 'Integrated Equities Limited',
+    alternateName: 'IEL',
+    url: SITE_URL,
+    logo: `${SITE_URL}/Assets/IELTezi-logo-trimmed.webp`,
+    image: `${SITE_URL}/og-image.png`,
+    description: settings.defaultSeo?.description || undefined,
+    email: c.email || undefined,
+    telephone: phones[0] || undefined,
+    address: (c.addresses ?? []).map((a) => ({
+      '@type': 'PostalAddress',
+      streetAddress: a.address,
+      addressLocality: a.city,
+      addressCountry: 'PK',
+    })),
+    sameAs: (settings.social ?? []).map((s) => s.url).filter(Boolean),
   }
 }
 
@@ -52,6 +78,11 @@ export default async function SiteLayout({ children }: { children: ReactNode }) 
         />
         <main id="main">{children}</main>
         <Footer footer={footer} settings={settings} />
+        <script
+          type="application/ld+json"
+          // JSON from our own CMS settings; "<" escaped so text can't close the script tag.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd(settings)).replace(/</g, '\\u003c') }}
+        />
       </body>
     </html>
   )

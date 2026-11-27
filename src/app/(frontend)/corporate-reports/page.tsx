@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { openGraph } from '@/lib/seo'
 import { Button, ContactBand, PageHero, SectionHeading } from '@/components/ui'
 import { getDocs } from '@/lib/cms'
 import { mediaUrl } from '@/lib/links'
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Corporate Reports',
   description: 'Corporate reports from Integrated Equities Limited (IEL) research.',
   alternates: { canonical: '/corporate-reports' },
+  openGraph: openGraph({ title: 'Corporate Reports | Integrated Equities Limited (IEL)', url: '/corporate-reports' }),
 }
 
 export default async function CorporateReportsPage() {

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { ContactBand } from '@/components/ui'
+import { openGraph } from '@/lib/seo'
 import { getBlog } from '@/lib/supabase-data'
 
 export const revalidate = 60
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title: blog.title,
     description,
     alternates: { canonical: `/learn/${id}` },
-    openGraph: { type: 'article', title: blog.title, description, ...(blog.image ? { images: [blog.image] } : {}) },
+    openGraph: openGraph({ type: 'article', title: blog.title, description, url: `/learn/${id}`, image: blog.image }),
   }
 }
 

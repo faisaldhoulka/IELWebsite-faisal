@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { openGraph } from '@/lib/seo'
 import { ContactBand, PageHero, Unavailable } from '@/components/ui'
 import { getNews } from '@/lib/supabase-data'
 
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   title: 'News',
   description: 'Announcements, public notices and offer documents from Integrated Equities Limited (IEL).',
   alternates: { canonical: '/news' },
+  openGraph: openGraph({ title: 'News | Integrated Equities Limited (IEL)', url: '/news' }),
 }
 
 export default async function NewsPage() {

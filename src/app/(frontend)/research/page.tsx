@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { openGraph } from '@/lib/seo'
 import { ResearchBrowser, type ResearchItem } from '@/components/ResearchBrowser'
 import { ContactBand, PageHero, Unavailable } from '@/components/ui'
 import { getResearch, getSectors } from '@/lib/supabase-data'
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Research',
   description: "Access IEL's research reports covering sector analysis, market insights, and investment intelligence for Pakistan's capital markets.",
   alternates: { canonical: '/research' },
+  openGraph: openGraph({ title: 'Research | Integrated Equities Limited (IEL)', url: '/research' }),
 }
 
 /** Same file-name rule as the old download button: the report title, made file-safe. */

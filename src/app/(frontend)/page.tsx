@@ -5,6 +5,7 @@ import { Popups, type PopupNotice } from '@/components/Popups'
 import { RichText } from '@/components/RichText'
 import { getGlobal } from '@/lib/cms'
 import { mediaUrl, toSiteLinks } from '@/lib/links'
+import { openGraph } from '@/lib/seo'
 
 export async function generateMetadata(): Promise<Metadata> {
   const home = await getGlobal('homepage', 1)
@@ -12,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { absolute: home.seo?.title || 'IEL | Financial and Transaction Advisory in Pakistan' },
     description: home.seo?.description || undefined,
     alternates: { canonical: '/' },
-    openGraph: { title: 'Integrated Equities Limited (IEL)', description: home.seo?.description || undefined, url: '/' },
+    openGraph: openGraph({ title: 'Integrated Equities Limited (IEL)', description: home.seo?.description || undefined, url: '/', image: mediaUrl(home.seo?.image) }),
   }
 }
 

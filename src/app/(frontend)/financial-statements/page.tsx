@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { openGraph } from '@/lib/seo'
 import { StatementsBrowser } from '@/components/StatementsBrowser'
 import { ContactBand, PageHero } from '@/components/ui'
 import { getDocs } from '@/lib/cms'
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
   description:
     'Audited annual accounts, half-yearly and quarterly statements, and monthly liquid capital balance (LCB) filings of Integrated Equities Limited (IEL).',
   alternates: { canonical: '/financial-statements' },
+  openGraph: openGraph({ title: 'Financial Statements | Integrated Equities Limited (IEL)', url: '/financial-statements' }),
 }
 
 export default async function FinancialStatementsPage() {

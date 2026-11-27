@@ -9,6 +9,7 @@ import { headingsOf } from '@/components/RichText'
 import { ContactBand, PageHero, SmartLink } from '@/components/ui'
 import { getDocs, getPage, getPageSlugs } from '@/lib/cms'
 import { mediaUrl } from '@/lib/links'
+import { openGraph } from '@/lib/seo'
 import type { Page } from '@/payload-types'
 
 type Params = { slug: string[] }
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title,
     description,
     alternates: { canonical: `/${page.slug}` },
-    openGraph: { title: `${title} | Integrated Equities Limited (IEL)`, description, url: `/${page.slug}`, ...(image ? { images: [image] } : {}) },
+    openGraph: openGraph({ title: `${title} | Integrated Equities Limited (IEL)`, description, url: `/${page.slug}`, image }),
   }
 }
 

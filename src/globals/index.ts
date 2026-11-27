@@ -54,7 +54,7 @@ export const SiteSettings: GlobalConfig = contentGlobal(
         ],
       },
       { name: 'clientLoginUrl', type: 'text', admin: { description: 'Client login link in the utility bar.' } },
-      { name: 'bookingUrl', type: 'text', defaultValue: 'https://meetings.hubspot.com/jessica-brennan', admin: { description: 'Book a consultation (HubSpot).' } },
+      { name: 'bookingUrl', type: 'text', defaultValue: 'https://meetings.hubspot.com/jessica-brennan', admin: { hidden: true, description: 'Not used: the "Book a consultation" link is edited in Header menu.' } },
       { name: 'social', type: 'array', fields: [{ name: 'network', type: 'text', required: true }, { name: 'url', type: 'text', required: true }] },
       seoGroup('defaultSeo', 'Default SEO'),
     ],
