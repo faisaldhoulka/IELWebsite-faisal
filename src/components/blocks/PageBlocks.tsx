@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { ContactForm } from '@/components/forms/ContactForm'
 import { RichText } from '@/components/RichText'
+import { ServiceIndex } from '@/components/ServiceIndex'
 import { Tabs } from '@/components/Tabs'
 import { Button, EYEBROW, SectionHeading, SmartLink, Unavailable } from '@/components/ui'
 import { getDocs, getGlobal } from '@/lib/cms'
@@ -78,9 +79,31 @@ const BG = {
   pine: { section: 'bg-pine text-white', card: 'bg-pine', grid: 'grid-lines-dark border border-pine-line', num: 'text-mint', title: 'text-white', text: 'text-ondark' },
 } as const
 
+/**
+ * Style of the "What we do" lists on the service pages and Brokerage:
+ * 'index' = typographic index (current, ServiceIndex.tsx);
+ * 'grid'  = the previous numbered card grid (the generic card grid below).
+ * The previous design is also tagged in git as `design/what-we-do-grid`.
+ */
+const WHAT_WE_DO_STYLE: 'index' | 'grid' = 'index'
+
 function CardGrid({ block }: { block: Block<'cardGrid'> }) {
   const bg = BG[block.background ?? 'white']
   const cards = block.cards ?? []
+
+  // "What we do" lists (numbered, light background, plain text cards): typographic index.
+  const isServiceList = block.numbered && block.background !== 'pine' && !cards.some((c) => c.value || c.image || c.imagePath)
+  if (WHAT_WE_DO_STYLE === 'index' && isServiceList && cards.length > 1) {
+    return (
+      <section id={block.anchor || undefined}>
+        <div className={SECTION}>
+          <SectionHeading eyebrow={block.eyebrow} title={block.title} intro={block.intro} />
+          <ServiceIndex items={cards.map((c) => ({ title: c.title, text: c.text }))} />
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section id={block.anchor || undefined} className={bg.section}>
       <div className={SECTION}>

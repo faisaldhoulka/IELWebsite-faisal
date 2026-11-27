@@ -2025,7 +2025,7 @@ export interface SiteSetting {
    */
   clientLoginUrl?: string | null;
   /**
-   * Book a consultation (HubSpot).
+   * Not used: the "Book a consultation" link is edited in Header menu.
    */
   bookingUrl?: string | null;
   social?:

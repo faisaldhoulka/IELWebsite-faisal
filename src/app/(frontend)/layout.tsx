@@ -11,7 +11,7 @@ import './globals.css'
 
 // Self-hosted by next/font at build time (no request to Google from visitors' browsers).
 const plexSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-plex-sans', display: 'swap' })
-const plexSerif = IBM_Plex_Serif({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-plex-serif', display: 'swap' })
+const plexSerif = IBM_Plex_Serif({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-plex-serif', display: 'swap' })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://iel.net.pk'
 
