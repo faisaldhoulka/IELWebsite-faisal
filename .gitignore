@@ -9,3 +9,9 @@ supabase/
 .env
 .env.*
 !.env.example
+# Next.js / Payload
+.next/
+next-env.d.ts
+*.tsbuildinfo
+# Local archive of the design mockups (not part of the site)
+IEL-mockups.zip

@@ -1,0 +1,15 @@
+# Local Postgres for development only. Production uses the separate CMS project in IEL's Supabase organisation.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ielcms
+    ports:
+      - "5433:5432"   # 5433 on the host: 5432 is often taken by another local Postgres
+    volumes:
+      - ielcms-data:/var/lib/postgresql/data
+volumes:
+  ielcms-data:

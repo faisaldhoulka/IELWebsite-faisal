@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/*
+ * Dark-green design tokens, ported from the Astro `RevampHead.astro` Tailwind config.
+ * Palette sampled from the IEL logo: brand green #19A560 · dark green #265140 ·
+ * light green #59B986 · maroon #732E30 · coral #DF4531 · ink #0D1813.
+ * Text colours are checked for WCAG AA on the backgrounds they sit on; the bright
+ * logo green and coral are for shapes and rules, not small text.
+ * Class names match the Astro build (text-pine, bg-mist, border-line-strong, …).
+ */
+@theme {
+  --color-brand-green: #19A560;
+  --color-brand-dark: #265140;
+  --color-brand-light: #59B986;
+  --color-brand-maroon: #732E30;
+  --color-brand-coral: #DF4531;
+
+  --color-ink: #0D1813;
+  --color-pine: #265140;
+  --color-pine-line: #3C6A57;
+  --color-accent: #13804A;
+  --color-accent-dark: #0F6B3E;
+  --color-wine: #732E30;
+  --color-signal-green: #19A560;
+  --color-signal-red: #DF4531;
+  --color-mint: #8FD6AE;
+  --color-mist: #EFF7F2;
+  --color-line: #DCE9E1;
+  --color-line-strong: #C6DCCF;
+  --color-line-soft: #BFD3C7;
+  --color-line-dash: #A6C7B4;
+  --color-muted: #44564D;
+  --color-muted-body: #37483F;
+  --color-ondark: #C9DDD2;
+  --color-ondark-util: #D9E8DF;
+  --color-ondark-soft: #F1F8F4;
+  --color-placeholder: #DCEBE2;
+
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-serif: var(--font-plex-serif), Georgia, serif;
+
+  --container-site: 1200px; /* max-w-site */
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  /* Keep in-page jump targets clear of the sticky 72px header. */
+  [id] { scroll-margin-top: 88px; }
+  /* Mobile menu: hide the native disclosure marker. */
+  summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+  /* Card grids with 1px dividing lines (use with gap-px + border). */
+  .grid-lines { background: #FFFFFF; }
+  .grid-lines > * { box-shadow: 0 0 0 1px var(--color-line); }
+  .grid-lines-dark { background: var(--color-pine); }
+  .grid-lines-dark > * { box-shadow: 0 0 0 1px var(--color-pine-line); }
+
+  /* Logo colour stripe above hero titles. */
+  .brand-stripe { display: flex; height: 4px; }
+  .brand-stripe > span { flex: 1; }
+
+  /* Long-form text (policies, disclosures, articles, CMS rich text). */
+  .iel-prose { color: var(--color-muted-body); font-size: 16px; line-height: 1.7; max-width: 760px; }
+  .iel-prose > * + * { margin-top: 1em; }
+  .iel-prose h2 { font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 1.2; color: var(--color-pine); margin-top: 2em; }
+  .iel-prose h3 { font-family: var(--font-serif); font-weight: 500; font-size: 21px; line-height: 1.3; color: var(--color-ink); margin-top: 1.6em; }
+  .iel-prose h4 { font-weight: 600; font-size: 16px; color: var(--color-ink); margin-top: 1.4em; }
+  .iel-prose h2:first-child, .iel-prose h3:first-child { margin-top: 0; }
+  .iel-prose ul, .iel-prose ol { padding-left: 1.4em; }
+  .iel-prose ul { list-style: disc; }
+  .iel-prose ol { list-style: decimal; }
+  .iel-prose li + li { margin-top: 0.4em; }
+  .iel-prose li::marker { color: var(--color-signal-green); }
+  .iel-prose a { color: var(--color-accent); text-decoration: underline; }
+  .iel-prose a:hover { color: var(--color-accent-dark); }
+  .iel-prose strong { color: var(--color-ink); font-weight: 600; }
+  .iel-prose img { max-width: 100%; height: auto; }
+  .iel-prose table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .iel-prose th, .iel-prose td { border: 1px solid var(--color-line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  .iel-prose th { background: var(--color-mist); color: var(--color-ink); font-weight: 600; }
+}
